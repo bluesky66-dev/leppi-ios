@@ -128,11 +128,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.leppi"
+        applicationId "com.app.leppi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 560
+        versionName "3.0"
     }
     splits {
         abi {

@@ -1,4 +1,4 @@
-package com.leppi;
+package com.app.leppi;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,0 +1,82 @@
+{
+  address_components: [
+    {
+      long_name: 'Hemu Road',
+      short_name: 'Hemu Rd',
+      types: [
+        'route'
+      ]
+    },
+    {
+      long_name: 'Dadong Qu',
+      short_name: 'Dadong Qu',
+      types: [
+        'sublocality_level_1',
+        'sublocality',
+        'political'
+      ]
+    },
+    {
+      long_name: 'Shenyang Shi',
+      short_name: 'Shenyang Shi',
+      types: [
+        'locality',
+        'political'
+      ]
+    },
+    {
+      long_name: 'Liaoning Sheng',
+      short_name: 'Liaoning Sheng',
+      types: [
+        'administrative_area_level_1',
+        'political'
+      ]
+    },
+    {
+      long_name: 'China',
+      short_name: 'CN',
+      types: [
+        'country',
+        'political'
+      ]
+    }
+  ],
+  adr_address: '<span class="street-address">Hemu Rd</span>, <span class="extended-address">Dadong Qu</span>, <span class="locality">Shenyang Shi</span>, <span class="region">Liaoning Sheng</span>, <span class="country-name">China</span>',
+  formatted_address: 'Hemu Rd, Dadong Qu, Shenyang Shi, Liaoning Sheng, China',
+  geometry: {
+    location: {
+      lat: 41.8092053,
+      lng: 123.4948869
+    },
+    viewport: {
+      northeast: {
+        lat: 41.81054848029149,
+        lng: 123.4962875802915
+      },
+      southwest: {
+        lat: 41.8078505197085,
+        lng: 123.4935896197085
+      }
+    }
+  },
+  icon: 'https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png',
+  id: 'b4edc0b4aaf8a2c1d127480c7c982034dee444cb',
+  name: 'Jinhaixinwang Grocery Store',
+  place_id: 'ChIJGQa6vvWIL14RmMQVMGdyWJI',
+  plus_code: {
+    compound_code: 'RF5V+MX Dadong, Shenyang, Liaoning, China',
+    global_code: '8QH5RF5V+MX'
+  },
+  reference: 'ChIJGQa6vvWIL14RmMQVMGdyWJI',
+  scope: 'GOOGLE',
+  types: [
+    'convenience_store',
+    'store',
+    'food',
+    'point_of_interest',
+    'establishment'
+  ],
+  url: 'https://maps.google.com/?cid=10545304315001947288',
+  utc_offset: 480,
+  vicinity: 'Hemu Road, Dadong, Shenyang'
+}

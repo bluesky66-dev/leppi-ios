@@ -1,4 +1,4 @@
-package com.leppi;
+package com.app.leppi;
 
 import com.facebook.react.ReactActivity;
 

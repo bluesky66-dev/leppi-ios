@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.leppi">
+  package="com.app.leppi">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
