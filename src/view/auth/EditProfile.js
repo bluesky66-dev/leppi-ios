@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import * as authActions from '../../../redux/actions/AuthActions'; //Import your actions
-import {InformationForm, LocationForm} from "../../../components/forms";
-import {AppTopSection, RegisterButton} from "../../../components/start";
-import styles from "../../../styles/auth/auth";
+import * as authActions from '../../redux/actions/AuthActions'; //Import your actions
+import {InformationForm, LocationForm} from "../../components/forms";
+import {AppTopSection, RegisterButton} from "../../components/start";
+import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from 'react-native-swiper'
-import {widthPercentage as wp} from '../../../util';
+import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import {Actions} from "react-native-router-flux";
 import Spinner from "react-native-loading-spinner-overlay";
 
 class EditProfile extends Component {
@@ -41,6 +40,8 @@ class EditProfile extends Component {
     }
 
     async _onNextStep() {
+        const {navigate} = this.props.navigation;
+
         let state = this.state;
         switch (this.state.step_index) {
             case 1:
@@ -109,7 +110,7 @@ class EditProfile extends Component {
         }
         let step_index = this.state.step_index + 1;
         if (step_index === 3) {
-            Actions.welcome();
+            navigate('Welcome');
         } else if (step_index < 3) {
             this.refs.swiper.scrollBy(1);
         }

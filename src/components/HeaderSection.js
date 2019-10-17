@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, TouchableOpacity, View, Text} from "react-native";
-import {Actions} from "react-native-router-flux";
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import styles from '../styles/header';
 import logoIcon from "../images/monkey.png";
 import * as authActions from "../redux/actions/AuthActions";
@@ -18,25 +17,27 @@ class HeaderSection extends Component {
     }
 
     _onPressMenu(type) {
+        const {navigate} = this.props.navigation;
+
         this.props.clickMenu(type);
         if (this.props.currentMenu === type && this.props.currentMenu !== MENU_TYPES.CHAT) {
             return false;
         }
         switch (type) {
             case MENU_TYPES.HOME:
-                Actions.home();
+                navigate('Home');
                 break;
             case MENU_TYPES.FEED:
-                Actions.feed();
+                navigate('Feed');
                 break;
             case MENU_TYPES.CHAT:
-                Actions.chat();
+                navigate('Chat');
                 break;
             case MENU_TYPES.PERFIL:
-                Actions.perfil();
+                navigate('Perfil');
                 break;
             default:
-                Actions.home();
+                navigate('Home');
                 break;
         }
     }

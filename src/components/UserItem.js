@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, TouchableOpacity, View, Text} from "react-native";
-import {Actions} from 'react-native-router-flux';
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import styles from '../styles/userItem';
 import UserAvatar from "../images/user-avatar.png";
 import IconIdea from "../images/idea.png";
@@ -21,13 +20,15 @@ class UserItem extends Component {
     }
 
     async _goToDetail() {
+        const {navigate} = this.props.navigation;
+
         let roomInfo = {
             buyerId: this.props.userInfo.buyerId,
             sellerId: this.props.userInfo.sellerId,
             feedId: this.props.userInfo.feedId,
         };
         await this.props.goToChatRoom(roomInfo);
-        Actions.chatRoom();
+        navigate('ChatRoom');
     }
 
     render() {

@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import * as authActions from '../../../redux/actions/AuthActions'; //Import your actions
-import {CreateGroup, CredentialsForm, InformationForm, JoinGroup, LocationForm} from "../../../components/forms";
-import {AppTopSection, RegisterButton} from "../../../components/start";
-import styles from "../../../styles/auth/auth";
+import * as authActions from '../../redux/actions/AuthActions'; //Import your actions
+import {CreateGroup, CredentialsForm, InformationForm, JoinGroup, LocationForm} from "../../components/forms";
+import {AppTopSection, RegisterButton} from "../../components/start";
+import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from 'react-native-swiper'
-import * as utils from '../../../util';
-import {widthPercentage as wp} from '../../../util';
+import * as utils from '../../util';
+import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import {Actions} from "react-native-router-flux";
 import Spinner from "react-native-loading-spinner-overlay";
-import * as EmailValidator from "email-validator";
+import * as EmailValidator from "email-validator/index";
 
 class Register extends Component {
     constructor(props) {
@@ -41,8 +40,9 @@ class Register extends Component {
     }
 
     register(data, errorCB) {
+        const {navigate} = this.props.navigation;
         this.props.fetchSignup(data);
-        Actions.welcome();
+        navigate('Welcome');
     }
 
     _onMomentumScrollEnd(e, state, context) {
@@ -184,11 +184,11 @@ class Register extends Component {
         }
         let step_index = this.state.step_index + 1;
         if (step_index === 5) {
-            Actions.welcome();
+            navigate('Welcome');
         } else if (step_index < 6) {
             this.refs.swiper.scrollBy(1);
         } else if (step_index === 6) {
-            Actions.welcome();
+            navigate('Welcome');
         }
     }
 
@@ -219,7 +219,7 @@ class Register extends Component {
     }
 
     _onJoinGroup() {
-        Actions.welcome();
+        navigate('Welcome');
     }
 
     render() {

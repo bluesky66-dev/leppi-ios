@@ -1,5 +1,5 @@
 /**
- * Sample React Native App
+ * Leppi React Native App
  * https://github.com/facebook/react-native
  *
  * @format
@@ -7,108 +7,68 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation'
+import NavigationService from './NavigationService';
+import {Provider} from 'react-redux';
+import store from "./src/redux/store";
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import Home from "./src/view/Home";
+import Start from "./src/view/start";
+import Login from "./src/view/auth/login";
+import Register from "./src/view/auth/register";
+import JoinGroupPage from "./src/view/auth/joinGroupPage";
+import Password from "./src/view/auth/password";
+import Welcome from "./src/view/welcome";
+import Feed from "./src/view/Feed";
+import Chat from "./src/view/Chat";
+import Perfil from "./src/view/Perfil";
+import FeedDetail from "./src/view/FeedDetail";
+import ChatRoom from "./src/view/ChatRoom";
+import ChatUsers from "./src/view/ChatUsers";
+import EditProfile from "./src/view/auth/EditProfile";
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+const ActivityProject = createStackNavigator(
+    {
+        Start: {screen: Start, navigationOptions: {header: null,},},
+        Login: {screen: Login, navigationOptions: {header: null,},},
+        Register: {screen: Register, navigationOptions: {header: null,},},
+        JoinGroupPage: {screen: JoinGroupPage, navigationOptions: {header: null,},},
+        Password: {screen: Password, navigationOptions: {header: null,},},
+        Welcome: {screen: Welcome, navigationOptions: {header: null,},},
+        EditProfile: {screen: EditProfile, navigationOptions: {header: null,},},
+        Home: {screen: Home, navigationOptions: {header: null,},},
+        Feed: {screen: Feed, navigationOptions: {header: null,},},
+        FeedDetail: {screen: FeedDetail, navigationOptions: {header: null,},},
+        Chat: {screen: Chat, navigationOptions: {header: null,},},
+        ChatUsers: {screen: ChatUsers, navigationOptions: {header: null,},},
+        ChatRoom: {screen: ChatRoom, navigationOptions: {header: null,},},
+        Perfil: {screen: Perfil, navigationOptions: {header: null,},},
+    },
+    {
+        initialRouteName: "Start",
+    },
+);
+
+const InitialNavigator = createSwitchNavigator({
+    // Splash: SplashScreen,
+    App: ActivityProject
 });
+
+
+const AppContainer = createAppContainer(InitialNavigator);
+
+class App extends React.Component {
+    render() {
+        return (
+            <Provider store={store}>
+                <AppContainer ref={navigatorRef => {
+                    NavigationService.setTopLevelNavigator(navigatorRef);
+                }}/>
+            </Provider>
+        );
+    }
+}
 
 export default App;

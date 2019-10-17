@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import Toast from 'react-native-simple-toast';
-import {Actions} from 'react-native-router-flux';
 import {AuthTextInput, LoginButton} from '../start';
 import styles from '../../styles/auth/auth'
 import closedLock from "../../images/closed-lock.png";
@@ -52,6 +51,8 @@ export default class LoginForm extends Component {
 
 
     render() {
+        const {navigate} = this.props.navigation;
+
         let title = "Leppi";
         if (this.props.login) title = "Login";
 
@@ -76,7 +77,7 @@ export default class LoginForm extends Component {
                         value={this.state.password}
                         secureTextEntry={true}
                     />
-                    <Text style={[styles.forgotText]} onPress={Actions.password}>{"Forgot Password"}</Text>
+                    <Text style={[styles.forgotText]} onPress={() => navigate('Password')}>{"Forgot Password"}</Text>
                     <View style={styles.loginBtnWrapper}>
                         <LoginButton style={styles.loginBtn} onPress={()=>this.submit()} btnText={title}/>
                     </View>

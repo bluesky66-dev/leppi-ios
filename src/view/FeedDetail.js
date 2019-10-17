@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Image, ScrollView, TouchableOpacity, View, Text} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
-import {Actions} from 'react-native-router-flux';
 import Swiper from "react-native-swiper";
 import styles from '../styles/feedDetail';
 import {AppTopBack} from "../components/start";
@@ -44,6 +43,8 @@ class FeedDetail extends Component {
     }
 
     async _chatWithSeller() {
+        const {navigate} = this.props.navigation;
+
         if (!this.state.disabled) {
             let roomInfo = {
                 buyerId: this.props.userId,
@@ -53,7 +54,7 @@ class FeedDetail extends Component {
             await this.props.setChatFoodInfo(this.props.feedInfo);
             await this.props.goToChatRoom(roomInfo);
             this.props.clickMenu(MENU_TYPES.CHAT);
-            Actions.chatRoom();
+            navigate('ChatRoom');
         }
     }
 

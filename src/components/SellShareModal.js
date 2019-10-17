@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Alert, Image, TextInput, TouchableOpacity, View, Text} from "react-native";
+import {Alert, Image, Text, TextInput, TouchableOpacity, View} from "react-native";
 import Toast from 'react-native-simple-toast';
-import {Actions} from 'react-native-router-flux';
 import styles from '../styles/sellModal';
 import Modal from "react-native-modal";
 import TextArea from "../components/start/TextArea";
@@ -30,6 +29,8 @@ class SellShareModal extends Component {
     }
 
     async _onSellShare() {
+        const {navigate} = this.props.navigation;
+
         let state = this.state;
         if (!state.product_title || state.product_title.length <= 0) {
             Toast.show('Enter the title', Toast.SHORT);
@@ -39,14 +40,6 @@ class SellShareModal extends Component {
             Toast.show('Enter the description', Toast.SHORT);
             return false;
         }
-        // if (!state.product_qty || state.product_qty.length <= 0) {
-        //     Toast.show('Enter the quantity', Toast.SHORT);
-        //     return false;
-        // }
-        // if (!state.product_price || state.product_price.length <= 0) {
-        //     Toast.show('Select the price', Toast.SHORT);
-        //     return false;
-        // }
         state.feed_category = this.props.feedCategory;
         state.feed_type = FeedTypes.sell;
         state.userId = this.props.userId;
@@ -54,7 +47,7 @@ class SellShareModal extends Component {
         this.refs.modal.close();
         this.props.onBackdropPress();
         this.props.clickMenu(MENU_TYPES.FEED);
-        Actions.feed();
+        navigate('Feed');
     }
 
     _onRemoveImage(index) {

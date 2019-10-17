@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import firebase from 'react-native-firebase'
+import React from 'react';
+import firebase from 'firebase'
 import AsyncStorage from '@react-native-community/async-storage';
-
 
 export const getToken = async () => {
     let fcmToken = await AsyncStorage.getItem('$leppiFCMToken');

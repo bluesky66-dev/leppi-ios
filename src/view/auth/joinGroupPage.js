@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {CreateGroup, GroupForm, JoinGroup} from "../../../components/forms";
-import {AppTopSection, RegisterButton} from "../../../components/start";
-import styles from "../../../styles/auth/auth";
+import {CreateGroup, GroupForm, JoinGroup} from "../../components/forms";
+import {AppTopSection, RegisterButton} from "../../components/start";
+import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from 'react-native-swiper'
-import {widthPercentage as wp} from '../../../util';
+import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import * as authActions from "../../../redux/actions/AuthActions";
+import * as authActions from "../../redux/actions/AuthActions";
 import Spinner from "react-native-loading-spinner-overlay";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-community/async-storage/types";
 
 class joinGroupPage extends Component {
     constructor(props) {

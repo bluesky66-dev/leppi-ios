@@ -1,18 +1,17 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage/types';
 import {Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {Actions} from "react-native-router-flux";
-import styles from "../../../styles/auth/welcome";
-import logoImage from '../../../images/monkey.png'
-import welcome1 from '../../../images/welcome-1.png'
-import welcome2 from '../../../images/welcome-2.png'
-import welcomeButton from '../../../images/welcome-btn.png'
-import {AppTopBack} from "../../../components/start";
+import styles from "../styles/auth/welcome";
+import logoImage from '../images/monkey.png'
+import welcome1 from '../images/welcome-1.png'
+import welcome2 from '../images/welcome-2.png'
+import welcomeButton from '../images/welcome-btn.png'
+import {AppTopBack} from "../components/start";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import Swiper from "react-native-swiper";
-import * as authActions from "../../../redux/actions/AuthActions";
-import {MENU_TYPES} from "../../../redux/constants/menuTypes";
+import * as authActions from "../redux/actions/AuthActions";
+import {MENU_TYPES} from "../redux/constants/menuTypes";
 
 class Welcome extends Component {
     constructor(props) {
@@ -43,9 +42,11 @@ class Welcome extends Component {
     }
 
     _onPressButton() {
+        const {navigate} = this.props.navigation;
+
         if (this.state.step_index === 1) {
             this.props.clickMenu(MENU_TYPES.HOME);
-            Actions.main();
+            navigate('Home');
         } else {
             this.refs.swiper.scrollBy(1);
         }

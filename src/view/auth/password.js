@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {PasswordForm} from "../../../components/forms";
-import styles from "../../../styles/auth/auth";
+import {PasswordForm} from "../../components/forms";
+import styles from "../../styles/auth/auth";
 import Spinner from 'react-native-loading-spinner-overlay';
-import {AppTopSection} from "../../../components/start";
+import {AppTopSection} from "../../components/start";
 import {ScrollView, View} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 

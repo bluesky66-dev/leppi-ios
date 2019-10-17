@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, TextInput, TouchableOpacity, View, Text} from "react-native";
+import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
 import Toast from 'react-native-simple-toast';
-import {Actions} from 'react-native-router-flux';
 import styles from '../styles/solicitationModal';
 import Modal from "react-native-modal";
 import TextArea from "../components/start/TextArea";
@@ -28,6 +27,8 @@ class SolicitationModal extends Component {
     }
 
     async _onSolicitation() {
+        const {navigate} = this.props.navigation;
+
         let state = this.state;
         if (!state.product_title || state.product_title.length <= 0) {
             Toast.show('Enter the title', Toast.SHORT);
@@ -37,14 +38,7 @@ class SolicitationModal extends Component {
             Toast.show('Enter the description', Toast.SHORT);
             return false;
         }
-        // if (!state.est_time || state.est_time.length <= 0) {
-        //     Toast.show('Enter estimated time you need', Toast.SHORT);
-        //     return false;
-        // }
-        // if (!state.est_date || state.est_date.length <= 0) {
-        //     Toast.show('Select the date', Toast.SHORT);
-        //     return false;
-        // }
+
         state.feed_category = this.props.feedCategory;
         state.feed_type = FeedTypes.solicitation;
         state.userId = this.props.userId;
@@ -52,7 +46,7 @@ class SolicitationModal extends Component {
         this.refs.modal.close();
         this.props.onBackdropPress();
         this.props.clickMenu(MENU_TYPES.FEED);
-        Actions.feed();
+        navigate('Feed');
     }
 
     showDateTimePicker = () => {

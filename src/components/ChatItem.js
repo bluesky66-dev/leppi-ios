@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, TouchableOpacity, View, Text} from "react-native";
-import {Actions} from 'react-native-router-flux';
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import styles from '../styles/chatItem';
 import IconAvatar from "../images/avatar.png";
 import IconIdea from "../images/idea.png";
@@ -21,6 +20,8 @@ class ChatItem extends Component {
     }
 
     async _goToDetail() {
+        const {navigate} = this.props.navigation;
+
         let feedInfo = {};
         if (this.props.chatRoom && this.props.chatRoom.feedInfo) {
             feedInfo = this.props.chatRoom.feedInfo;
@@ -31,7 +32,7 @@ class ChatItem extends Component {
                     sellerId: this.props.userId,
                     feedId: feedInfo.feedId,
                 };
-                Actions.chatUsers({roomInfo: roomInfo});
+                navigate('ChatUsers', {roomInfo: roomInfo});
             } else {
                 let roomInfo = {
                     buyerId: this.props.userId,
@@ -39,7 +40,7 @@ class ChatItem extends Component {
                     feedId: feedInfo.feedId,
                 };
                 await this.props.goToChatRoom(roomInfo);
-                Actions.chatRoom();
+                navigate('ChatRoom');
             }
         }
     }

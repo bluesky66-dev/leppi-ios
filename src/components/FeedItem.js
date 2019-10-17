@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, TouchableOpacity, View, Text} from "react-native";
-import {Actions} from 'react-native-router-flux';
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import styles from '../styles/feedItem';
 import UserAvatar from "../images/user-avatar.png";
 import IconClock from "../images/clock.png";
@@ -23,7 +22,8 @@ class FeedItem extends Component {
     }
 
     _goToDetail() {
-        Actions.feedDetail({feedInfo: this.props.feed, feedBadge: this.props.feedBadge});
+        const {navigate} = this.props.navigation;
+        navigate('FeedDetail', {feedInfo: this.props.feed, feedBadge: this.props.feedBadge});
     }
 
     render() {

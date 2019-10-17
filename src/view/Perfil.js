@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, Image, ImageBackground, ScrollView, Share, TouchableOpacity, View, Text} from 'react-native';
-import {Actions} from 'react-native-router-flux';
+import {Alert, Image, ImageBackground, ScrollView, Share, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {dynamicEventLink} from '../util/dynamicLink';
@@ -70,6 +69,7 @@ class Perfil extends Component {
     }
 
     _onOtherGroup(group) {
+        const {navigate} = this.props.navigation;
         Alert.alert(
             'Change Group',
             'Are you sure you want to view the group!',
@@ -81,7 +81,7 @@ class Perfil extends Component {
                         await this.props.joinGroup(group, this.props.userId);
                         this.props.setLoadingSpinner(false);
                         this.props.clickMenu(MENU_TYPES.HOME);
-                        Actions.main();
+                        navigate('Home');
                     }},
             ],
             { cancelable: false }
@@ -89,7 +89,8 @@ class Perfil extends Component {
     }
 
     _onChangeGroup() {
-        Actions.joinGroupPage();
+        const {navigate} = this.props.navigation;
+        navigate('JoinGroupPage');
     }
 
     async _onLogout() {
