@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, Image, ImageBackground, ScrollView, Share, TouchableOpacity, View} from 'react-native';
-import {Container, Root, Text} from 'native-base';
+import {Alert, Image, ImageBackground, ScrollView, Share, TouchableOpacity, View, Text} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -125,13 +124,13 @@ class Perfil extends Component {
         });
 
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{ color: '#FFF' }}
                 />
-                <Container style={styles.container}>
+                <View style={styles.container}>
                     <HeaderSection />
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.mainInfoWrapper}>
@@ -216,8 +215,8 @@ class Perfil extends Component {
                             </View>
                         </View>
                     </ScrollView>
-                </Container>
-            </Root>
+                </View>
+            </View>
         );
     }
 }

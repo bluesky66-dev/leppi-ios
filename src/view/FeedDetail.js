@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
-import {Container, Root, Text} from 'native-base';
+import {Image, ScrollView, TouchableOpacity, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import Swiper from "react-native-swiper";
@@ -122,13 +121,13 @@ class FeedDetail extends Component {
 
 
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{ color: '#FFF' }}
                 />
-                <Container style={styles.container}>
+                <View style={styles.container}>
                     <ScrollView style={styles.contentWrapper}>
                         <AppTopBack onBackPress={() => {
                             this.props.navigation.goBack()
@@ -195,8 +194,8 @@ class FeedDetail extends Component {
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
-                </Container>
-            </Root>
+                </View>
+            </View>
         );
     }
 }

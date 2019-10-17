@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Container, Root, View} from 'native-base';
 import {CreateGroup, GroupForm, JoinGroup} from "../../../components/forms";
 import {AppTopSection, RegisterButton} from "../../../components/start";
 import styles from "../../../styles/auth/auth";
-import {ScrollView} from "react-native";
+import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from 'react-native-swiper'
 import {widthPercentage as wp} from '../../../util';
@@ -137,13 +136,13 @@ class joinGroupPage extends Component {
         }
 
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
                 />
-                <Container>
+                <View>
                     <ScrollView style={styles.rootWrapper}>
                         <AppTopSection authStep={5 + this.state.step_index} onBackPress={this._onBackPress}/>
                         <Swiper ref={'swiper'}
@@ -173,8 +172,8 @@ class joinGroupPage extends Component {
                             </View>
                         }
                     </ScrollView>
-                </Container>
-            </Root>
+                </View>
+            </View>
         );
     }
 }

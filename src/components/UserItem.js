@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, TouchableOpacity, View} from "react-native";
-import {Text} from "native-base";
+import {Image, TouchableOpacity, View, Text} from "react-native";
 import {Actions} from 'react-native-router-flux';
 import styles from '../styles/userItem';
 import UserAvatar from "../images/user-avatar.png";

@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Alert, Image, TextInput, TouchableOpacity, View} from "react-native";
+import {Alert, Image, TextInput, TouchableOpacity, View, Text} from "react-native";
 import Toast from 'react-native-simple-toast';
-import {Text} from "native-base";
 import {Actions} from 'react-native-router-flux';
 import styles from '../styles/sellModal';
 import Modal from "react-native-modal";

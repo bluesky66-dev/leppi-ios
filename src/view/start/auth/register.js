@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Root, View} from 'native-base';
 import * as authActions from '../../../redux/actions/AuthActions'; //Import your actions
 import {CreateGroup, CredentialsForm, InformationForm, JoinGroup, LocationForm} from "../../../components/forms";
 import {AppTopSection, RegisterButton} from "../../../components/start";
 import styles from "../../../styles/auth/auth";
-import {ScrollView} from "react-native";
+import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from 'react-native-swiper'
 import * as utils from '../../../util';

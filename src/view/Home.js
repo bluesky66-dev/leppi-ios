@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, TouchableOpacity, View, Text} from 'react-native';
 import Toast from 'react-native-simple-toast';
-import {Container, Root, Text} from 'native-base';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import HeaderSection from '../components/HeaderSection';
@@ -83,13 +82,13 @@ class Home extends Component {
             joinedGroup = this.props.joinedGroup;
         }
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
                 />
-                <Container style={styles.container}>
+                <View style={styles.container}>
                     <HeaderSection/>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.groupInfo}>
@@ -138,8 +137,8 @@ class Home extends Component {
                         groupInfo={joinedGroup}
                         isVisibleJoinButton={false}
                         onBackdropPress={()=>this.setState({isJoinGroup: false})}/>
-                </Container>
-            </Root>
+                </View>
+            </View>
         );
     }
 }

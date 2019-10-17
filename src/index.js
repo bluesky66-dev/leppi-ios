@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Reducer, Router, Scene} from "react-native-router-flux";
-import {View} from "native-base";
-import {BackHandler} from "react-native";
+import {BackHandler,View} from "react-native";
 import SplashScreen from 'react-native-splash-screen'
 import Home from "./view/Home";
 import CheckAuth from "./view/start/checkAuth";

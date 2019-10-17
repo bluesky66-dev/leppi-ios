@@ -1,23 +1,10 @@
 import {widthPercentageToDP} from 'react-native-responsive-screen';
-import {Toast} from "native-base";
 import {Base64} from 'js-base64';
 import countries from 'world-countries';
 
 export const widthPercentage = dimension => {
     return widthPercentageToDP(dimension / 375 * 100);
 };
-
-export const ToastT = {
-    showToast: (message, duration = 3500) => {
-        Toast.show({
-            text: message,
-            duration,
-            position: 'bottom',
-            textStyle: {textAlign: 'center'},
-        });
-    },
-};
-
 
 export const strToFDKey = str => {
     return Base64.encode(str);

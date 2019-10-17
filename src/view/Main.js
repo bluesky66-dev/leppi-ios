@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
-import {Container} from 'native-base';
+import {StyleSheet, View} from 'react-native';
 
 export default class Main extends Component {
 
@@ -8,8 +7,8 @@ export default class Main extends Component {
 
     render() {
         return (
-            <Container style={styles.container}>
-            </Container>
+            <View style={styles.container}>
+            </View>
         );
     }
 }

@@ -1,9 +1,8 @@
 import React, {Component} from "react";
-import {Text, View} from "native-base";
 import styles from "../../styles/auth/top";
 import logoimage from "../../images/monkey.png";
 import {AppTopBack} from "./AppTopBack";
-import {Image} from "react-native";
+import {Image, Text, View} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 
 export default class AppTopSection extends Component {

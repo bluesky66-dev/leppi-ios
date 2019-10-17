@@ -1,14 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as authActions from "../../../redux/actions/AuthActions";
-import {Root, Text, View} from "native-base";
 import {LoginForm} from "../../../components/forms";
 import styles from "../../../styles/auth/auth";
 import Spinner from 'react-native-loading-spinner-overlay';
 import facebookIcon from "../../../images/facebook.png";
 import googleIcon from "../../../images/google.png";
 import {AppTopSection} from "../../../components/start";
-import {Image, ScrollView, TouchableOpacity} from "react-native";
+import {Image, ScrollView, TouchableOpacity, Text, View} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {GoogleSignin} from 'react-native-google-signin';
 import firebase from 'react-native-firebase'
@@ -105,7 +104,7 @@ class Login extends Component {
     render() {
         var title = "Leppi";
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -128,7 +127,7 @@ class Login extends Component {
                         </View>
                     </View>
                 </ScrollView>
-            </Root>
+            </View>
         );
     }
 }

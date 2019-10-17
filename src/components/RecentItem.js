@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, View} from "react-native";
-import {Text} from "native-base";
+import {Image, View, Text} from "react-native";
 import styles from '../styles/recentItem';
 import RecentlyDefault from "../images/recent-default.png";
 import TimeAgo from 'javascript-time-ago';

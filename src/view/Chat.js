@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
-import {Container, Root} from 'native-base';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import HeaderSection from '../components/HeaderSection';
@@ -35,21 +34,21 @@ class Chat extends Component {
             )
         });
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
                 />
-                <Container style={styles.container}>
+                <View style={styles.container}>
                     <HeaderSection/>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.height56}/>
                         {chatRooms}
                         <View style={styles.height44}/>
                     </ScrollView>
-                </Container>
-            </Root>
+                </View>
+            </View>
         );
     }
 }

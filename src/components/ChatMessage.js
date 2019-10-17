@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {View} from "react-native";
-import {Text} from "native-base";
+import {View, Text} from "react-native";
 import styles from '../styles/chatMessage';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';

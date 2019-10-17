@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Image, ScrollView, TextInput, TouchableOpacity, View} from 'react-native';
-import {Container, Root, Text} from 'native-base';
+import {Image, ScrollView, TextInput, TouchableOpacity, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import HeaderSection from '../components/HeaderSection';
@@ -85,13 +84,13 @@ class ChatRoom extends Component {
             );
         });
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
                 />
-                <Container style={styles.container}>
+                <View style={styles.container}>
                     <HeaderSection/>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.height22}/>
@@ -135,8 +134,8 @@ class ChatRoom extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                </Container>
-            </Root>
+                </View>
+            </View>
         );
     }
 }

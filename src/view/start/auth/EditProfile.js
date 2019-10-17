@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Root, View} from 'native-base';
 import * as authActions from '../../../redux/actions/AuthActions'; //Import your actions
 import {InformationForm, LocationForm} from "../../../components/forms";
 import {AppTopSection, RegisterButton} from "../../../components/start";
 import styles from "../../../styles/auth/auth";
-import {ScrollView} from "react-native";
+import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from 'react-native-swiper'
 import {widthPercentage as wp} from '../../../util';
@@ -143,7 +142,7 @@ class EditProfile extends Component {
                 break;
         }
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -168,7 +167,7 @@ class EditProfile extends Component {
                                         onPress={()=>this._onNextStep()} btnText={title}/>
                     </View>
                 </ScrollView>
-            </Root>
+            </View>
         );
     }
 

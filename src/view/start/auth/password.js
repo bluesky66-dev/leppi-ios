@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Root, View} from "native-base";
 import {PasswordForm} from "../../../components/forms";
 import styles from "../../../styles/auth/auth";
 import Spinner from 'react-native-loading-spinner-overlay';
 import {AppTopSection} from "../../../components/start";
-import {ScrollView} from "react-native";
+import {ScrollView, View} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 
 class Password extends Component {
@@ -24,7 +23,7 @@ class Password extends Component {
     render() {
         var title = "Leppi";
         return (
-            <Root>
+            <View>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -35,7 +34,7 @@ class Password extends Component {
                     <View style={styles.emptySpace}/>
                     <PasswordForm/>
                 </ScrollView>
-            </Root>
+            </View>
         );
     }
 }

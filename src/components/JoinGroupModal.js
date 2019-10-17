@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, TextInput, TouchableOpacity, View} from "react-native";
+import {Image, TextInput, TouchableOpacity, View, Text} from "react-native";
 import Toast from 'react-native-simple-toast';
-import {Text} from "native-base";
 import styles from '../styles/joinGroupModal';
 import Modal from "react-native-modal";
 import RecentItem from "../components/RecentItem";
