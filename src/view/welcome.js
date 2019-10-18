@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import AsyncStorage from '@react-native-community/async-storage/types';
+import AsyncStorage from '@react-native-community/async-storage';
 import {Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../styles/auth/welcome";
 import logoImage from '../images/monkey.png'

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import styles from "../../styles/auth/top";
 import logoimage from "../../images/monkey.png";
-import {AppTopBack} from "./AppTopBack";
+import AppTopBack from "./AppTopBack";
 import {Image, Text, View} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 

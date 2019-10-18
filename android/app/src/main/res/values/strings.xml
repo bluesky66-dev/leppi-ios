@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">leppi</string>
+    <string name="app_name">Leppi</string>
+    <string name="leppi">Leppi</string>
+    <string name="facebook_app_id">1358241567657102</string>
 </resources>

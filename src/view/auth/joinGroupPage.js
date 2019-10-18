@@ -10,7 +10,7 @@ import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import * as authActions from "../../redux/actions/AuthActions";
 import Spinner from "react-native-loading-spinner-overlay";
-import AsyncStorage from "@react-native-community/async-storage/types";
+import AsyncStorage from "@react-native-community/async-storage";
 
 class joinGroupPage extends Component {
     constructor(props) {

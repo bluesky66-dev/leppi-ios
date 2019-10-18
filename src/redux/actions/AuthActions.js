@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import firebase from '@react-native-firebase/app'
 import Toast from 'react-native-simple-toast';
 import uuid from 'uuid/v4';
-import {Actions} from "react-native-router-flux";
+import { NavigationActions } from 'react-navigation'
 import {MENU_TYPES} from "../constants/menuTypes";
 
 const REQUEST_URL = "http://leppi-api.cgem9zx2vz.us-east-2.elasticbeanstalk.com";
@@ -86,9 +86,9 @@ export const fetchLogin = data => {
                     let skipWelcome = await AsyncStorage.getItem('$leppiSkipWelcome');
                     if (skipWelcome === '1') {
                         dispatch(updateMenu(MENU_TYPES.HOME));
-                        Actions.main();
+                        dispatch(NavigationActions.navigate({routeName: 'Home'}));
                     } else {
-                        Actions.welcome();
+                        dispatch(NavigationActions.navigate({routeName: 'Welcome'}));
                     }
                 })
                 .catch((error) => {

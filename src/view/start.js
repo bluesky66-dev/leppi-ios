@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {BackHandler, Image, Platform, ScrollView, Text, View} from "react-native";
-import {Actions} from "react-native-router-flux";
 import firebase from '@react-native-firebase/app';
 import {Button} from "../components/start";
 import styles from "../styles/auth";
@@ -9,8 +8,9 @@ import {listenOrientationChange as lor, removeOrientationListener as rol} from '
 import * as authActions from "../redux/actions/AuthActions";
 import {connect} from "react-redux";
 import * as push from '../util/pushNotifications';
-import AsyncStorage from "@react-native-community/async-storage/types";
+import AsyncStorage from "@react-native-community/async-storage";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
+import Geolocation from 'react-native-geolocation-service';
 
 class Start extends Component {
 
@@ -31,9 +31,9 @@ class Start extends Component {
             BackHandler.exitApp();
         }
 
-        push.checkPermission();
-        push.notificationListener();
-        push.createChannel();
+        // push.checkPermission();
+        // push.notificationListener();
+        // push.createChannel();
 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
@@ -50,30 +50,34 @@ class Start extends Component {
             }
         }
 
-        navigator.geolocation.getCurrentPosition((position) => {
-                // console.log('===== getCurrentPosition', position);
+        Geolocation.getCurrentPosition(
+            (position) => {
                 this.props.setCurrentLocation(position.coords);
             },
-            (error) => console.log('===== getCurrentPosition error', error),
-            options);
-
+            (error) => {
+                // See error code charts below.
+                console.log(error.code, error.message);
+            },
+            options
+        );
         try {
-            firebase.links()
-                .getInitialLink()
-                .then((url) => {
-                    if (url) {
-                        // app opened from a dynamic link URL
-                        const groupId = url.split('/').pop();
-                        const userId = url.split('/').pop();
-
-                        // console.log('GROUP ID ======= ', groupId);
-                        // console.log('USER ID ======== ', userId);
-
-                        this.props.authActions(userId, groupId);
-                    }
-                });
+            // firebase.dynamicLinks()
+            //     .getInitialLink()
+            //     .then((url) => {
+            //         if (url) {
+            //             // app opened from a dynamic link URL
+            //             const groupId = url.split('/').pop();
+            //             const userId = url.split('/').pop();
+            //
+            //             // console.log('GROUP ID ======= ', groupId);
+            //             // console.log('USER ID ======== ', userId);
+            //
+            //             this.props.authActions(userId, groupId);
+            //         }
+            //     });
             this.authSubscription = firebase.auth().onAuthStateChanged(async (user) => {
-                if (Actions.currentScene !== 'register' && Actions.currentScene !== 'password') {
+                console.log('navigate === ', navigate.state);
+                if (navigate.state && navigate.state.routeName !== 'Register' && navigate.state.routeName !== 'Password') {
                     if (user) {
                         console.log('onAuthStateChanged ==== user');
                     } else {
@@ -103,7 +107,7 @@ class Start extends Component {
             this.authSubscription();
         }
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-        BackHandler.exitApp();
+        // BackHandler.exitApp();
     }
 
     _onLogin = () => {
