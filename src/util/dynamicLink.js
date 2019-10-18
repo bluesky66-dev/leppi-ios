@@ -1,4 +1,4 @@
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
 
 export  const  dynamicEventLink = async (id, groupId) => {
     const link = new firebase.links.DynamicLink(

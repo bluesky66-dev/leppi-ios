@@ -27,7 +27,12 @@ import FeedDetail from "./src/view/FeedDetail";
 import ChatRoom from "./src/view/ChatRoom";
 import ChatUsers from "./src/view/ChatUsers";
 import EditProfile from "./src/view/auth/EditProfile";
-
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
+import '@react-native-firebase/database';
+import '@react-native-firebase/dynamic-links';
+import '@react-native-firebase/messaging';
+import '@react-native-firebase/storage';
 
 const ActivityProject = createStackNavigator(
     {

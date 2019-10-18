@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from 'firebase'
+import firebase from '@react-native-firebase/app'
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const getToken = async () => {

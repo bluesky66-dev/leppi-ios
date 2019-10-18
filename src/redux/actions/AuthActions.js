@@ -1,7 +1,7 @@
 import * as TYPES from "../constants/types";
 import {CLICK_MENU} from "../constants/types";
 import AsyncStorage from '@react-native-community/async-storage';
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
 import Toast from 'react-native-simple-toast';
 import uuid from 'uuid/v4';
 import {Actions} from "react-native-router-flux";

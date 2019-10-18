@@ -10,7 +10,7 @@ import {AppTopSection} from "../../components/start";
 import {Image, ScrollView, TouchableOpacity, Text, View} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {GoogleSignin} from 'react-native-google-signin';
-import firebase from 'react-native-firebase'
+import firebase from '@react-native-firebase/app'
 import AsyncStorage from '@react-native-community/async-storage/types';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 

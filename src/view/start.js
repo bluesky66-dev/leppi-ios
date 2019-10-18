@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {BackHandler, Image, Platform, ScrollView, Text, View} from "react-native";
 import {Actions} from "react-native-router-flux";
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
 import {Button} from "../components/start";
 import styles from "../styles/auth";
 import logoimage from '../images/monkey.png'

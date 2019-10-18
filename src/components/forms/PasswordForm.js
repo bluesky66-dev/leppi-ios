@@ -7,7 +7,7 @@ import phoneIcon from "../../images/icon-phone1.png";
 import closedLock from "../../images/closed-lock.png";
 import {connect} from "react-redux";
 import * as authActions from "../../redux/actions/AuthActions";
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
 
 class PasswordForm extends Component {
 

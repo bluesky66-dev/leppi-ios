@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "977355674217",
+    "firebase_url": "https://leppi-65af0.firebaseio.com",
+    "project_id": "leppi-65af0",
+    "storage_bucket": "leppi-65af0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977355674217:android:799adacd829d99d933c8f8",
+        "android_client_info": {
+          "package_name": "com.app.leppi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977355674217-tvgsmugpbf626k16ot7cihh4narnfi4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.leppi",
+            "certificate_hash": "245fd7cabd15be4e8f51869ace4a7b5da73cb668"
+          }
+        },
+        {
+          "client_id": "977355674217-fvpl32v6fo4t94267tcsb7mjpsrq9123.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.leppi",
+            "certificate_hash": "9e3d266287184b4143bb39c9233303826a911013"
+          }
+        },
+        {
+          "client_id": "977355674217-j5lsbd696h4su516hju8dcjpgqvt33b9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2qCBfAYiE7-gN94sSH5n89c-E6b7h9zM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "977355674217-j5lsbd696h4su516hju8dcjpgqvt33b9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "977355674217-598urdjbhmki420j0209jg4l16bb7dp4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.club.leppi",
+                "app_store_id": "1478961469"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
