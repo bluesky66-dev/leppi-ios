@@ -12,7 +12,6 @@ import {listenOrientationChange as lor, removeOrientationListener as rol} from '
 import {GoogleSignin} from 'react-native-google-signin';
 import firebase from '@react-native-firebase/app'
 import AsyncStorage from '@react-native-community/async-storage';
-import {AccessToken, LoginManager} from 'react-native-fbsdk';
 
 class Login extends Component {
     constructor(props) {
@@ -64,43 +63,6 @@ class Login extends Component {
         }
     }
 
-    facebookLogin = async () => {
-        return false;
-        try {
-            this.props.setLoadingSpinner(true);
-            const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
-            if (result.isCancelled) {
-                return false;
-            }
-
-            // get the access token
-            const data = await AccessToken.getCurrentAccessToken();
-
-            if (!data) {
-                // Toast.show('Something went wrong obtaining the users access token', Toast.LONG);
-                return false;
-            }
-
-            // create a new firebase credential with the token
-            const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
-
-            // login with credential
-            const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
-            this.props.setLoadingSpinner(false);
-            let userId = firebaseUserCredential.user.uid;
-
-            if (!userId) {
-                return false;
-            }
-
-            AsyncStorage.setItem('$leppiUserId', userId);
-            await this.props.fetchingSocialMetaData(userId);
-        } catch (e) {
-            this.props.setLoadingSpinner(false);
-        }
-    }
-
     render() {
         var title = "Leppi";
         return (
@@ -117,10 +79,7 @@ class Login extends Component {
                         <View style={styles.thirdLoginContainer}>
                             <Text style={[styles.generalText]}>{"or login through"}</Text>
                         </View>
-                        <View style={styles.thirdLoginContainer}>
-                            {/*<TouchableOpacity onPress={this.facebookLogin.bind(this)} style={styles.socialButton} activeOpacity={1}>*/}
-                            {/*    <Image source={facebookIcon} style={styles.socialButtonIcon} />*/}
-                            {/*</TouchableOpacity>*/}
+                        <View style={styles.thirdLoginContainer}>    
                             <TouchableOpacity onPress={this.googleLogin.bind(this)} style={styles.socialButton} activeOpacity={1}>
                                 <Image source={googleIcon} style={styles.socialButtonIcon} />
                             </TouchableOpacity>
