@@ -219,6 +219,7 @@ class Register extends Component {
     }
 
     _onJoinGroup() {
+        const {navigate} = this.props.navigation;
         navigate('Welcome');
     }
 

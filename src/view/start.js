@@ -137,11 +137,14 @@ class Start extends Component {
 }
 
 function mapStateToProps(state, props) {
-    return {}
+    return {
+
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        clickMenu: (menu) => dispatch(authActions.clickMenu(menu)),
         setCurrentLocation: (position) => dispatch(authActions.setCurrentLocation(position)),
     }
 };

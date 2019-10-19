@@ -15,7 +15,7 @@ module.exports = StyleSheet.create({
     },
 
     avatarContainer: {
-        width: wp(114),
+        width: hp(114),
         height: hp(114),
         borderRadius: hp(54),
         borderWidth: 3,
@@ -25,22 +25,22 @@ module.exports = StyleSheet.create({
 
     defaultAvatar: {
         position: "absolute",
-        width: wp(86),
+        width: hp(86),
         height: hp(95),
         bottom: hp(-4),
-        left: wp(6),
+        left: hp(6),
     },
 
     realAvatar: {
-        width: wp(108),
+        width: hp(108),
         height: hp(108),
         resizeMode: 'cover',
     },
 
     plusIcon: {
         position: "absolute",
-        top: wp(83),
-        right: wp(136),
+        top: hp(83),
+        right: wp(156),
         width: hp(38),
         height: hp(38),
         backgroundColor: 'transparent',
@@ -48,7 +48,7 @@ module.exports = StyleSheet.create({
     },
 
     plusIconStyle: {
-        width: wp(38),
+        width: hp(38),
         height: hp(38),
         resizeMode: "stretch",
     },

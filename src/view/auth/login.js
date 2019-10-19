@@ -29,7 +29,8 @@ class Login extends Component {
     }
 
     async login(data) {
-        await this.props.fetchLogin(data);
+        const {navigate} = this.props.navigation;
+        await this.props.fetchLogin(data, navigate);
     }
 
     googleLogin = async () => {
@@ -108,7 +109,7 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
-        fetchLogin: (type) => dispatch(authActions.fetchLogin(type)),
+        fetchLogin: (type, navigate) => dispatch(authActions.fetchLogin(type, navigate)),
         fetchingSocialMetaData: (userId) => dispatch(authActions.fetchingSocialMetaData(userId)),
     }
 };

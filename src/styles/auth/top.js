@@ -91,7 +91,7 @@ module.exports = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: hp(7),
         left: wp(25),
-        top: hp(-11),
+        top: hp(-31),
     },
 
     stepDot2: {
@@ -101,7 +101,7 @@ module.exports = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: hp(7),
         left: wp(129),
-        top: hp(17),
+        top: hp(3),
     },
 
     stepDot3: {
@@ -111,7 +111,7 @@ module.exports = StyleSheet.create({
         backgroundColor: "#ffffff",
         borderRadius: hp(7),
         left: wp(234),
-        top: hp(17),
+        top: hp(3),
     },
 
     stepDot4: {
@@ -121,6 +121,6 @@ module.exports = StyleSheet.create({
         backgroundColor: "#ffffff",
         borderRadius: hp(7),
         left: wp(338),
-        top: hp(-11),
+        top: hp(-31),
     },
 });
