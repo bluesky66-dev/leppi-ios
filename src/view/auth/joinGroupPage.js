@@ -142,13 +142,13 @@ class joinGroupPage extends Component {
         }
 
         return (
-            <View>
+            <View style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
                 />
-                <View>
+                <View  style={styles.rootWrapper}>
                     <ScrollView style={styles.rootWrapper}>
                         <AppTopSection authStep={5 + this.state.step_index} onBackPress={this._onBackPress}/>
                         <Swiper ref={'swiper'}

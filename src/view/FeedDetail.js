@@ -23,14 +23,19 @@ class FeedDetail extends Component {
         super(props);
         this.state = {
             disabled: false,
+            feedInfo: false,
+            feedBadge: 'red',
             mediaGallery: [],
         };
     }
 
     componentDidMount() {
-        if (this.props.feedInfo && this.props.feedInfo.gallery && Array.isArray(this.props.feedInfo.gallery)) {
+        const feedInfo = this.props.navigation.getParam('feedInfo', false);
+        const feedBadge = this.props.navigation.getParam('feedBadge', 'red');
+        this.setState({feedInfo, feedBadge});
+        if (feedInfo && feedInfo.gallery && Array.isArray(feedInfo.gallery)) {
             this.props.setLoadingSpinner(true);
-            authActions.filterMediaGallery(this.props.feedInfo.gallery, mediaGallery => {
+            authActions.filterMediaGallery(feedInfo.gallery, mediaGallery => {
                 this.props.setLoadingSpinner(false);
                 if (mediaGallery !== null) {
                     this.setState({ mediaGallery: mediaGallery });
@@ -42,13 +47,16 @@ class FeedDetail extends Component {
     async _chatWithSeller() {
         const {navigate} = this.props.navigation;
 
+        if (!this.state.feedInfo) {
+            return false;
+        }
         if (!this.state.disabled) {
             let roomInfo = {
                 buyerId: this.props.userId,
-                sellerId: this.props.feedInfo.userId,
-                feedId: this.props.feedInfo.feedId,
+                sellerId: this.state.feedInfo.userId,
+                feedId: this.state.feedInfo.feedId,
             };
-            await this.props.setChatFoodInfo(this.props.feedInfo);
+            await this.props.setChatFoodInfo(this.state.feedInfo);
             await this.props.goToChatRoom(roomInfo);
             this.props.clickMenu(MENU_TYPES.CHAT);
             navigate('ChatRoom');
@@ -57,8 +65,8 @@ class FeedDetail extends Component {
 
     render() {
         let feedInfo = {};
-        if (this.props.feedInfo) {
-            feedInfo = this.props.feedInfo;
+        if (this.state.feedInfo) {
+            feedInfo = this.state.feedInfo;
         }
         let feedBadge = styles.backRed;
         let btnColor = styles.redTxt;
@@ -119,7 +127,7 @@ class FeedDetail extends Component {
 
 
         return (
-            <View>
+            <View style={styles.container}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}

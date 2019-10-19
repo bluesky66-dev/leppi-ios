@@ -34,22 +34,22 @@ class Login extends Component {
     }
 
     googleLogin = async () => {
+        const {navigate} = this.props.navigation;
         try {
             this.props.setLoadingSpinner(true);
             // add any configuration settings here:
-            await GoogleSignin.configure({
-                scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-                webClientId: '1:977355674217:web:709cb855d1bc0112', // required
-              });
+            GoogleSignin.configure({
+                webClientId: '977355674217-j5lsbd696h4su516hju8dcjpgqvt33b9.apps.googleusercontent.com',
+                iosClientId: '977355674217-598urdjbhmki420j0209jg4l16bb7dp4.apps.googleusercontent.com',
+            });
 
             await GoogleSignin.hasPlayServices();
-
-            await GoogleSignin.signIn();
-
+            const userInfo = await GoogleSignin.signIn();
+            console.log('Google sign userInfo', userInfo);
             const tokens = await GoogleSignin.getTokens();
-
+            console.log('Google sign tokens', tokens);
             // create a new firebase credential with the token
-            const credential = firebase.auth.GoogleAuthProvider.credential(tokens.idToken, tokens.accessToken)
+            const credential = firebase.auth.GoogleAuthProvider.credential(tokens.idToken, tokens.accessToken);
             // login with credential
 
             const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
@@ -61,9 +61,9 @@ class Login extends Component {
             console.log('userId ====== ', userId);
 
             AsyncStorage.setItem('$leppiUserId', userId);
-            await this.props.fetchingSocialMetaData(userId);
-        } catch (e) {
-            this.props.setLoadingSpinner(false);
+            await this.props.fetchingSocialMetaData(userId, navigate);
+        } catch (error) {
+            console.log('google sign error', error);
         }
     }
 
@@ -110,7 +110,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
         fetchLogin: (type, navigate) => dispatch(authActions.fetchLogin(type, navigate)),
-        fetchingSocialMetaData: (userId) => dispatch(authActions.fetchingSocialMetaData(userId)),
+        fetchingSocialMetaData: (userId, navigate) => dispatch(authActions.fetchingSocialMetaData(userId, navigate)),
     }
 };
 

@@ -89,7 +89,7 @@ module.exports = StyleSheet.create({
     },
 
     typeIcon: {
-        width: wp(34),
+        width: hp(34),
         height: hp(33),
         marginBottom: hp(8)
     },

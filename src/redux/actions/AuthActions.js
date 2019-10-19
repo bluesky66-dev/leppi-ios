@@ -224,7 +224,7 @@ export const createUserMeta = metaData => {
     };
 };
 
-export const fetchingSocialMetaData = (userId) => {
+export const fetchingSocialMetaData = (userId, navigate) => {
     return async dispatch => {
         try {
             dispatch(isLoading(true));
@@ -237,10 +237,10 @@ export const fetchingSocialMetaData = (userId) => {
             dispatch(isLoading(false));
             if (userMetaSnapshot.exists()) {
                 console.log('======= userMeta exists');
-                Actions.welcome();
+                navigate('Welcome');
             } else {
                 console.log('======= userMeta does not exists');
-                Actions.editPerfil();
+                navigate('EditProfile');
             }
         } catch (error) {
             dispatch(isLoading(false));
@@ -248,7 +248,7 @@ export const fetchingSocialMetaData = (userId) => {
     };
 };
 
-export const fetchingUserMeta = () => {
+export const fetchingUserMeta = (navigate) => {
     return async dispatch => {
         try {
             const userId = await AsyncStorage.getItem('$leppiUserId');
@@ -262,7 +262,7 @@ export const fetchingUserMeta = () => {
                 .once('value');
 
             if (!userMetaSnapshot.exists()) {
-                Actions.start();
+                navigate('Start');
             } else {
                 let userMeta = userMetaSnapshot.val();
                 firebase.database()
@@ -286,14 +286,14 @@ export const fetchingUserMeta = () => {
                     groupMeta.groupId = groupId;
                     dispatch(isJoinedGroup(groupMeta));
                 } else {
-                    Actions.joinGroupPage();
+                    navigate('JoinGroupPage');
                 }
             }
         } catch (error) {
             // console.log('ERROR------- >>>');
             // console.log(error);
             dispatch(isLoading(false));
-            Actions.start();
+            navigate('Start');
         }
     };
 };

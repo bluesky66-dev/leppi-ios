@@ -3,9 +3,15 @@ import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
 
-    container: {},
+    rootWrapper: {
+        flex: 1,
+    },
+    container: {
+        flex: 1,
+    },
 
     contentWrapper: {
+        flex: 1,
         backgroundColor: '#ffffff',
     },
     mainInfoWrapper: {
@@ -80,12 +86,13 @@ module.exports = StyleSheet.create({
         height: hp(12),
     },
     userMetaWrapper: {
+        minHeight: hp(507),
         backgroundColor: '#F8F8F8',
         paddingLeft: wp(18),
         paddingRight: wp(18),
         paddingTop: hp(22),
         paddingBottom: hp(84),
-        justifyContent: 'center',
+        alignItems: 'center'
     },
     pointWrapper: {
         alignSelf: 'center',
@@ -137,6 +144,7 @@ module.exports = StyleSheet.create({
         fontFamily: "Roboto-Regular",
     },
     groupView: {
+        minHeight: hp(287),
         alignSelf: 'center',
         marginTop: hp(21),
         width: wp(289),
@@ -206,7 +214,7 @@ module.exports = StyleSheet.create({
         flexDirection: 'row',
         width: wp(279),
         marginTop: hp(28),
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     btnBottom: {
         flex: 1,

@@ -29,8 +29,9 @@ class Home extends Component {
     }
 
     async componentDidMount() {
+        const {navigate} = this.props.navigation;
         if (this.props.userMeta.constructor === Object && Object.keys(this.props.userMeta).length === 0) {
-            await this.props.fetchingUserMeta();
+            await this.props.fetchingUserMeta(navigate);
         }
     }
 
@@ -157,7 +158,7 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchingUserMeta: () => dispatch(authActions.fetchingUserMeta()),
+        fetchingUserMeta: (navigate) => dispatch(authActions.fetchingUserMeta(navigate)),
     }
 };
 

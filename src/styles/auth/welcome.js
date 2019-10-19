@@ -46,7 +46,7 @@ module.exports = StyleSheet.create({
     },
 
     logoImage: {
-        width: wp(100),
+        width: hp(100),
         height: hp(100),
         marginLeft: wp(22),
     },
@@ -91,16 +91,16 @@ module.exports = StyleSheet.create({
 
     btnWelcome: {
         alignSelf: 'center',
-        width: wp(140),
+        width: hp(140),
         height: hp(57),
     },
 
     btnContainer: {
-        borderRadius: hp(31),
+        borderRadius: wp(31),
     },
 
     button: {
-        width: wp(140),
+        width: hp(140),
         height: hp(57),
         alignSelf: 'center',
         justifyContent: 'center',

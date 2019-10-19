@@ -2,12 +2,17 @@ import {StyleSheet} from 'react-native';
 import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
+    rootWrapper: {
+        flex: 1,
+    },
 
     container: {
+        flex: 1,
         backgroundColor: '#35D3B9',
     },
 
     contentWrapper: {
+        flex: 1,
     },
 
     swiperWrapper: {
@@ -54,7 +59,7 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(43),
         paddingRight: wp(42),
         paddingBottom: hp(35),
-        minHeight: hp(500),
+        minHeight: hp(525),
     },
 
     detailRed: {
@@ -107,7 +112,7 @@ module.exports = StyleSheet.create({
     },
 
     iconDate: {
-        width: wp(12),
+        width: hp(12),
         height: hp(12),
         marginRight: wp(6)
     },

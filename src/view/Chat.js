@@ -37,7 +37,7 @@ class Chat extends Component {
             )
         });
         return (
-            <View>
+            <View style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}

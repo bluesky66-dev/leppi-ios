@@ -65,7 +65,7 @@ module.exports = StyleSheet.create({
     },
 
     iconWrapper: {
-        width: wp(63),
+        width: hp(63),
         height: hp(63),
         borderRadius: hp(31),
         backgroundColor: "#ffffff",
@@ -74,12 +74,12 @@ module.exports = StyleSheet.create({
     },
 
     iconCreate: {
-        width: wp(28),
+        width: hp(28),
         height: hp(28),
     },
 
     iconJoin: {
-        width: wp(32),
+        width: hp(32),
         height: hp(32),
     },
     labelWrapper: {

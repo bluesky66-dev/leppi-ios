@@ -158,9 +158,9 @@ module.exports = StyleSheet.create({
         borderBottomLeftRadius: hp(13),
         height: hp(33),
         paddingLeft: wp(17),
-        paddingTop: wp(10),
+        paddingTop: hp(10),
         paddingBottom: hp(7),
-        paddingRight: hp(5),
+        paddingRight: wp(5),
         backgroundColor: '#EEEEEE',
         color: "#3D3D3D",
         fontSize: hp(14),
@@ -182,6 +182,6 @@ module.exports = StyleSheet.create({
         fontFamily: "Raleway-Bold",
     },
     emptyView: {
-        height: hp(25),
+        height: wp(25),
     },
 });

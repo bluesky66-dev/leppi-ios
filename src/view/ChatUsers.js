@@ -18,13 +18,16 @@ class ChatUsers extends Component {
     }
 
      componentDidMount() {
-         this.props.setLoadingSpinner(true);
-         authActions.fetchingChatUsers(this.props.roomInfo, this.state.page, userList => {
-             this.props.setLoadingSpinner(false);
-             if (userList !== null) {
-                 this.setState({ userList: userList });
-             }
-         });
+         const roomInfo = this.props.navigation.getParam('roomInfo', false);
+         if (roomInfo) {
+             this.props.setLoadingSpinner(true);
+             authActions.fetchingChatUsers(this.props.roomInfo, this.state.page, userList => {
+                 this.props.setLoadingSpinner(false);
+                 if (userList !== null) {
+                     this.setState({ userList: userList });
+                 }
+             });
+         }
     }
 
     render() {
@@ -37,7 +40,7 @@ class ChatUsers extends Component {
             )
         });
         return (
-            <View>
+            <View style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
