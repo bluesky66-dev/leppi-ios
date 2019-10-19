@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import auth_styles from '../../styles/auth/auth'
-import DateTimePicker from "react-native-modal-datetime-picker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import date from 'date-and-time';
 
 export default class DateInput extends Component {
@@ -23,6 +23,7 @@ export default class DateInput extends Component {
     };
 
     handleDatePicked = newDate => {
+        newDate = newDate || this.state.date;
         console.log('====== newDate', newDate);
         this.props.onChangeText(   date.format(newDate, 'MM/DD/YYYY'));
         this.setState({date: newDate});
@@ -30,6 +31,7 @@ export default class DateInput extends Component {
     };
 
     render() {
+        const { isDateTimePickerVisible, date, mode } = this.state;
         return (
             <View style={auth_styles.registerTextInputBox}>
                 <View style={auth_styles.registerInputContainer}>
@@ -42,11 +44,12 @@ export default class DateInput extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <DateTimePicker
-                    isVisible={this.state.isDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={this.hideDateTimePicker}
-                />
+                { isDateTimePickerVisible && <DateTimePicker
+                    value={date}
+                    mode={mode}
+                    display="default"
+                    onChange={this.handleDatePicked} />
+                }
             </View>
         );
     }

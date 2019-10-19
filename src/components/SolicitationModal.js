@@ -9,7 +9,7 @@ import IconCloseModal from "../images/close-modal.png";
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from '../redux/constants/feedConstants'
 import {MENU_TYPES} from "../redux/constants/menuTypes";
-import DateTimePicker from "react-native-modal-datetime-picker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import date from "date-and-time";
 
 class SolicitationModal extends Component {
@@ -57,13 +57,15 @@ class SolicitationModal extends Component {
         this.setState({ isDateTimePickerVisible: false });
     };
 
-    handleDatePicked = newDate => {
+    handleDatePicked = (event, newDate) => {
+        newDate = newDate || this.state.date;
         console.log('====== newDate', newDate);
         this.setState({date: newDate, est_date: date.format(newDate, 'MM/DD/YYYY')});
         this.hideDateTimePicker();
     };
 
     render() {
+        const { isDateTimePickerVisible, date, mode } = this.state;
         return (
             <Modal
                 ref={'modal'}
@@ -108,11 +110,12 @@ class SolicitationModal extends Component {
                         <Text style={styles.sellShareTxt}>Solicitar</Text>
                     </TouchableOpacity>
                 </View>
-                <DateTimePicker
-                    isVisible={this.state.isDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={this.hideDateTimePicker}
-                />
+                { isDateTimePickerVisible && <DateTimePicker
+                    value={date}
+                    mode={mode}
+                    display="default"
+                    onChange={this.handleDatePicked} />
+                }
             </Modal>
         );
     }
