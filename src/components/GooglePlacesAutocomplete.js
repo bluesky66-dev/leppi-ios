@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import Qs from 'qs';
 import debounce from 'lodash.debounce';
-import {widthPercentage as wp} from "../util";
+import {widthPercentage as wp, heightPercentage as hp} from "../util";
 
 const defaultStyles = {
     container: {
@@ -22,20 +22,20 @@ const defaultStyles = {
 
     textInputContainer: {
         backgroundColor: "#ffffff",
-        height: wp(33),
+        height: hp(33),
         flexDirection: 'row',
-        borderTopLeftRadius: wp(8),
-        borderBottomLeftRadius: wp(8),
-        borderTopRightRadius: wp(8),
-        borderBottomRightRadius: wp(8),
+        borderTopLeftRadius: hp(8),
+        borderBottomLeftRadius: hp(8),
+        borderTopRightRadius: hp(8),
+        borderBottomRightRadius: hp(8),
     },
 
     textInput: {
         flex: 1,
-        padding: wp(7),
+        padding: hp(7),
         paddingLeft: wp(14),
-        fontSize: wp(14),
-        height: wp(33),
+        fontSize: hp(14),
+        height: hp(33),
         fontFamily: "Raleway-Medium",
         color: "#3D3D3D",
     },
@@ -48,13 +48,13 @@ const defaultStyles = {
 
     rowWrapper: {
         width: wp(373),
-        height: wp(44),
+        height: hp(44),
         zIndex: 8,
     },
 
     row: {
-        padding: wp(13),
-        height: wp(44),
+        padding: hp(13),
+        height: hp(44),
         flexDirection: 'row',
     },
 
@@ -68,7 +68,7 @@ const defaultStyles = {
     loader: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        height: wp(20),
+        height: hp(20),
     },
 
     androidLoader: {

@@ -6,17 +6,12 @@ import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
-import Swiper from  "../../components/swiper";
+import Swiper from  'react-native-swiper';
 import * as utils from '../../util';
-import {widthPercentage as wp} from '../../util';
+import {heightPercentage as hp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import Spinner from "react-native-loading-spinner-overlay";
 import * as EmailValidator from "email-validator/index";
-
-let defaultStyles = {
-    swiperWrapper: {
-    },
-};
 
 class Register extends Component {
     constructor(props) {
@@ -228,28 +223,29 @@ class Register extends Component {
     }
 
     render() {
-        defaultStyles.swiperWrapper.height = 404;
+        let swiperStyle = {};
+        swiperStyle.height = hp(404);
         let title = "Next";
         switch (this.state.step_index) {
             case 1:
-                defaultStyles.swiperWrapper.height = 404;
+                swiperStyle.height = hp(404);
                 break;
             case 2:
-                defaultStyles.swiperWrapper.height = 404;
+                swiperStyle.height = hp(404);
                 break;
             case 3:
-                defaultStyles.swiperWrapper.height = 404;
+                swiperStyle.height = hp(404);
                 break;
             case 4:
-                defaultStyles.swiperWrapper.height = 512;
+                swiperStyle.height = hp(512);
                 break;
             case 5:
-                defaultStyles.swiperWrapper.height = 404;
+                swiperStyle.height = hp(404);
                 title = "Create Group";
                 break;
         }
         return (
-            <View>
+            <View style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -261,7 +257,7 @@ class Register extends Component {
                             scrollEnabled={false}
                             showsPagination={false}
                             onMomentumScrollEnd={this._onMomentumScrollEnd}
-                            loop={false} style={defaultStyles.swiperWrapper}>
+                            loop={false} style={swiperStyle}>
                         <View style={styles.swiperSlide}>
                             <LocationForm onChange={this._onChangeState}/>
                         </View>
