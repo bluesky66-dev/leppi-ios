@@ -9,7 +9,7 @@ import googleIcon from "../../images/google.png";
 import {AppTopSection} from "../../components/start";
 import {Image, ScrollView, TouchableOpacity, Text, View} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import {GoogleSignin} from 'react-native-google-signin';
+import {GoogleSignin} from '@react-native-community/google-signin';
 import firebase from '@react-native-firebase/app'
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -36,7 +36,10 @@ class Login extends Component {
         try {
             this.props.setLoadingSpinner(true);
             // add any configuration settings here:
-            await GoogleSignin.configure();
+            await GoogleSignin.configure({
+                scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+                webClientId: '1:977355674217:web:709cb855d1bc0112', // required
+              });
 
             await GoogleSignin.hasPlayServices();
 
