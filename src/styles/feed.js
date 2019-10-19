@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
 
@@ -13,10 +13,10 @@ module.exports = StyleSheet.create({
     },
 
     height13: {
-        height:wp(13),
+        height:hp(13),
     },
 
     height44: {
-        height:wp(44),
+        height:hp(44),
     }
 });

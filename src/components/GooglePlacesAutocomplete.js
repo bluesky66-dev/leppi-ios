@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import Qs from 'qs';
 import debounce from 'lodash.debounce';
-// import defaultStyles from '../styles/googlePlacesAutocomplete';
 import {widthPercentage as wp} from "../util";
 
 const defaultStyles = {
@@ -145,7 +144,7 @@ export default class GooglePlacesAutocomplete extends React.PureComponent {
         return [...res, ...results];
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this._request = this.props.debounce
             ? debounce(this._request, this.props.debounce)
             : this._request;
@@ -158,7 +157,7 @@ export default class GooglePlacesAutocomplete extends React.PureComponent {
         this._isMounted = true;
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         let listViewDisplayed = true;
 
         if (nextProps.listViewDisplayed !== 'auto') {

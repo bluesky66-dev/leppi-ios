@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../../util';
-
+import {widthPercentage as wp, heightPercentage as hp} from '../../util';
 
 module.exports = StyleSheet.create({
 
@@ -15,9 +14,6 @@ module.exports = StyleSheet.create({
         backgroundColor: '#02C8A7'
     },
 
-    swiperWrapper: {
-    },
-
     swiperSlide: {
         flex: 1,
     },
@@ -25,7 +21,7 @@ module.exports = StyleSheet.create({
     authFormWrapper: {
         flex: 1,
         backgroundColor: '#02C8A7',
-        marginTop: wp(30),
+        marginTop: hp(30),
     },
 
     authFormContainer: {
@@ -43,7 +39,7 @@ module.exports = StyleSheet.create({
 
     authTextInput: {
         borderWidth: 0,
-        marginBottom: wp(17),
+        marginBottom: hp(17),
         justifyContent: 'center',
         alignItems: 'center',
         padding: 0,
@@ -58,9 +54,9 @@ module.exports = StyleSheet.create({
 
     inputAddOnWrapper: {
         width: wp(35),
-        height: wp(33),
-        borderTopLeftRadius: wp(8),
-        borderBottomLeftRadius: wp(8),
+        height: hp(33),
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
         backgroundColor: "#f1f1f1",
     },
 
@@ -69,46 +65,46 @@ module.exports = StyleSheet.create({
     },
 
     iconMail: {
-        marginTop: wp(9),
-        height: wp(15),
-        width: wp(21),
+        marginTop: hp(9),
+        height: hp(15),
+        width: hp(21),
     },
 
     iconPhone: {
-        marginTop: wp(8),
-        height: wp(16),
-        width: wp(16),
+        marginTop: hp(8),
+        height: hp(16),
+        width: hp(16),
     },
 
     iconClosedLock: {
-        marginTop: wp(7),
-        height: wp(18),
-        width: wp(12),
+        marginTop: hp(7),
+        height: hp(18),
+        width: hp(12),
     },
 
     textInput: {
         flex: 1,
-        padding: wp(7),
-        fontSize: wp(14),
-        height: wp(33),
+        padding: 7,
+        fontSize: hp(14),
+        height: hp(33),
         fontFamily: "Raleway-Regular",
         color: "#3D3D3D",
         backgroundColor: "#ffffff",
-        borderTopRightRadius: wp(8),
-        borderBottomRightRadius: wp(8),
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
     },
 
     forgotText: {
         fontWeight: "400",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Bold",
-        marginTop: wp(-6),
+        marginTop: hp(-6),
         color: "#ffffff",
         textAlign: "right"
     },
 
     loginBtnWrapper: {
-        marginTop: wp(107),
+        marginTop: hp(107),
         color: "#ffffff",
     },
 
@@ -117,8 +113,8 @@ module.exports = StyleSheet.create({
     },
 
     thirdLoginWrapper: {
-        marginTop: wp(97),
-        marginBottom: wp(46)
+        marginTop: hp(97),
+        marginBottom: hp(46)
     },
 
     thirdLoginContainer: {
@@ -127,11 +123,11 @@ module.exports = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: wp(16),
+        marginTop: hp(16),
     },
 
     generalText: {
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Regular",
         color: "#ffffff",
     },
@@ -142,13 +138,13 @@ module.exports = StyleSheet.create({
     },
 
     socialButtonIcon: {
-        height: wp(38),
-        width: wp(38),
+        height: hp(38),
+        width: hp(38),
     },
 
     registerTextInputBox: {
         borderWidth: 0,
-        marginBottom: wp(17),
+        marginBottom: hp(17),
         padding: 0,
         backgroundColor: '#02C8A7'
     },
@@ -161,9 +157,9 @@ module.exports = StyleSheet.create({
 
     registerAddOn: {
         width: wp(79),
-        height: wp(33),
-        borderTopLeftRadius: wp(8),
-        borderBottomLeftRadius: wp(8),
+        height: hp(33),
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
         backgroundColor: "#F1F1F1",
         justifyContent: 'center',
         alignItems: 'center',
@@ -174,54 +170,54 @@ module.exports = StyleSheet.create({
         textAlign: "center",
         fontFamily: "Raleway-Regular",
         color: "#02C8A7",
-        fontSize: wp(11),
+        fontSize: hp(11),
     },
 
 
     registerTextInput: {
         flex: 1,
-        padding: wp(7),
+        padding: 7,
         paddingLeft: wp(14),
-        fontSize: wp(14),
-        height: wp(33),
+        fontSize: hp(14),
+        height: hp(33),
         fontFamily: "Raleway-Medium",
         color: "#3D3D3D",
         backgroundColor: "#ffffff",
-        borderTopRightRadius: wp(8),
-        borderBottomRightRadius: wp(8),
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
     },
 
     selectInput: {
         flex: 1,
-        padding: wp(7),
+        padding: 7,
         paddingLeft: wp(14),
-        height: wp(33),
+        height: hp(33),
         backgroundColor: "#ffffff",
-        borderTopRightRadius: wp(8),
-        borderBottomRightRadius: wp(8),
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
         justifyContent: 'center',
         position: 'relative'
     },
 
     selectInputTxt: {
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Medium",
         color: "#3D3D3D",
     },
 
     downChevron: {
-        width: wp(9),
-        height: wp(6),
+        width: hp(9),
+        height: hp(6),
         position: 'absolute',
-        top: wp(14),
+        top: hp(14),
         right: wp(10)
     },
 
     registerBtnWrapper: {
         flex: 1,
-        marginTop: wp(15),
+        marginTop: hp(15),
         color: "#ffffff",
-        marginBottom: wp(56),
+        marginBottom: hp(56),
     },
     nextStepBtn: {
         color: "#ffffff",
@@ -233,7 +229,7 @@ module.exports = StyleSheet.create({
 
     textAreaBox: {
         borderWidth: 0,
-        marginBottom: wp(16),
+        marginBottom: hp(16),
         padding: 0,
     },
 
@@ -243,15 +239,15 @@ module.exports = StyleSheet.create({
     textArea: {
         fontFamily: "Raleway-Regular",
         color: "#3D3D3D",
-        fontSize: wp(11),
+        fontSize: hp(11),
         textAlignVertical: 'top',
         backgroundColor: "#ffffff",
-        paddingTop: wp(10),
-        paddingBottom: wp(10),
+        paddingTop: hp(10),
+        paddingBottom: hp(10),
         paddingLeft: wp(18),
         paddingRight: wp(18),
-        height: wp(90),
-        borderRadius: wp(8),
+        height: hp(90),
+        borderRadius: 8,
     },
 
     groupAccessCodeContainer: {
@@ -261,25 +257,25 @@ module.exports = StyleSheet.create({
 
     groupAccessCode: {
         width: wp(107),
-        padding: wp(7),
+        padding: 7,
         paddingLeft: wp(15),
-        fontSize: wp(14),
-        height: wp(33),
+        fontSize: hp(14),
+        height: hp(33),
         fontFamily: "Roboto-Regular",
         color: "#3D3D3D",
         backgroundColor: "#ffffff",
-        borderTopRightRadius: wp(8),
-        borderBottomRightRadius: wp(8),
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
         letterSpacing: wp(6),
     },
 
     groupCodeAddonHelpTxt: {
         fontFamily: "Raleway-Bold",
-        fontSize: wp(15),
+        fontSize: hp(15),
         color: "#3D3D3D",
         width: wp(20),
-        height: wp(20),
-        borderRadius: wp(10),
+        height: hp(20),
+        borderRadius: 10,
         backgroundColor: '#ffffff',
         textAlign: 'center',
         marginLeft: wp(20)
@@ -287,7 +283,7 @@ module.exports = StyleSheet.create({
 
     joinTextInputBox: {
         borderWidth: 0,
-        marginBottom: wp(16),
+        marginBottom: hp(16),
         padding: 0,
         backgroundColor: '#02C8A7'
     },
@@ -300,9 +296,9 @@ module.exports = StyleSheet.create({
 
     joinAddOn: {
         width: wp(79),
-        height: wp(33),
-        borderTopRightRadius: wp(8),
-        borderBottomRightRadius: wp(8),
+        height: hp(33),
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
         backgroundColor: "#F1F1F1",
         justifyContent: 'center',
         alignItems: 'center',
@@ -312,29 +308,29 @@ module.exports = StyleSheet.create({
         alignSelf: "center",
         fontFamily: "Raleway-Regular",
         color: "#02C8A7",
-        fontSize: wp(11),
+        fontSize: hp(11),
     },
 
 
     joinGroupTitle: {
         flex: 1,
-        padding: wp(7),
+        padding: 7,
         paddingLeft: wp(19),
-        height: wp(33),
+        height: hp(33),
         justifyContent: 'center',
         backgroundColor: "#ffffff",
-        borderTopLeftRadius: wp(8),
-        borderBottomLeftRadius: wp(8),
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
     },
 
     groupTitleTxt: {
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Medium",
         color: "#3D3D3D",
     },
 
     emptySpace: {
-        height: wp(35),
+        height: hp(35),
         flex: 1,
     },
 });

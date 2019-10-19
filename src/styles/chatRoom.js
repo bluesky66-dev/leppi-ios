@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
 
@@ -15,15 +15,15 @@ module.exports = StyleSheet.create({
     otherView: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginBottom: wp(22),
-        paddingTop: wp(14),
+        marginBottom: hp(22),
+        paddingTop: hp(14),
         paddingRight: wp(21),
-        paddingBottom: wp(12),
+        paddingBottom: hp(12),
         paddingLeft: wp(21),
         marginLeft: wp(28),
         marginRight: wp(27),
         backgroundColor: '#F8F8F8',
-        borderRadius: wp(19),
+        borderRadius: hp(19),
     },
 
     otherViewBox: {
@@ -34,35 +34,35 @@ module.exports = StyleSheet.create({
 
     otherTxts: {
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Medium",
         marginLeft: wp(7)
     },
 
     iconProfile: {
-        width: wp(11),
-        height: wp(13),
+        width: hp(11),
+        height: hp(13),
     },
 
     iconPoint: {
-        width: wp(8),
-        height: wp(12),
+        width: hp(8),
+        height: hp(12),
     },
 
     iconLocation: {
-        width: wp(9),
-        height: wp(13),
+        width: hp(9),
+        height: hp(13),
     },
 
     height22: {
-        height:wp(22),
+        height:hp(22),
     },
     height104: {
-        height:wp(104),
+        height:hp(104),
     },
 
     chatBtnBox: {
-        height: wp(77),
+        height: hp(77),
         width: '100%',
         backgroundColor: '#EDEDED',
         justifyContent: 'center',
@@ -74,16 +74,16 @@ module.exports = StyleSheet.create({
 
     chatInput: {
         width: wp(226),
-        height: wp(47),
+        height: hp(47),
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Medium",
-        paddingTop: wp(17),
-        paddingBottom: wp(16),
+        paddingTop: hp(17),
+        paddingBottom: hp(16),
         paddingLeft: wp(24),
         paddingRight: wp(5),
-        borderBottomLeftRadius: wp(30),
-        borderTopLeftRadius: wp(30),
+        borderBottomLeftRadius: hp(30),
+        borderTopLeftRadius: hp(30),
         backgroundColor: '#ffffff'
     },
     btnAttach: {
@@ -91,34 +91,34 @@ module.exports = StyleSheet.create({
     },
     paperClipBox: {
         width: wp(32),
-        height: wp(47),
+        height: hp(47),
         justifyContent: 'center',
         marginRight: wp(10),
         backgroundColor: '#ffffff'
     },
     iconPaperClip: {
-        width: wp(32),
-        height: wp(32),
+        width: hp(32),
+        height: hp(32),
     },
     btnSendMsg: {
         backgroundColor: '#ffffff',
-        borderTopRightRadius: wp(24),
-        borderBottomRightRadius: wp(24),
+        borderTopRightRadius: hp(24),
+        borderBottomRightRadius: hp(24),
     },
     btnSendMsgBox: {
         width: wp(80),
-        height: wp(47),
+        height: hp(47),
         alignItems: 'center',
         justifyContent: 'center',
-        borderBottomLeftRadius: wp(14),
-        borderTopLeftRadius: wp(14),
-        borderTopRightRadius: wp(24),
-        borderBottomRightRadius: wp(24),
+        borderBottomLeftRadius: hp(14),
+        borderTopLeftRadius: hp(14),
+        borderTopRightRadius: hp(24),
+        borderBottomRightRadius: hp(24),
         backgroundColor: '#02C8A7'
     },
     btnSendTxt: {
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Medium",
         opacity: 0.7
     }

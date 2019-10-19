@@ -1,10 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../../util';
 
 
 module.exports = StyleSheet.create({
     formWrapper: {
-        marginTop: wp(89),
+        marginTop: hp(89),
     },
 
     formContainer: {

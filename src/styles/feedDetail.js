@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
 
@@ -11,7 +11,7 @@ module.exports = StyleSheet.create({
     },
 
     swiperWrapper: {
-        height: wp(302),
+        height: hp(302),
     },
 
     slideItem: {
@@ -22,56 +22,56 @@ module.exports = StyleSheet.create({
 
     slideImage: {
         width: '100%',
-        height: wp(302)
+        height: hp(302)
     },
 
     dotStyle: {
         backgroundColor: '#FFFFFF',
         width: wp(9),
-        height: wp(9),
-        borderRadius: wp(4.5),
+        height: hp(9),
+        borderRadius: hp(4.5),
         marginLeft: wp(8),
         marginRight: wp(8),
-        marginTop: wp(21),
-        marginBottom: wp(21),
+        marginTop: hp(21),
+        marginBottom: hp(21),
     },
 
     activeDotStyle: {
         backgroundColor: '#02C8A7',
         width: wp(9),
-        height: wp(9),
-        borderRadius: wp(4.5),
+        height: hp(9),
+        borderRadius: hp(4.5),
         marginLeft: wp(8),
         marginRight: wp(8),
-        marginTop: wp(21),
-        marginBottom: wp(21),
+        marginTop: hp(21),
+        marginBottom: hp(21),
     },
 
     detailWrapper: {
         backgroundColor: '#EFEFEF',
-        borderTopLeftRadius: wp(41),
-        borderTopRightRadius: wp(41),
+        borderTopLeftRadius: hp(41),
+        borderTopRightRadius: hp(41),
         paddingLeft: wp(43),
         paddingRight: wp(42),
-        paddingBottom: wp(35),
-        minHeight: wp(500),
+        paddingBottom: hp(35),
+        minHeight: hp(500),
     },
 
     detailRed: {
-        marginTop: wp(-35),
+        marginTop: hp(-35),
     },
 
     detailBlue: {
-        marginTop: wp(135),
+        marginTop: hp(135),
     },
 
     feedBadge: {
         width: wp(70),
-        height: wp(15),
-        borderRadius: wp(8),
+        height: hp(15),
+        borderRadius: hp(8),
         position: 'absolute',
         left: wp(41),
-        top: wp(-7),
+        top: hp(-7),
     },
 
     backRed: {
@@ -94,40 +94,40 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(3),
         paddingRight: wp(3),
         color: "#3D3D3D",
-        fontSize: wp(19),
+        fontSize: hp(19),
         fontFamily: "Raleway-Bold",
-        marginTop: wp(30),
+        marginTop: hp(30),
         fontWeight: '700',
     },
 
     dateView: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: wp(9)
+        marginTop: hp(9)
     },
 
     iconDate: {
         width: wp(12),
-        height: wp(12),
+        height: hp(12),
         marginRight: wp(6)
     },
 
     dateTxt: {
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Medium",
     },
 
     otherView: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginTop: wp(17),
+        marginTop: hp(17),
         backgroundColor: '#F8F8F8',
-        borderRadius: wp(19),
-        paddingTop: wp(12),
+        borderRadius: hp(19),
+        paddingTop: hp(12),
         paddingRight: wp(21),
         paddingLeft: wp(20),
-        paddingBottom: wp(11)
+        paddingBottom: hp(11)
     },
 
     otherViewBox:{
@@ -138,33 +138,33 @@ module.exports = StyleSheet.create({
 
     otherTxts:{
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Medium",
         marginLeft: wp(5)
     },
 
     iconProfile: {
-        width: wp(10),
-        height: wp(11),
+        width: hp(10),
+        height: hp(11),
     },
 
     iconPoint: {
-        width: wp(8),
-        height: wp(12),
+        width: hp(8),
+        height: hp(12),
     },
 
     iconLocation: {
-        width: wp(9),
-        height: wp(13),
+        width: hp(9),
+        height: hp(13),
     },
 
     descWrapper: {
-        marginTop: wp(31),
+        marginTop: hp(31),
     },
 
     descTitle: {
         color: "#3D3D3D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Bold",
         fontWeight: 'bold',
         paddingLeft: wp(3),
@@ -173,27 +173,27 @@ module.exports = StyleSheet.create({
 
     feedDesc: {
         color: "#3D3D3D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Medium",
         paddingLeft: wp(3),
         paddingRight: wp(3),
-        marginTop: wp(7),
+        marginTop: hp(7),
     },
 
     metaWrapper: {
-        marginTop: wp(21),
+        marginTop: hp(21),
         paddingLeft: wp(3),
         paddingRight: wp(3),
     },
 
     metaRow: {
         flexDirection: 'row',
-        marginBottom: wp(5),
+        marginBottom: hp(5),
     },
 
     metaRowLeft: {
         color: "#3D3D3D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Roboto-Regular",
         width: wp(77),
         flexWrap: 'wrap',
@@ -205,7 +205,7 @@ module.exports = StyleSheet.create({
 
     metaRowRight: {
         color: "#3D3D3D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Bold",
         marginLeft: wp(8),
         fontWeight: 'bold',
@@ -214,26 +214,26 @@ module.exports = StyleSheet.create({
 
     metaRowUnit: {
         color: "#3D3D3D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Regular",
         paddingLeft: wp(3),
         flex: 1,
     },
 
     btnChatWrapper: {
-        marginTop: wp(80),
+        marginTop: hp(80),
     },
 
     btnChat: {
-        height: wp(38),
-        borderRadius: wp(19),
+        height: hp(38),
+        borderRadius: hp(19),
         justifyContent: 'center',
         alignItems: 'center'
     },
 
     btnChatTxt: {
         color: "#B7000D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-SemiBold",
     },
 

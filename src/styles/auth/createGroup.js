@@ -1,10 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../../util';
 
 
 module.exports = StyleSheet.create({
     formWrapper: {
-        marginTop: wp(54),
+        marginTop: hp(54),
         flex: 1
     },
 
@@ -14,30 +14,30 @@ module.exports = StyleSheet.create({
     },
 
     afterGroupName: {
-        marginTop: wp(-4)
+        marginTop: hp(-4)
     },
 
     afterGroupCity: {
-        marginTop: wp(-9)
+        marginTop: hp(-9)
     },
 
     groupLabel: {
-        paddingTop: wp(8),
-        paddingBottom: wp(8),
+        paddingTop: hp(8),
+        paddingBottom: hp(8),
     },
 
     groupLabelText: {
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Regular",
     },
 
     afterGroupNeighborhood: {
-        height: wp(5),
+        height: hp(5),
     },
 
     afterGroupAccessCode: {
-        height: wp(140),
+        height: hp(140),
     }
 
 });

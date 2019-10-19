@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
 
@@ -11,8 +11,8 @@ module.exports = StyleSheet.create({
     mainInfoWrapper: {
         paddingLeft: wp(18),
         paddingRight: wp(18),
-        paddingTop: wp(39),
-        paddingBottom: wp(34),
+        paddingTop: hp(39),
+        paddingBottom: hp(34),
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
@@ -23,9 +23,9 @@ module.exports = StyleSheet.create({
         paddingRight: wp(18),
     },
     userAvatar: {
-        width: wp(97),
-        height: wp(97),
-        borderRadius: wp(97 / 2)
+        width: hp(97),
+        height: hp(97),
+        borderRadius: hp(97 / 2)
     },
     mainInfoBox: {
         flex: 1,
@@ -35,27 +35,27 @@ module.exports = StyleSheet.create({
         justifyContent: 'center',
     },
     nameView: {
-        marginBottom: wp(13)
+        marginBottom: hp(13)
     },
     nameTxt: {
         color: "#3D3D3D",
-        fontSize: wp(23),
+        fontSize: hp(23),
         fontFamily: "Raleway-Medium",
     },
     otherView: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        paddingTop: wp(12),
-        paddingBottom: wp(11),
+        paddingTop: hp(12),
+        paddingBottom: hp(11),
         paddingRight: wp(12),
         paddingLeft: wp(18),
         shadowOpacity: 0.16,
-        shadowRadius: wp(6),
+        shadowRadius: hp(6),
         shadowColor: '#000000',
-        shadowOffset: {height: wp(3), width: 0},
+        shadowOffset: {height: hp(3), width: 0},
         elevation: 4,
         backgroundColor: '#F8F8F8',
-        borderRadius: wp(19),
+        borderRadius: hp(19),
         alignItems: 'center',
         justifyContent: 'space-between',
         width: wp(193)
@@ -67,24 +67,24 @@ module.exports = StyleSheet.create({
     },
     otherTxts: {
         color: "#3D3D3D",
-        fontSize: wp(11),
+        fontSize: hp(11),
         fontFamily: "Raleway-Medium",
         marginLeft: wp(5)
     },
     iconPoint: {
-        width: wp(8),
-        height: wp(12),
+        width: hp(8),
+        height: hp(12),
     },
     iconLocation: {
-        width: wp(9),
-        height: wp(12),
+        width: hp(9),
+        height: hp(12),
     },
     userMetaWrapper: {
         backgroundColor: '#F8F8F8',
         paddingLeft: wp(18),
         paddingRight: wp(18),
-        paddingTop: wp(22),
-        paddingBottom: wp(84),
+        paddingTop: hp(22),
+        paddingBottom: hp(84),
         justifyContent: 'center',
     },
     pointWrapper: {
@@ -97,20 +97,20 @@ module.exports = StyleSheet.create({
     },
     pointStep: {
         color: "#3D3D3D",
-        fontSize: wp(10),
+        fontSize: hp(10),
         fontFamily: "Roboto-Regular",
         opacity: 0.5,
-        marginBottom: wp(3),
+        marginBottom: hp(3),
         alignSelf: 'center',
     },
     pointLevelBox: {
         width: wp(74),
-        height: wp(19),
+        height: hp(19),
         justifyContent: 'center',
     },
     pointLevel: {
         color: "#3D3D3D",
-        fontSize: wp(10),
+        fontSize: hp(10),
         fontFamily: "Roboto-Regular",
         opacity: 0.5,
         alignSelf: 'center',
@@ -126,30 +126,30 @@ module.exports = StyleSheet.create({
     },
     aboutView: {
         width: wp(289),
-        marginTop: wp(25),
+        marginTop: hp(25),
         alignSelf: 'center',
         paddingLeft: wp(10),
         paddingRight: wp(10)
     },
     resiAddress: {
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Roboto-Regular",
     },
     groupView: {
         alignSelf: 'center',
-        marginTop: wp(21),
+        marginTop: hp(21),
         width: wp(289),
         paddingLeft: wp(10),
         paddingRight: wp(10),
     },
     groupViewRow: {
         flexDirection: 'row',
-        marginTop: wp(12)
+        marginTop: hp(12)
     },
     groupViewLeft: {
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Roboto-Regular",
         width: wp(57),
     },
@@ -161,16 +161,16 @@ module.exports = StyleSheet.create({
     },
     userGroupBtn: {
         backgroundColor: '#02C8A7',
-        borderRadius: wp(20),
+        borderRadius: hp(20),
         width: wp(117),
-        height: wp(30),
+        height: hp(30),
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: wp(7),
+        marginBottom: hp(7),
     },
     userGroupBtnTxt: {
         color: "#3D3D3D",
-        fontSize: wp(11),
+        fontSize: hp(11),
         fontFamily: "Raleway-Regular",
         opacity: 0.4
     },
@@ -178,13 +178,13 @@ module.exports = StyleSheet.create({
         width: wp(289),
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: wp(5)
+        marginTop: hp(5)
     },
     inviteBtn: {
         backgroundColor: '#02C8A7',
-        borderRadius: wp(20),
+        borderRadius: hp(20),
         width: wp(117),
-        height: wp(30),
+        height: hp(30),
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: wp(17),
@@ -197,7 +197,7 @@ module.exports = StyleSheet.create({
     },
     earnByInvite: {
         color: "#3D3D3D",
-        fontSize: wp(11),
+        fontSize: hp(11),
         fontFamily: "Raleway-Regular",
         opacity: 0.4,
     },
@@ -205,7 +205,7 @@ module.exports = StyleSheet.create({
     btnBottomWrapper: {
         flexDirection: 'row',
         width: wp(279),
-        marginTop: wp(28),
+        marginTop: hp(28),
         alignSelf: 'center'
     },
     btnBottom: {
@@ -213,13 +213,13 @@ module.exports = StyleSheet.create({
         backgroundColor: '#02C8A7',
         alignItems: 'center',
         justifyContent: 'center',
-        height: wp(30),
-        borderRadius: wp(20),
+        height: hp(30),
+        borderRadius: hp(20),
         marginRight: wp(12),
     },
     btnBottomTxt: {
         color: "#3D3D3D",
-        fontSize: wp(11),
+        fontSize: hp(11),
         fontFamily: "Raleway-Regular",
         opacity: 0.4
     }

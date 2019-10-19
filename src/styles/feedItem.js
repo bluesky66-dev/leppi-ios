@@ -1,23 +1,23 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
     contentWrapper: {
         flexDirection: 'row',
         backgroundColor: '#E8E8E8',
         shadowOpacity: 0.16,
-        shadowRadius: wp(6),
+        shadowRadius: hp(6),
         shadowColor: '#000000',
-        shadowOffset: {height: wp(3), width: 0},
+        shadowOffset: {height: hp(3), width: 0},
         elevation: 6,
-        marginBottom: wp(10)
+        marginBottom: hp(10)
     },
     feedBadge: {
         width: wp(7),
         shadowOpacity: 0.16,
-        shadowRadius: wp(2),
+        shadowRadius: hp(2),
         shadowColor: '#000000',
-        shadowOffset: {height: 0, width: wp(2)},
+        shadowOffset: {height: 0, width: hp(2)},
         elevation: 6,
     },
     feedBadgeRed: {
@@ -36,54 +36,54 @@ module.exports = StyleSheet.create({
         justifyContent: 'center',
     },
     thumbnail: {
-        width: wp(75),
-        height: wp(75),
-        borderRadius: wp(75/2),
+        width: hp(75),
+        height: hp(75),
+        borderRadius: hp(75/2),
         backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
     },
     thumbImage: {
-        width: wp(69),
-        height: wp(69),
-        borderRadius: wp(69/2),
+        width: hp(69),
+        height: hp(69),
+        borderRadius: hp(69/2),
     },
     descWrapper: {
         flex: 1,
         paddingLeft: wp(7),
         paddingRight: wp(12),
-        paddingTop: wp(17),
-        paddingBottom: wp(15),
+        paddingTop: hp(17),
+        paddingBottom: hp(15),
         flexDirection: 'column',
     },
     titleView:{
-        marginBottom: wp(10),
+        marginBottom: hp(10),
     },
     catTxt: {
         color: "#3D3D3D",
-        fontSize: wp(10),
+        fontSize: hp(10),
         fontFamily: "Raleway-Medium",
-        marginBottom: wp(2),
+        marginBottom: hp(2),
     },
     titleTxt: {
         color: "#3D3D3D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Bold",
         fontWeight: 'bold',
     },
     dateView: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: wp(10)
+        marginBottom: hp(10)
     },
     iconDate: {
-        width: wp(10),
-        height: wp(10),
+        width: hp(10),
+        height: hp(10),
         marginRight: wp(4)
     },
     dateTxt: {
         color: "#3D3D3D",
-        fontSize: wp(10),
+        fontSize: hp(10),
         fontFamily: "Raleway-Medium",
     },
     otherView: {
@@ -97,20 +97,20 @@ module.exports = StyleSheet.create({
     },
     otherTxts:{
         color: "#3D3D3D",
-        fontSize: wp(10),
+        fontSize: hp(10),
         fontFamily: "Raleway-Medium",
         marginLeft: wp(5)
     },
     iconProfile: {
-        width: wp(9),
-        height: wp(10),
+        width: hp(9),
+        height: hp(10),
     },
     iconPoint: {
-        width: wp(6),
-        height: wp(10),
+        width: hp(6),
+        height: hp(10),
     },
     iconLocation: {
-        width: wp(7),
-        height: wp(10),
+        width: hp(7),
+        height: hp(10),
     },
 });

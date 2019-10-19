@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import styles from "../../styles/auth/top";
-import logoimage from "../../images/monkey.png";
+import logoImage from "../../images/monkey.png";
+import topEllipse from "../../images/top-ellipse.png";
 import AppTopBack from "./AppTopBack";
-import {Image, Text, View} from "react-native";
+import {Image, Text, View, ImageBackground} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 
 export default class AppTopSection extends Component {
@@ -63,14 +64,14 @@ export default class AppTopSection extends Component {
         }
         return (
             <View style={styles.contentWrapper}>
+                <ImageBackground source={topEllipse} resizeMode="stretch" style={styles.headerRound}/>
                 <AppTopBack onBackPress={this.props.onBackPress}/>
                 <View style={styles.appHeader}>
                     <Text style={styles.headerText}>{title}</Text>
                     <View style={styles.logoBox}>
-                        <Image source={logoimage} style={styles.headerLogo}/>
+                        <Image source={logoImage} style={styles.headerLogo}/>
                     </View>
                 </View>
-                <View style={styles.headerRound}/>
                 <View style={styles.stepTitleWrapper}>
                     <Text style={styles.stepTitle}>{stepTile}</Text>
                 </View>

@@ -28,13 +28,10 @@ class Home extends Component {
         this._onSelectFeedCat = this._onSelectFeedCat.bind(this);
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         if (this.props.userMeta.constructor === Object && Object.keys(this.props.userMeta).length === 0) {
             await this.props.fetchingUserMeta();
         }
-    }
-
-    componentDidMount() {
     }
 
     _onSellShare() {
@@ -89,7 +86,7 @@ class Home extends Component {
                     textStyle={{color: '#FFF'}}
                 />
                 <View style={styles.container}>
-                    <HeaderSection/>
+                    <HeaderSection navigation={this.props.navigation}/>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.groupInfo}>
                             <Text style={styles.groupInfoTxt}>
@@ -125,10 +122,12 @@ class Home extends Component {
                         </View>
                     </ScrollView>
                     <SellShareModal
+                        navigation={this.props.navigation}
                         isVisible={this.state.isSellShare}
                         feedCategory={this.state.feedCategory}
                         onBackdropPress={()=>this.setState({isSellShare: false})}/>
                     <SolicitationModal
+                        navigation={this.props.navigation}
                         feedCategory={this.state.feedCategory}
                         isVisible={this.state.isSolicitation}
                         onBackdropPress={()=>this.setState({isSolicitation: false})}/>

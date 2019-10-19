@@ -9,7 +9,7 @@ import welcome2 from '../images/welcome-2.png'
 import welcomeButton from '../images/welcome-btn.png'
 import {AppTopBack} from "../components/start";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import Swiper from "react-native-swiper";
+import Swiper from "../components/swiper";
 import * as authActions from "../redux/actions/AuthActions";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 

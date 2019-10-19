@@ -69,15 +69,18 @@ class Login extends Component {
     render() {
         var title = "Leppi";
         return (
-            <View>
+            <View style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{ color: '#FFF' }}
                 />
-                <ScrollView style={styles.rootWrapper}>
+                <ScrollView>
                     <AppTopSection authStep={0} onBackPress={() => { this.props.navigation.goBack() }} />
-                    <LoginForm login onPress={this.login.bind(this)} />
+                    <LoginForm
+                        login
+                        navigation={this.props.navigation}
+                        onPress={this.login.bind(this)} />
                     <View style={styles.thirdLoginWrapper}>
                         <View style={styles.thirdLoginContainer}>
                             <Text style={[styles.generalText]}>{"or login through"}</Text>

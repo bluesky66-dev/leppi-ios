@@ -30,7 +30,10 @@ class Chat extends Component {
     render() {
         let chatRooms = this.state.chatRooms.map((item, i) => {
             return (
-                <ChatItem chatRoom={item} key={i}/>
+                <ChatItem
+                    navigation={this.props.navigation}
+                    chatRoom={item}
+                    key={i}/>
             )
         });
         return (
@@ -41,7 +44,7 @@ class Chat extends Component {
                     textStyle={{color: '#FFF'}}
                 />
                 <View style={styles.container}>
-                    <HeaderSection/>
+                    <HeaderSection navigation={this.props.navigation}/>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.height56}/>
                         {chatRooms}

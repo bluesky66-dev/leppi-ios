@@ -1,7 +1,5 @@
-import {StyleSheet} from 'react-native';
-import { Dimensions, PixelRatio } from 'react-native';
-let screenHeight = Dimensions.get('window').height;
-import {widthPercentage as wp} from '../util';
+import {Dimensions, StyleSheet} from 'react-native';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
     container: {
@@ -11,32 +9,32 @@ module.exports = StyleSheet.create({
     content: {
         backgroundColor: '#FFFFFF',
         paddingLeft: wp(23),
-        paddingRight: wp(23),
-        borderRadius: wp(25),
+        paddingRight: hp(23),
+        borderRadius: hp(25),
     },
     bookMark: {
         height: wp(30.8),
-        width: wp(20),
+        width: hp(20),
         position: 'absolute',
         right: wp(76),
         top: 0,
     },
     btnCloseModal: {
         position: 'absolute',
-        top: wp(23.7),
+        top: hp(23.7),
         right: wp(20.1)
     },
     iconClose: {
-        width: wp(14),
-        height: wp(14),
+        width: hp(14),
+        height: hp(14),
     },
     groupNameView: {
-        marginTop: wp(36),
+        marginTop: hp(36),
         paddingLeft: wp(6),
     },
     groupNameTxt: {
         color: "#3D3D3D",
-        fontSize: wp(33),
+        fontSize: hp(33),
         fontFamily: "Raleway-Medium",
     },
     locationView: {
@@ -46,42 +44,42 @@ module.exports = StyleSheet.create({
         alignItems: 'center'
     },
     iconLocation: {
-        width: wp(7),
-        height: wp(10),
+        width: hp(7),
+        height: hp(10),
         marginRight: wp(5.7),
     },
     locationTxt: {
         color: "#3D3D3D",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Bold",
         opacity: 0.6,
     },
     descView: {
         paddingLeft: wp(6),
-        marginTop: wp(8),
+        marginTop: hp(8),
         width: wp(226),
     },
     descTxt: {
         color: "#7E7E7E",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Bold",
     },
     recentLabel: {
-        marginTop: wp(50),
+        marginTop: hp(50),
         paddingLeft: wp(6),
     },
     recentTxt: {
         color: "#7E7E7E",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Bold",
     },
     recentlyItems: {
-        marginTop: wp(10),
+        marginTop: hp(10),
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     groupInfo: {
-        marginTop: wp(46),
+        marginTop: hp(46),
         paddingLeft: wp(6),
         paddingRight: wp(8),
         flexDirection: 'row',
@@ -97,29 +95,29 @@ module.exports = StyleSheet.create({
     },
     nameTxt: {
         color: "#7E7E7E",
-        fontSize: wp(15),
+        fontSize: hp(15),
         fontFamily: "Raleway-Bold",
         marginTop: wp(2),
     },
     ageLabel: {
         color: "#7E7E7E",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Bold",
-        marginTop: wp(13),
+        marginTop: hp(13),
     },
     ageView: {
         flexDirection: 'row',
-        marginTop: wp(1),
+        marginTop: hp(1),
     },
     ageTxt: {
         color: "#7E7E7E",
-        fontSize: wp(15),
+        fontSize: hp(15),
         fontFamily: "Raleway-Bold",
         fontWeight: "bold",
     },
     ageUnite: {
         color: "#7E7E7E",
-        fontSize: wp(15),
+        fontSize: hp(15),
         fontFamily: "Raleway-Bold",
         marginLeft: wp(5),
     },
@@ -130,16 +128,16 @@ module.exports = StyleSheet.create({
     memberCount: {
         position: 'absolute',
         bottom: 0,
-        width: wp(71),
-        height: wp(71),
-        borderRadius: wp(8),
+        width: hp(71),
+        height: hp(71),
+        borderRadius: hp(8),
         backgroundColor: '#EEEEEE',
         alignItems: 'center',
     },
     memberCountNumber: {
-        marginTop: wp(3),
+        marginTop: hp(3),
         color: "#7E7E7E",
-        fontSize: wp(32),
+        fontSize: hp(32),
         fontFamily: "Raleway-Bold",
     },
     memberCountUnite: {
@@ -148,42 +146,42 @@ module.exports = StyleSheet.create({
         fontFamily: "Raleway-Bold",
     },
     joinBtnWrapper: {
-        marginTop: wp(33),
+        marginTop: hp(33),
         paddingLeft: wp(8),
         paddingRight: wp(8),
         flexDirection: 'row',
-        marginBottom: wp(20),
+        marginBottom: hp(20),
     },
     groupCode: {
         flex: 1,
-        borderTopLeftRadius: wp(13),
-        borderBottomLeftRadius: wp(13),
-        height: wp(33),
+        borderTopLeftRadius: hp(13),
+        borderBottomLeftRadius: hp(13),
+        height: hp(33),
         paddingLeft: wp(17),
         paddingTop: wp(10),
-        paddingBottom: wp(7),
-        paddingRight: wp(5),
+        paddingBottom: hp(7),
+        paddingRight: hp(5),
         backgroundColor: '#EEEEEE',
         color: "#3D3D3D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Regular",
         letterSpacing: wp(6),
     },
     btnJoinGroup: {
         backgroundColor: '#02C8A7',
-        borderTopRightRadius: wp(13),
-        borderBottomRightRadius: wp(13),
-        height: wp(33),
+        borderTopRightRadius: hp(13),
+        borderBottomRightRadius: hp(13),
+        height: hp(33),
         paddingLeft: wp(16),
         paddingRight: wp(12),
         justifyContent: 'center'
     },
     joinGroupTxt: {
         color: "#FFFFFF",
-        fontSize: wp(15),
+        fontSize: hp(15),
         fontFamily: "Raleway-Bold",
     },
     emptyView: {
-        height: wp(25),
+        height: hp(25),
     },
 });

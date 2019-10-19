@@ -1,59 +1,53 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../../util';
 import { Dimensions } from 'react-native';
 let screenWidth = Dimensions.get('window').width;
 
 module.exports = StyleSheet.create({
 
     contentWrapper: {
-        flex: 1,
+        height: hp(300),
         backgroundColor: '#02C8A7',
-        paddingBottom: wp(13),
+    },
+
+    headerRound: {
+        position: 'absolute',
+        top: hp(-73),
+        left: wp(-74),
+        width: wp(523),
+        height: hp(373),
+        zIndex: 0
     },
 
     backIcon: {
         position: "absolute",
-        top: wp(48),
+        top: hp(48),
         left: wp(33),
         width: wp(22),
-        height: wp(20),
+        height: hp(20),
         backgroundColor: 'transparent',
         zIndex: 3,
     },
 
     backIconStyle: {
-        width: wp(22),
-        height: wp(20),
+        width: 22,
+        height: 20,
         resizeMode: 'stretch',
     },
 
     appHeader: {
         width: '100%',
-        height: wp(250),
-        backgroundColor: '#35d3b9',
+        height: hp(250),
         zIndex: 2
-    },
-
-    headerRound: {
-        position: 'absolute',
-        top: wp(-75),
-        width: wp(375),
-        height: wp(375),
-        backgroundColor: '#35d3b9',
-        borderRadius: wp(188),
-        transform: [
-            {scaleX: 1.5}
-        ],
-        zIndex: 1
     },
 
     headerText: {
         position: 'absolute',
         alignSelf: "center",
-        top: wp(22),
+        top: hp(22),
         fontWeight: "400",
         fontFamily: "Raleway-Bold",
-        fontSize: wp(46),
+        fontSize: hp(46),
         color: "#ffffff",
         textAlign: "center",
         opacity: 0.2,
@@ -61,16 +55,16 @@ module.exports = StyleSheet.create({
 
     logoBox: {
         position: 'absolute',
-        top: wp(59),
+        top: hp(59),
         alignSelf: "center",
-        width: wp(177),
-        height: wp(148),
+        width: hp(177),
+        height: hp(148),
     },
 
     headerLogo: {
         alignSelf: "flex-start",
-        width: wp(148),
-        height: wp(148),
+        width: hp(148),
+        height: hp(148),
     },
 
     stepTitleWrapper: {
@@ -83,7 +77,7 @@ module.exports = StyleSheet.create({
         fontWeight: "400",
         fontFamily: "Raleway-Bold",
         color: "#ffffff",
-        fontSize: wp(17),
+        fontSize: hp(17),
     },
 
     stepDot0: {
@@ -91,42 +85,42 @@ module.exports = StyleSheet.create({
     },
 
     stepDot1: {
-        width: wp(14),
-        height: wp(14),
+        width: hp(14),
+        height: hp(14),
         zIndex: 2,
         backgroundColor: '#ffffff',
-        borderRadius: wp(7),
+        borderRadius: hp(7),
         left: wp(25),
-        top: wp(-11),
+        top: hp(-11),
     },
 
     stepDot2: {
-        width: wp(14),
-        height: wp(14),
+        width: hp(14),
+        height: hp(14),
         zIndex: 2,
         backgroundColor: '#ffffff',
-        borderRadius: wp(7),
+        borderRadius: hp(7),
         left: wp(129),
-        top: wp(17),
+        top: hp(17),
     },
 
     stepDot3: {
-        width: wp(14),
-        height: wp(14),
+        width: hp(14),
+        height: hp(14),
         zIndex: 2,
         backgroundColor: "#ffffff",
-        borderRadius: wp(7),
+        borderRadius: hp(7),
         left: wp(234),
-        top: wp(17),
+        top: hp(17),
     },
 
     stepDot4: {
-        width: wp(14),
-        height: wp(14),
+        width: hp(14),
+        height: hp(14),
         zIndex: 2,
         backgroundColor: "#ffffff",
-        borderRadius: wp(7),
+        borderRadius: hp(7),
         left: wp(338),
-        top: wp(-11),
+        top: hp(-11),
     },
 });

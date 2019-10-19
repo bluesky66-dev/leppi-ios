@@ -17,9 +17,6 @@ class ChatUsers extends Component {
         };
     }
 
-    componentWillMount() {
-    }
-
      componentDidMount() {
          this.props.setLoadingSpinner(true);
          authActions.fetchingChatUsers(this.props.roomInfo, this.state.page, userList => {
@@ -33,7 +30,10 @@ class ChatUsers extends Component {
     render() {
         let userList = this.state.userList.map((item, i) => {
             return(
-                <UserItem userInfo={item} key={i}/>
+                <UserItem
+                    navigation={this.props.navigation}
+                    userInfo={item}
+                    key={i}/>
             )
         });
         return (
@@ -44,7 +44,7 @@ class ChatUsers extends Component {
                     textStyle={{color: '#FFF'}}
                 />
                 <View style={styles.container}>
-                    <HeaderSection/>
+                    <HeaderSection navigation={this.props.navigation}/>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.height13}/>
                         {userList}

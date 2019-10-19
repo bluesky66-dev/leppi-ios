@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import { Image, Text, TouchableOpacity, View, ScrollView } from 'react-native';
-import { JoinGroupItem } from '../start';
+import React, {Component} from 'react';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {JoinGroupItem} from '../start';
 import joinGroupStyles from '../../styles/auth/joinGroup'
 import nextIcon from "../../images/right-chevron.png";
 import prevIcon from "../../images/left-chevron.png";
-import Swiper from "react-native-swiper";
-import { widthPercentage as wp } from "../../util";
+import Swiper from "../../components/swiper";
 import JoinGroupModal from '../JoinGroupModal';
 import * as authActions from "../../redux/actions/AuthActions";
-import { connect } from "react-redux";
-
+import {connect} from "react-redux";
 
 class JoinGroup extends Component {
 
@@ -119,7 +117,7 @@ class JoinGroup extends Component {
                 onMomentumScrollEnd={this._onMomentumScrollEnd}
                 dotStyle={joinGroupStyles.dotStyle}
                 activeDotStyle={joinGroupStyles.activeDotStyle}
-                loop={false} style={[joinGroupStyles.swiperWrapper, { height: wp(274) }]}>
+                loop={false} style={joinGroupStyles.swiperWrapper}>
                 {swiperItems}
             </Swiper>;
         }

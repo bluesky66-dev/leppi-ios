@@ -1,6 +1,10 @@
-import {widthPercentageToDP} from 'react-native-responsive-screen';
+import {heightPercentageToDP, widthPercentageToDP} from 'react-native-responsive-screen';
 import {Base64} from 'js-base64';
 import countries from 'world-countries';
+
+export const heightPercentage = dimension => {
+    return heightPercentageToDP(dimension / 812 * 100);
+};
 
 export const widthPercentage = dimension => {
     return widthPercentageToDP(dimension / 375 * 100);

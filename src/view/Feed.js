@@ -18,9 +18,6 @@ class Feed extends Component {
         };
     }
 
-    componentWillMount() {
-    }
-
      componentDidMount() {
          this.props.setLoadingSpinner(true);
          authActions.fetchingFeeds(this.props.groupId, this.props.userMeta, this.state.page, feedList => {
@@ -39,7 +36,11 @@ class Feed extends Component {
                 feedBadge = 'blue';
             }
             return(
-                <FeedItem feed={feed} key={i} feedBadge={feedBadge}/>
+                <FeedItem
+                    navigation={this.props.navigation}
+                    feed={feed}
+                    key={i}
+                    feedBadge={feedBadge}/>
             )
         });
         return (
@@ -50,7 +51,7 @@ class Feed extends Component {
                     textStyle={{color: '#FFF'}}
                 />
                 <View style={styles.container}>
-                    <HeaderSection/>
+                    <HeaderSection navigation={this.props.navigation}/>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.height13}/>
                         {feedList}

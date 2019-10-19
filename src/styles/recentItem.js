@@ -1,24 +1,24 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
     recentItem: {
         width: wp(83),
-        borderRadius: wp(11),
-        height: wp(115),
+        borderRadius: hp(11),
+        height: hp(115),
         position: 'relative',
         marginRight: wp(11),
     },
     thumbnail: {
-        borderRadius: wp(11),
+        borderRadius: hp(11),
         width: '100%',
-        height: wp(115),
+        height: hp(115),
     },
     recentInfo: {
         width: '100%',
         paddingLeft: wp(6),
-        paddingTop: wp(6),
-        paddingBottom: wp(8),
+        paddingTop: hp(6),
+        paddingBottom: hp(8),
         paddingRight: wp(8),
         position: 'absolute',
         bottom: 0,
@@ -27,13 +27,13 @@ module.exports = StyleSheet.create({
     },
     itemTitle: {
         color: "#3D3D3D",
-        fontSize: wp(8),
+        fontSize: hp(8),
         fontFamily: "Raleway-Bold",
-        marginBottom: wp(1),
+        marginBottom: hp(1),
     },
     timeAgo: {
         color: "#3D3D3D",
-        fontSize: wp(5),
+        fontSize: hp(5),
         fontFamily: "Raleway-Regular",
         opacity: 0.5
     }

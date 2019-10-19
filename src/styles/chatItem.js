@@ -1,25 +1,25 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
     contentWrapper: {
         backgroundColor: '#F8F8F8',
-        marginBottom: wp(14),
-        borderRadius: wp(8),
-        paddingTop: wp(9),
+        marginBottom: hp(14),
+        borderRadius: hp(8),
+        paddingTop: hp(9),
         paddingRight: wp(10),
-        paddingBottom: wp(10),
+        paddingBottom: hp(10),
         paddingLeft: wp(14),
         position: 'relative',
     },
 
     feedBadge: {
         width: wp(32),
-        height: wp(7),
+        height: hp(7),
         position: 'absolute',
         top: wp(-3.5),
         left: wp(14),
-        borderRadius: wp(8),
+        borderRadius: hp(8),
     },
 
     feedBadgeRed: {
@@ -35,12 +35,12 @@ module.exports = StyleSheet.create({
     },
 
     titleView: {
-        marginBottom: wp(10),
+        marginBottom: hp(10),
     },
 
     titleTxt: {
         color: "#3D3D3D",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-Medium",
     },
 
@@ -57,34 +57,34 @@ module.exports = StyleSheet.create({
 
     otherTxts: {
         color: "#3D3D3D",
-        fontSize: wp(10),
+        fontSize: hp(10),
         fontFamily: "Raleway-Medium",
         marginLeft: wp(5)
     },
 
     iconProfile: {
-        width: wp(9),
-        height: wp(10),
+        width: hp(9),
+        height: hp(10),
     },
 
     iconPoint: {
-        width: wp(6),
-        height: wp(10),
+        width: hp(6),
+        height: hp(10),
     },
 
     iconLocation: {
-        width: wp(7),
-        height: wp(10),
+        width: hp(7),
+        height: hp(10),
     },
 
     lastMessageView: {
         paddingRight: wp(50),
-        marginTop: wp(11),
+        marginTop: hp(11),
     },
 
     lastMessage: {
         color: "#3D3D3D",
-        fontSize: wp(10),
+        fontSize: hp(10),
         fontFamily: "Raleway-Regular",
         opacity: 0.5,
     },
@@ -94,12 +94,12 @@ module.exports = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         right: wp(10),
-        bottom: wp(10),
+        bottom: hp(10),
     },
 
     dateTxt: {
         color: "#3D3D3D",
-        fontSize: wp(9),
+        fontSize: hp(9),
         fontFamily: "Raleway-Medium",
         opacity: 0.3,
     },

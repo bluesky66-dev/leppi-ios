@@ -5,12 +5,17 @@ import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
-import Swiper from 'react-native-swiper'
+import Swiper from "../../components/swiper";
 import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import * as authActions from "../../redux/actions/AuthActions";
 import Spinner from "react-native-loading-spinner-overlay";
 import AsyncStorage from "@react-native-community/async-storage";
+
+let defaultStyles = {
+    swiperWrapper: {
+    },
+};
 
 class joinGroupPage extends Component {
     constructor(props) {
@@ -120,17 +125,17 @@ class joinGroupPage extends Component {
     }
 
     render() {
-        let swiperHeight = 404;
+        defaultStyles.swiperWrapper.height = 404;
         let title = "Próximo";
         switch (this.state.step_index) {
             case 1:
-                swiperHeight = 512;
+                defaultStyles.swiperWrapper.height = 512;
                 break;
             case 2:
-                swiperHeight = 512;
+                defaultStyles.swiperWrapper.height = 512;
                 break;
             case 3:
-                swiperHeight = 404;
+                defaultStyles.swiperWrapper.height = 404;
                 title = "Criar Grupo";
                 break;
         }
@@ -149,7 +154,7 @@ class joinGroupPage extends Component {
                                 scrollEnabled={false}
                                 showsPagination={false}
                                 onMomentumScrollEnd={this._onMomentumScrollEnd}
-                                loop={false} style={[styles.swiperWrapper, {height: wp(swiperHeight)}]}>
+                                loop={false} style={defaultStyles.swiperWrapper}>
                             <View style={styles.swiperSlide}>
                                 <GroupForm
                                     toCreateGroup={this._onToCreateGroup} toJoinGroup={this._onToJoinGroup}/>

@@ -60,6 +60,7 @@ class Start extends Component {
             },
             options
         );
+
         try {
             // firebase.dynamicLinks()
             //     .getInitialLink()
@@ -76,8 +77,7 @@ class Start extends Component {
             //         }
             //     });
             this.authSubscription = firebase.auth().onAuthStateChanged(async (user) => {
-                console.log('navigate === ', navigate.state);
-                if (navigate.state && navigate.state.routeName !== 'Register' && navigate.state.routeName !== 'Password') {
+                if (this.props.navigation.state && this.props.navigation.state.routeName !== 'Register' && this.props.navigation.state.routeName !== 'Password') {
                     if (user) {
                         console.log('onAuthStateChanged ==== user');
                     } else {
@@ -126,11 +126,10 @@ class Start extends Component {
                 <ScrollView style={styles.containerScroll}>
                     <Text style={[styles.welcomeText]}>Leppi</Text>
                     <View style={styles.logoCotainer}>
-                        <Image style={styles.logoimage} source={logoimage}/>
+                        <Image style={styles.logoimage} source={logoimage} resizeMode="contain"/>
                     </View>
                     <Button style={[styles.btnLogin]} onPress={this._onLogin} btnText={"Login"}/>
                     <Button style={[styles.btnRegister]} onPress={this._onRegister} btnText={"Register"} bordered/>
-                    <View style={{height: 83}}/>
                 </ScrollView>
             </View>
         );

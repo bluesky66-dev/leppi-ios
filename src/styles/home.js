@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp} from '../util';
+import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
 
@@ -14,48 +14,48 @@ module.exports = StyleSheet.create({
         width: wp(303),
         alignSelf: 'center',
         backgroundColor: '#e2e2e2',
-        borderBottomRightRadius: wp(28),
-        borderBottomLeftRadius: wp(28),
+        borderBottomRightRadius: hp(28),
+        borderBottomLeftRadius: hp(28),
         paddingLeft: wp(14),
         paddingRight: wp(14),
         alignItems: 'center',
-        paddingTop: wp(16),
-        paddingBottom: wp(9),
+        paddingTop: hp(16),
+        paddingBottom: hp(9),
     },
 
     groupInfoTxt: {
         color: "#3d3d3d",
-        fontSize: wp(11),
+        fontSize: hp(11),
         fontFamily: "Rubik-Regular",
         textAlign: 'center'
     },
 
     btnInfoGroup: {
-        marginTop: wp(23),
+        marginTop: hp(23),
         width: wp(300),
         alignSelf: 'center',
         backgroundColor: '#35d3b9',
         alignItems: 'center',
         justifyContent: 'center',
-        height: wp(38),
-        borderRadius: wp(35)
+        height: hp(38),
+        borderRadius: hp(35)
     },
 
     btnInfoGroupTxt: {
         color: "#ffffff",
-        fontSize: wp(14),
+        fontSize: hp(14),
         fontFamily: "Raleway-SemiBold",
     },
 
     titleWrapper: {
-        marginTop: wp(38),
+        marginTop: hp(38),
         paddingLeft: wp(54),
         paddingRight: wp(54)
     },
 
     titleTxt: {
         color: "#3d3d3d",
-        fontSize: wp(19),
+        fontSize: hp(19),
         fontFamily: "Raleway-Bold",
     },
     titleSaleTxt: {
@@ -68,60 +68,60 @@ module.exports = StyleSheet.create({
         flexWrap: 'wrap',
         paddingLeft: wp(33),
         paddingRight: wp(32),
-        marginTop: wp(14),
+        marginTop: hp(14),
     },
 
     isSelected: {
-        borderRadius: wp(8),
+        borderRadius: hp(8),
         backgroundColor: '#e2e2e2'
     },
 
     typeBox: {
         width: wp(103),
-        marginBottom: wp(9),
+        marginBottom: hp(9),
         alignItems: 'center',
         justifyContent: 'center',
-        padding: wp(5)
+        padding: hp(5)
     },
 
     typeIcon: {
         width: wp(34),
-        height: wp(33),
-        marginBottom: wp(8)
+        height: hp(33),
+        marginBottom: hp(8)
     },
 
     typeTxt: {
         color: "#3d3d3d",
-        fontSize: wp(10),
+        fontSize: hp(10),
         fontFamily: "Rubik-Regular",
         textAlign: 'center',
     },
 
     buttonGroup: {
-        marginTop: wp(60),
+        marginTop: hp(60),
         paddingRight :wp(32),
         paddingLeft: wp(33),
-        marginBottom: wp(62)
+        marginBottom: hp(62)
     },
 
     sellButton: {
-        marginBottom: wp(18)
+        marginBottom: hp(18)
     },
 
     buttonOut: {
         width: wp(310),
-        height: wp(55),
+        height: hp(55),
         backgroundColor: '#ffffff',
-        borderRadius: wp(35),
+        borderRadius: hp(35),
         alignItems: 'center',
         justifyContent: 'center'
     },
 
     buttonIn: {
         width: wp(302),
-        height: wp(49),
-        borderRadius: wp(35),
-        borderWidth: wp(1),
+        height: hp(49),
+        borderRadius: hp(35),
+        borderWidth: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -136,17 +136,17 @@ module.exports = StyleSheet.create({
 
     buttonTxt: {
         color: "#3d3d3d",
-        fontSize: wp(18),
+        fontSize: hp(18),
         fontFamily: "Raleway-Bold",
     },
 
     btnBadge: {
         width: wp(55),
-        height: wp(17),
-        borderRadius: wp(35),
+        height: hp(17),
+        borderRadius: hp(35),
         alignSelf: 'center',
         position: 'absolute',
-        top: wp(-7),
+        top: hp(-7),
     },
 
     badgeRed: {

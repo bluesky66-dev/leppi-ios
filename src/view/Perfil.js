@@ -132,7 +132,7 @@ class Perfil extends Component {
                     textStyle={{ color: '#FFF' }}
                 />
                 <View style={styles.container}>
-                    <HeaderSection />
+                    <HeaderSection navigation={this.props.navigation}/>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.mainInfoWrapper}>
                             <View style={styles.avatarBox}>
