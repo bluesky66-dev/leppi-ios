@@ -317,7 +317,7 @@ export const uploadMedia = media => {
                 .storage()
                 .ref(uploadPath)
                 .putFile(media.uri);
-            dispatch(isMediaUploaded(rImage.ref));
+            dispatch(isMediaUploaded(uploadPath));
             dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));

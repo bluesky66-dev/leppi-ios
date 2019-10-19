@@ -36,10 +36,12 @@ export default class InformationForm extends Component {
         ImagePicker.openCamera({
             width: 300,
             height: 400,
-            cropping: true,
+            cropping: false,
+            includeExif: true,
+            mediaType: 'photo'
         }).then(response => {
             let image: any = {};
-            image.uri = 'file://' + response.path;
+            image.uri = response.path;
             console.log('======= image url', response);
             image.path = 'users';
             modalThis.props.onChange({avatar: image});
