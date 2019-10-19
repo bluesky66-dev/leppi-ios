@@ -13,7 +13,7 @@ module.exports = StyleSheet.create({
         marginBottom: hp(10)
     },
     feedBadge: {
-        width: wp(7),
+        width: 7,
         shadowOpacity: 0.16,
         shadowRadius: hp(2),
         shadowColor: '#000000',

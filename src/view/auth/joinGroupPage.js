@@ -5,7 +5,7 @@ import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
-import Swiper from 'react-native-swiper';
+import Swiper from '../../components/swiper';
 import {heightPercentage as hp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import * as authActions from "../../redux/actions/AuthActions";
@@ -40,9 +40,9 @@ class joinGroupPage extends Component {
         rol();
     }
 
-    _onMomentumScrollEnd(index) {
-        console.log('step_index === ', index);
-        let step_index = index * 1 + 1;
+    _onMomentumScrollEnd(e, state, context) {
+        console.log('step_index === ', state.index);
+        let step_index = state.index * 1 + 1;
         this.setState({step_index: step_index});
     }
 
@@ -154,7 +154,7 @@ class joinGroupPage extends Component {
                         <Swiper ref={'swiper'}
                                 scrollEnabled={false}
                                 showsPagination={false}
-                                onIndexChanged={this._onMomentumScrollEnd}
+                                onMomentumScrollEnd={this._onMomentumScrollEnd}
                                 loop={false} style={swiperStyle}>
                             <View style={styles.swiperSlide}>
                                 <GroupForm

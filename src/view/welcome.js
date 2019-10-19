@@ -9,7 +9,7 @@ import welcome2 from '../images/welcome-2.png'
 import welcomeButton from '../images/welcome-btn.png'
 import {AppTopBack} from "../components/start";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import Swiper from 'react-native-swiper';
+import Swiper from '../components/swiper';
 import * as authActions from "../redux/actions/AuthActions";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 
@@ -37,9 +37,9 @@ class Welcome extends Component {
         this.props.navigation.goBack();
     }
 
-    _onMomentumScrollEnd(index) {
-        console.log('welecom state', index);
-        this.setState({step_index: index});
+    _onMomentumScrollEnd(e, state, context) {
+        console.log('welecom state', state.index);
+        this.setState({step_index: state.index});
     }
 
     _onPressButton() {
@@ -77,7 +77,7 @@ class Welcome extends Component {
                                 showsPagination={true}
                                 dotStyle={styles.dotStyle}
                                 activeDotStyle={styles.activeDotStyle}
-                                onIndexChanged={this._onMomentumScrollEnd}
+                                onMomentumScrollEnd={this._onMomentumScrollEnd}
                                 loop={false} style={styles.swiperWrapper}>
                             <View style={styles.swiperItem}>
                                 <Text style={[styles.swiperItemTxt, styles.width205]}>Leppi is a social network that enables sharing, negotiation and help among neighbors</Text>

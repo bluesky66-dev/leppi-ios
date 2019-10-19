@@ -6,7 +6,7 @@ import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
-import Swiper from 'react-native-swiper';
+import Swiper from '../../components/swiper';
 import {heightPercentage as hp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import Spinner from "react-native-loading-spinner-overlay";

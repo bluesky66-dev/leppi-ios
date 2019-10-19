@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
-import Swiper from 'react-native-swiper';
+import Swiper from '../components/swiper';
 import styles from '../styles/feedDetail';
 import {AppTopBack} from "../components/start";
 import IconClock from "../images/clock.png";

@@ -4,7 +4,7 @@ import {JoinGroupItem} from '../start';
 import joinGroupStyles from '../../styles/auth/joinGroup'
 import nextIcon from "../../images/right-chevron.png";
 import prevIcon from "../../images/left-chevron.png";
-import Swiper from 'react-native-swiper';
+import Swiper from '../../components/swiper';
 import JoinGroupModal from '../JoinGroupModal';
 import * as authActions from "../../redux/actions/AuthActions";
 import {connect} from "react-redux";

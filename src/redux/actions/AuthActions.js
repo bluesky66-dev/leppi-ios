@@ -844,6 +844,7 @@ export const onMessages = (roomId, callback) => {
                     msgId: snapshot.key,
                     ...snapshot.val()
                 };
+                console.log('onMessages ===== ', message);
                 messages.push(message);
                 callback(messages);
             });
