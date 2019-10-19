@@ -40,9 +40,9 @@ class joinGroupPage extends Component {
         rol();
     }
 
-    _onMomentumScrollEnd(e, state, context) {
-        // console.log('step_index === ', state.index);
-        let step_index = state.index * 1 + 1;
+    _onMomentumScrollEnd(index) {
+        console.log('step_index === ', index);
+        let step_index = index * 1 + 1;
         this.setState({step_index: step_index});
     }
 
@@ -125,7 +125,7 @@ class joinGroupPage extends Component {
     }
 
     render() {
-        let swiperStyle = {};
+        let swiperStyle = {flex: 1};
         swiperStyle.height = hp(404);
         let title = "Próximo";
         switch (this.state.step_index) {
@@ -148,13 +148,13 @@ class joinGroupPage extends Component {
                     textContent={''}
                     textStyle={{color: '#FFF'}}
                 />
-                <View  style={styles.rootWrapper}>
+                <View style={styles.rootWrapper}>
                     <ScrollView style={styles.rootWrapper}>
                         <AppTopSection authStep={5 + this.state.step_index} onBackPress={this._onBackPress}/>
                         <Swiper ref={'swiper'}
                                 scrollEnabled={false}
                                 showsPagination={false}
-                                onMomentumScrollEnd={this._onMomentumScrollEnd}
+                                onIndexChanged={this._onMomentumScrollEnd}
                                 loop={false} style={swiperStyle}>
                             <View style={styles.swiperSlide}>
                                 <GroupForm

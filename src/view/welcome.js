@@ -37,13 +37,14 @@ class Welcome extends Component {
         this.props.navigation.goBack();
     }
 
-    _onMomentumScrollEnd(e, state, context) {
-        this.setState({step_index: state.index});
+    _onMomentumScrollEnd(index) {
+        console.log('welecom state', index);
+        this.setState({step_index: index});
     }
 
     _onPressButton() {
         const {navigate} = this.props.navigation;
-
+        console.log('welecom index', this.state.step_index);
         if (this.state.step_index === 1) {
             this.props.clickMenu(MENU_TYPES.HOME);
             navigate('Home');
@@ -76,7 +77,7 @@ class Welcome extends Component {
                                 showsPagination={true}
                                 dotStyle={styles.dotStyle}
                                 activeDotStyle={styles.activeDotStyle}
-                                onMomentumScrollEnd={this._onMomentumScrollEnd}
+                                onIndexChanged={this._onMomentumScrollEnd}
                                 loop={false} style={styles.swiperWrapper}>
                             <View style={styles.swiperItem}>
                                 <Text style={[styles.swiperItemTxt, styles.width205]}>Leppi is a social network that enables sharing, negotiation and help among neighbors</Text>
