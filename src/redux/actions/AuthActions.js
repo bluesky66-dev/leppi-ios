@@ -580,7 +580,7 @@ export const createFeed = (feed, userMeta) => {
                         .storage()
                         .ref(uploadPath)
                         .putFile(media);
-                    gallery.push(rImage.ref);
+                    gallery.push(uploadPath);
                 }
                 feed.gallery = gallery;
             }

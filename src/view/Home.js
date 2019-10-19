@@ -79,7 +79,7 @@ class Home extends Component {
             joinedGroup = this.props.joinedGroup;
         }
         return (
-            <View>
+            <View style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}

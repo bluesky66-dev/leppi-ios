@@ -54,7 +54,7 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(9),
         paddingRight: wp(9),
         paddingTop: hp(7),
-        paddingBottom: wp(7),
+        paddingBottom: hp(7),
         height: hp(33),
     },
     descInput: {

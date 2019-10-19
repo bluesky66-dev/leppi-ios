@@ -13,7 +13,7 @@ module.exports = StyleSheet.create({
         borderRadius: hp(25),
     },
     bookMark: {
-        height: wp(30.8),
+        height: hp(30.8),
         width: hp(20),
         position: 'absolute',
         right: wp(76),
@@ -142,7 +142,7 @@ module.exports = StyleSheet.create({
     },
     memberCountUnite: {
         color: "#7E7E7E",
-        fontSize: wp(12),
+        fontSize: hp(12),
         fontFamily: "Raleway-Bold",
     },
     joinBtnWrapper: {
