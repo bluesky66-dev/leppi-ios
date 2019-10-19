@@ -63,6 +63,7 @@ class Login extends Component {
             AsyncStorage.setItem('$leppiUserId', userId);
             await this.props.fetchingSocialMetaData(userId, navigate);
         } catch (error) {
+            this.props.setLoadingSpinner(false);
             console.log('google sign error', error);
         }
     }
