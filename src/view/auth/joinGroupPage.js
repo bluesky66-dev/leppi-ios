@@ -171,7 +171,7 @@ class joinGroupPage extends Component {
                             </View>
                         </Swiper>
                         {
-                            (this.state.step_index !== 1 && this.state.step_index !== 2) &&
+                            (this.state.step_index === 3) &&
                             <View style={styles.registerBtnWrapper}>
                                 <RegisterButton authStep={this.state.step_index} style={styles.nextStepBtn}
                                                 onPress={this._onNextStep} btnText={title}/>

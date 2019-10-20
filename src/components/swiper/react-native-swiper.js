@@ -454,7 +454,8 @@ export default class extends Component {
    * @param  {bool} animated
    */
 
-  scrollBy = (index, animated = true) => {
+  scrollBy = (index, animated = false) => {
+    console.log('scrollBy', index);
     if (this.internals.isScrolling || this.state.total < 2) return
     const state = this.state
     const diff = (this.props.loop ? 1 : 0) + index + this.state.index

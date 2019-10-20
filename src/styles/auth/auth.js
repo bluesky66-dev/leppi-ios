@@ -18,6 +18,9 @@ module.exports = StyleSheet.create({
         flex: 1,
     },
 
+    joinSwiperSlide: {
+    },
+
     authFormWrapper: {
         flex: 1,
         backgroundColor: '#02C8A7',
