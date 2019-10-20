@@ -7,6 +7,8 @@
  */
 
 import React from 'react';
+import {YellowBox} from 'react-native';
+import 'react-native-gesture-handler'
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import NavigationService from './NavigationService';
@@ -35,6 +37,17 @@ import '@react-native-firebase/dynamic-links';
 import '@react-native-firebase/messaging';
 import '@react-native-firebase/storage';
 
+console.disableYellowBox = true;
+YellowBox.ignoreWarnings([
+    //'Warning: Async Storage has been extracted',
+    'Battery state',
+    'componentWillMount',
+    'componentWillUpdate',
+    'componentWillReceiveProps',
+    '[location] ERROR - 0',
+    'Warning: DatePickerAndroid', // will be fixed with https://github.com/mmazzarolo/react-native-modal-datetime-picker/pull/262
+    'RCTRootView cancelTouches', // https://github.com/kmagiera/react-native-gesture-handler/issues/746
+  ]);
 const ActivityProject = createStackNavigator(
     {
         Start: {screen: Start, navigationOptions: {header: null,},},

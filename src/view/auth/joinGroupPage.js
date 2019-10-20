@@ -125,7 +125,7 @@ class joinGroupPage extends Component {
     }
 
     render() {
-        let swiperStyle = {flex: 1};
+        let swiperStyle = {};
         swiperStyle.height = hp(404);
         let title = "Próximo";
         switch (this.state.step_index) {
@@ -171,7 +171,7 @@ class joinGroupPage extends Component {
                             </View>
                         </Swiper>
                         {
-                            (this.state.step_index === 3) &&
+                            (this.state.step_index !== 1 && this.state.step_index !== 2) &&
                             <View style={styles.registerBtnWrapper}>
                                 <RegisterButton authStep={this.state.step_index} style={styles.nextStepBtn}
                                                 onPress={this._onNextStep} btnText={title}/>
