@@ -30,17 +30,18 @@ class ChatRoom extends Component {
         });
     }
 
-    _onChangeText = (text)=> {
+    _onChangeText = (text)=> {        
         this.setState({chat_msg: text})
     }
 
     _onAttachFile(){
     }
 
-    _onSendMsg(){
+    _onSendMsg = () => {
         if (!this.state.chat_msg) {
             return false;
         }
+        
         let message = {
             content: this.state.chat_msg,
             sender: this.props.userId,
@@ -55,6 +56,7 @@ class ChatRoom extends Component {
             sellerId: this.props.roomInfo.sellerId,
             feedId: this.props.feedInfo.feedId,
         };
+        console.log('chat roomInfo', roomInfo);
         authActions.sendMessage(this.props.userMeta, roomInfo, message);
         this.setState({chat_msg: ''});
     }

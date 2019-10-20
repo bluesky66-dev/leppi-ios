@@ -88,7 +88,9 @@ module.exports = StyleSheet.create({
         paddingRight: wp(5),
         borderBottomLeftRadius: hp(30),
         borderTopLeftRadius: hp(30),
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        textAlignVertical: 'top',
+        justifyContent: 'flex-start'
     },
     btnAttach: {
         backgroundColor: '#ffffff'
