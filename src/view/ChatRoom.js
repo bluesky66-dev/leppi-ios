@@ -117,7 +117,6 @@ class ChatRoom extends Component {
                         <TextInput
                             onChangeText={(text) => this._onChangeText(text)}
                             placeholder={'Type your message'}
-                            autoFocus={true}
                             multiline={true}
                             numberOfLines={1}
                             style={[styles.chatInput]}
