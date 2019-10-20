@@ -15,6 +15,7 @@ import store from "./src/redux/store";
 
 import Home from "./src/view/Home";
 import Start from "./src/view/start";
+import SplashScreen from "./src/view/SplashScreen";
 import Login from "./src/view/auth/login";
 import Register from "./src/view/auth/register";
 import JoinGroupPage from "./src/view/auth/joinGroupPage";
@@ -57,7 +58,7 @@ const ActivityProject = createStackNavigator(
 );
 
 const InitialNavigator = createSwitchNavigator({
-    // Splash: SplashScreen,
+    //Splash: SplashScreen,
     App: ActivityProject
 });
 

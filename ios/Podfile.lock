@@ -313,6 +313,8 @@ PODS:
   - react-native-simple-toast (1.0.0):
     - React
     - Toast (~> 4.0.0)
+  - react-native-splash-screen (3.2.0):
+    - React
   - react-native-viewpager (2.0.1):
     - React
   - React-RCTActionSheet (0.61.2):
@@ -417,6 +419,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-simple-toast (from `../node_modules/react-native-simple-toast`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -507,6 +510,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/geolocation"
   react-native-simple-toast:
     :path: "../node_modules/react-native-simple-toast"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-viewpager:
     :path: "../node_modules/@react-native-community/viewpager"
   React-RCTActionSheet:
@@ -599,6 +604,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
   react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
   react-native-simple-toast: 6c376bd79b1e255a4bee90a72ead6447f96ea10d
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-viewpager: f41b42bba71407e916654d64e87ff2680edecc92
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6
   React-RCTAnimation: e3cefa93c38c004c318f7ec04b883eb14b8b8235
@@ -626,6 +632,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: 537b864a102a5bf4571a3e7dbcb3b2ab6b57de70
+PODFILE CHECKSUM: a0e2c38aada9dfa33d7a827fca73ea9f69ada347
 
 COCOAPODS: 1.8.4

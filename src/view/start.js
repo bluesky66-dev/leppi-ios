@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import SplashScreen from 'react-native-splash-screen'
 import {BackHandler, Image, Platform, ScrollView, Text, View} from "react-native";
 import firebase from '@react-native-firebase/app';
 import {Button} from "../components/start";
@@ -99,6 +100,7 @@ class Start extends Component {
         } catch (e) {
             console.log('====== start didMount error', e.message);
         }
+        SplashScreen.hide();
     }
 
     componentWillUnmount() {
