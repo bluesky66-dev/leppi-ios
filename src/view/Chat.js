@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -18,6 +19,7 @@ class Chat extends Component {
     }
 
     componentDidMount() {
+        lor(this);
         this.props.setLoadingSpinner(true);
         authActions.fetchingChatRooms(this.props.groupId, this.props.userMeta, chatRooms => {
             this.props.setLoadingSpinner(false);
@@ -25,6 +27,10 @@ class Chat extends Component {
                 this.setState({ chatRooms: chatRooms });
             }
         });
+    }
+
+    componentWillUnmount() {
+        rol();
     }
 
     render() {

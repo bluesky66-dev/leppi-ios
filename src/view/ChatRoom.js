@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {Image, ScrollView, TextInput, TouchableOpacity, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -23,11 +24,16 @@ class ChatRoom extends Component {
     }
 
     componentDidMount() {
+        lor(this);
         authActions.onMessages(this.props.roomInfo.roomId, messages => {
             if (messages !== null) {
                 this.setState({ messages: messages })
             }
         });
+    }
+
+    componentWillUnmount() {
+        rol();
     }
 
     _onChangeText = (text)=> {        

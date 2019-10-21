@@ -9,6 +9,7 @@
 import React from 'react';
 import {YellowBox} from 'react-native';
 import 'react-native-gesture-handler'
+import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import NavigationService from './NavigationService';
@@ -79,6 +80,13 @@ const InitialNavigator = createSwitchNavigator({
 const AppContainer = createAppContainer(InitialNavigator);
 
 class App extends React.Component {
+    componentDidMount() {
+        lor(this);
+    }
+
+    componentWillUnmount() {
+        rol();
+    }
     render() {
         return (
             <Provider store={store}>

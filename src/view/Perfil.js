@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {Alert, Image, ImageBackground, ScrollView, Share, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -30,6 +31,7 @@ class Perfil extends Component {
     }
 
     componentDidMount() {
+        lor(this);
         this.props.setLoadingSpinner(true);
         authActions.fetchingUserGroups(this.props.userId, this.props.userMeta, userGroups => {
             this.props.setLoadingSpinner(false);
@@ -37,6 +39,10 @@ class Perfil extends Component {
                 this.setState({ userGroups: userGroups });
             }
         });
+    }
+
+    componentWillUnmount() {
+        rol();
     }
 
     async _onInvite(groupId) {

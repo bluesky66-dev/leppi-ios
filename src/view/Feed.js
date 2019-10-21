@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -19,6 +20,7 @@ class Feed extends Component {
     }
 
      componentDidMount() {
+        lor(this);
          this.props.setLoadingSpinner(true);
          authActions.fetchingFeeds(this.props.groupId, this.props.userMeta, this.state.page, feedList => {
              this.props.setLoadingSpinner(false);
@@ -27,6 +29,10 @@ class Feed extends Component {
                  this.setState({ feedList: cloneFeedList.reverse() });
              }
          });
+    }
+
+    componentWillUnmount() {
+        rol();
     }
 
     render() {

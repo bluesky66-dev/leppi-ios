@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import Swiper from '../components/swiper';
@@ -30,6 +31,7 @@ class FeedDetail extends Component {
     }
 
     componentDidMount() {
+        lor(this);
         const feedInfo = this.props.navigation.getParam('feedInfo', false);
         const feedBadge = this.props.navigation.getParam('feedBadge', 'red');
         this.setState({feedInfo, feedBadge});
@@ -42,6 +44,10 @@ class FeedDetail extends Component {
                 }
             });
         }
+    }
+
+    componentWillUnmount() {
+        rol();
     }
 
     async _chatWithSeller() {

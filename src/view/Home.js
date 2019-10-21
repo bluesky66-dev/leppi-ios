@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {Image, ScrollView, TouchableOpacity, View, Text} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import {connect} from 'react-redux';
@@ -29,10 +30,15 @@ class Home extends Component {
     }
 
     async componentDidMount() {
+        lor(this);
         const {navigate} = this.props.navigation;
         if (this.props.userMeta.constructor === Object && Object.keys(this.props.userMeta).length === 0) {
             await this.props.fetchingUserMeta(navigate);
         }
+    }
+
+    componentWillUnmount() {
+        rol();
     }
 
     _onSellShare() {
