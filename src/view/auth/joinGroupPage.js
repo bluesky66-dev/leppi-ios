@@ -40,13 +40,13 @@ class joinGroupPage extends Component {
         rol();
     }
 
-    _onMomentumScrollEnd(e, state, context) {
+    _onMomentumScrollEnd = (e, state, context) => {
         console.log('step_index === ', state.index);
         let step_index = state.index * 1 + 1;
         this.setState({step_index: step_index});
     }
 
-    async _onNextStep() {
+    _onNextStep = async () => {
         let state = this.state;
         let step_index = this.state.step_index + 1;
         if (step_index < 4) {
@@ -115,7 +115,7 @@ class joinGroupPage extends Component {
         this.refs.swiper.scrollBy(1);
     }
 
-    _onChangeState(state) {
+    _onChangeState = (state) => {
         state = Object.assign({}, this.state, state);
         this.setState(state);
     }

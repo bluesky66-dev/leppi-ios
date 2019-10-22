@@ -18,7 +18,7 @@ export default class CreateGroup extends Component {
         this._onChangeValue = this._onChangeValue.bind(this);
     }
 
-    _onChangeValue(value) {
+    _onChangeValue = (value) => {
         this.props.onChange(value);
         this.setState(value);
     }

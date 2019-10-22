@@ -41,7 +41,7 @@ class Home extends Component {
         rol();
     }
 
-    _onSellShare() {
+    _onSellShare = () => {
         if (this.state.feedCategory.length <= 0) {
             Toast.show('Select a category', Toast.SHORT);
             return false;
@@ -49,7 +49,7 @@ class Home extends Component {
         this.setState({isSellShare: true})
     }
 
-    _onSolicitation(){
+    _onSolicitation = () => {
         if (this.state.feedCategory.length <= 0) {
             Toast.show('Select a category', Toast.SHORT);
             return false;
@@ -57,11 +57,11 @@ class Home extends Component {
         this.setState({isSolicitation: true})
     }
 
-    _onInfoGroup() {
+    _onInfoGroup = () => {
         this.setState({isJoinGroup: true})
     }
 
-    _onSelectFeedCat(feedCategory) {
+    _onSelectFeedCat = (feedCategory) => {
         this.setState({feedCategory: feedCategory});
     }
 

@@ -51,7 +51,7 @@ class JoinGroupModal extends Component {
         }
     }
 
-    async _onJoinGroup() {
+    _onJoinGroup = async () => {
         if (!this.state.group_code || this.state.group_code.length <= 0) {
             Toast.show('Enter access code', Toast.SHORT);
             return false;

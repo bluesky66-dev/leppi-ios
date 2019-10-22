@@ -16,6 +16,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18EB0269486D409EA993D323 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E591B3AC6F4828989F9FDC /* Rubik-Medium.ttf */; };
+		19331746235E8706007A4978 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		19331747235E8E50007A4978 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		19331749235E8E64007A4978 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19331748235E8E63007A4978 /* JavaScriptCore.framework */; };
+		1933174A235E8E73007A4978 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19331748235E8E63007A4978 /* JavaScriptCore.framework */; };
 		19EF1B06235A74B200445ABE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19EF1B05235A74B200445ABE /* GoogleService-Info.plist */; };
 		1E1E1EC727C04F4699EB749F /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 206DA231E1E44763810F0027 /* Raleway-SemiBold.ttf */; };
 		1EBC8FEAC5163F41E28B065C /* libPods-leppiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6BF21F627B7886FA5CB1472 /* libPods-leppiTests.a */; };
@@ -96,6 +100,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = leppi/main.m; sourceTree = "<group>"; };
 		143ABA4BB9364FBEB8E98927 /* Rubik-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Light.ttf"; path = "../src/assets/fonts/Rubik-Light.ttf"; sourceTree = "<group>"; };
 		16A3E91B53549B0B76CE65ED /* libPods-leppi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-leppi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19331748235E8E63007A4978 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.2.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		19EF1B05235A74B200445ABE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1AB07CCD64424398920FA411 /* Raleway-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-ExtraBold.ttf"; path = "../src/assets/fonts/Raleway-ExtraBold.ttf"; sourceTree = "<group>"; };
 		1BD970DD55DA4C16BC5E251C /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../src/assets/fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
@@ -157,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EBC8FEAC5163F41E28B065C /* libPods-leppiTests.a in Frameworks */,
+				19331747235E8E50007A4978 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52AB2B086DD6BCB763B31DCB /* libPods-leppi.a in Frameworks */,
+				19331746235E8706007A4978 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB61F61BA1BBAD9DE1C83219 /* libPods-leppi-tvOS.a in Frameworks */,
+				19331749235E8E64007A4978 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				618F9FF11AE4EC324D84E639 /* libPods-leppi-tvOSTests.a in Frameworks */,
+				1933174A235E8E73007A4978 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +233,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
+				19331748235E8E63007A4978 /* JavaScriptCore.framework */,
 				16A3E91B53549B0B76CE65ED /* libPods-leppi.a */,
 				DE6473045CFBBCDFB619026D /* libPods-leppi-tvOS.a */,
 				9672EB58AE362E887C00EFCC /* libPods-leppi-tvOSTests.a */,

@@ -8,7 +8,6 @@
 
 import React from 'react';
 import {YellowBox} from 'react-native';
-import 'react-native-gesture-handler'
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation'
@@ -46,8 +45,9 @@ YellowBox.ignoreWarnings([
     'componentWillUpdate',
     'componentWillReceiveProps',
     '[location] ERROR - 0',
-    'Warning: DatePickerAndroid', // will be fixed with https://github.com/mmazzarolo/react-native-modal-datetime-picker/pull/262
-    'RCTRootView cancelTouches', // https://github.com/kmagiera/react-native-gesture-handler/issues/746
+    'Warning: DatePickerAndroid', 
+    '`-[RCTRootView cancelTouches]`',
+    '`-[RCTRootView cancelTouches]` is deprecated and will be deleted soon.',
   ]);
 const ActivityProject = createStackNavigator(
     {

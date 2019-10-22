@@ -61,28 +61,28 @@ class JoinGroup extends Component {
         }
     }
 
-    _onMomentumScrollEnd(e, state, context) {
+    _onMomentumScrollEnd = (e, state, context) => {
         this.setState({ swipe_index: state.index });
     }
 
-    _onPrevPress() {
+    _onPrevPress = () => {
         if (this.state.swipe_index > 0) {
             this.refs.swiper.scrollBy(-1);
         }
     }
 
-    _onNextPress() {
+    _onNextPress = () => {
         if (this.state.swipe_index < this.state.groupSwiperLength) {
             this.refs.swiper.scrollBy(1);
         }
     }
 
-    _onJoinGroup(group) {
+    _onJoinGroup = (group) => {
         console.log('===== _onJoinGroup');
         this.setState({ isJoinGroup: true, joinGroupInfo: group });
     }
 
-    _toCreateGroupLink() {
+    _toCreateGroupLink = () => {
         console.log('===== _toCreateGroupLink 1');
         this.props.toCreateGroup();
     }
