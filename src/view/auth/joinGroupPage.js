@@ -116,7 +116,6 @@ class joinGroupPage extends Component {
     }
 
     _onChangeState = (state) => {
-        state = Object.assign({}, this.state, state);
         this.setState(state);
     }
 
@@ -152,6 +151,7 @@ class joinGroupPage extends Component {
                     <ScrollView style={styles.rootWrapper}>
                         <AppTopSection authStep={5 + this.state.step_index} onBackPress={this._onBackPress}/>
                         <Swiper ref={'swiper'}
+                                index={this.state.step_index - 1}
                                 scrollEnabled={false}
                                 showsPagination={false}
                                 onMomentumScrollEnd={this._onMomentumScrollEnd}
