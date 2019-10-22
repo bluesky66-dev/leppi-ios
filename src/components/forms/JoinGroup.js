@@ -41,7 +41,7 @@ class JoinGroup extends Component {
             this.props.setLoadingSpinner(true);
             console.log('========= fetchingGroups call');
             authActions.fetchingGroups(this.props.groupId, this.props.userMeta, groupList => {
-                console.log('========= fetchingGroups callback', groupList);
+                console.log('========= fetchingGroups callback');
                 mainThis.props.setLoadingSpinner(false);
                 if (groupList !== null) {
                     let groupSwiperLength = 0;
@@ -88,6 +88,7 @@ class JoinGroup extends Component {
     }
 
     render() {
+        console.log('this.state.isJoinGroup', this.state.isJoinGroup);
         let groupSwiper = <View />;
         if (this.state.groupList.length > 0) {
             let groupCount = 0;
@@ -143,12 +144,12 @@ class JoinGroup extends Component {
                 <TouchableOpacity style={joinGroupStyles.nextIcon} onPress={this._onNextPress}>
                     <Image source={nextIcon} style={joinGroupStyles.nextIconStyle} />
                 </TouchableOpacity>
-                <JoinGroupModal
+                {this.state.isJoinGroup && <JoinGroupModal
                     isVisible={this.state.isJoinGroup}
                     groupInfo={this.state.joinGroupInfo}
                     onJoinGroup={this.props.onJoinGroup}
                     onBackdropPress={() => this.setState({ isJoinGroup: false })}
-                />
+                />}
             </View>
         );
     }
