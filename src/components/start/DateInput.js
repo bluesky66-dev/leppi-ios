@@ -25,9 +25,9 @@ export default class DateInput extends Component {
     handleDatePicked = (event, newDate) => {
         newDate = newDate || this.state.date;
         console.log('====== newDate', newDate);
+        this.hideDateTimePicker();
         this.props.onChangeText(   date.format(newDate, 'MM/DD/YYYY'));
         this.setState({date: newDate});
-        this.hideDateTimePicker();
     };
 
     render() {
