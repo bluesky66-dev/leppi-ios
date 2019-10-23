@@ -22,7 +22,7 @@ export default class DateInput extends Component {
         this.setState({ isDateTimePickerVisible: false });
     };
 
-    handleDatePicked = newDate => {
+    handleDatePicked = (event, newDate) => {
         newDate = newDate || this.state.date;
         console.log('====== newDate', newDate);
         this.props.onChangeText(   date.format(newDate, 'MM/DD/YYYY'));
