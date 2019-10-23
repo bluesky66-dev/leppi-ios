@@ -155,7 +155,7 @@ export const fetchSignup = data => {
                     } else if (json.msg.code === 'auth/invalid-email') {
                         Toast.show("Invalid email address!", Toast.SHORT);
                     } else {
-                        ToastAndroid.show(json.msg.message, ToastAndroid.SHORT);
+                        Toast.show(json.msg.message, ToastAndroid.SHORT);
                     }
                 } else {
                     Toast.show("The system is busy now!", Toast.SHORT);

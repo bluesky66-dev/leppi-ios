@@ -59,18 +59,18 @@ class Register extends Component {
                     Toast.show('Select your country', Toast.SHORT);
                     return false;
                 }
-                if (!state.country || state.city.length <= 0) {
-                    Toast.show('Enter your city', Toast.SHORT);
-                    return false;
-                }
-                if (!state.country || state.street.length <= 0) {
-                    Toast.show('Enter your street', Toast.SHORT);
-                    return false;
-                }
-                if (!state.country || state.district.length <= 0) {
-                    Toast.show('Enter your district', Toast.SHORT);
-                    return false;
-                }
+                // if (!state.country || state.city.length <= 0) {
+                //     Toast.show('Enter your city', Toast.SHORT);
+                //     return false;
+                // }
+                // if (!state.country || state.street.length <= 0) {
+                //     Toast.show('Enter your street', Toast.SHORT);
+                //     return false;
+                // }
+                // if (!state.country || state.district.length <= 0) {
+                //     Toast.show('Enter your district', Toast.SHORT);
+                //     return false;
+                // }
                 let callingCode =  utils.getCallingCode(state.cca2);
                 console.log('callingCode === ', callingCode);
                 this.setState({callingCode: callingCode});
