@@ -879,21 +879,25 @@ export const fetchingChatRooms = async (groupId, userData, callback) => {
                             .child(groupId)
                             .child(snapshot.key)
                             .once('value');
-                        let feedItem = feedSnapshot.val();
-                        feedItem.feedId = feedSnapshot.key;
-                        if (feedItem.userId === userData.userId) {
-                            feedItem.userMeta = userData;
-                            chatRoom.feedInfo = feedItem;
-                            chatRooms.push(chatRoom);
-                            callback(chatRooms);
+                        if (feedSnapshot.exists()) {
+                            let feedItem = feedSnapshot.val();
+                            feedItem.feedId = feedSnapshot.key;
+                            if (feedItem.userId === userData.userId) {
+                                feedItem.userMeta = userData;
+                                chatRoom.feedInfo = feedItem;
+                                chatRooms.push(chatRoom);
+                                callback(chatRooms);
+                            } else {
+                                let userMetaSnapshot = await firebase.database()
+                                    .ref('userMeta')
+                                    .child(feedItem.userId)
+                                    .once('value');
+                                feedItem.userMeta = userMetaSnapshot.val();
+                                chatRoom.feedInfo = feedItem;
+                                chatRooms.push(chatRoom);
+                                callback(chatRooms);
+                            }
                         } else {
-                            let userMetaSnapshot = await firebase.database()
-                                .ref('userMeta')
-                                .child(feedItem.userId)
-                                .once('value');
-                            feedItem.userMeta = userMetaSnapshot.val();
-                            chatRoom.feedInfo = feedItem;
-                            chatRooms.push(chatRoom);
                             callback(chatRooms);
                         }
                     });
