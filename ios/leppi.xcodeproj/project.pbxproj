@@ -849,7 +849,7 @@
 				DEVELOPMENT_TEAM = BBMTTKS4YF;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leppi/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -872,7 +872,7 @@
 				DEVELOPMENT_TEAM = BBMTTKS4YF;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leppi/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
