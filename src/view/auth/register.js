@@ -51,7 +51,13 @@ class Register extends Component {
         this.setState({step_index: step_index});
     }
 
+    _gotoWelcome = () => {
+        const {navigate} = this.props.navigation;
+        navigate('Welcome');
+    }
+
     async _onNextStep() {
+        const {navigate} = this.props.navigation;
         let state = this.state;
         switch (this.state.step_index) {
             case 1:
@@ -176,7 +182,7 @@ class Register extends Component {
                     location: state.location,
                     createTime: Math.floor(Date.now()),
                 };
-                await this.props.createGroup(groupInfo, state);
+                await this.props.createGroup(groupInfo, this.props.userMeta, this._gotoWelcome);
                 if (!this.props.groupId) {
                     return false;
                 }
@@ -294,6 +300,7 @@ class Register extends Component {
 function mapStateToProps(state, props) {
     return {
         currentLocation: state.AuthReducer.currentLocation,
+        userMeta: state.AuthReducer.userMeta,
         userId: state.AuthReducer.userId,
         isSignuped: state.AuthReducer.isSignuped,
         groupId: state.AuthReducer.groupId,
@@ -308,7 +315,7 @@ const mapDispatchToProps = (dispatch) => {
         uploadMedia: (media) => dispatch(authActions.uploadMedia(media)),
         createUserMeta: (metaData) => dispatch(authActions.createUserMeta(metaData)),
         setUserMeta: (metaData) => dispatch(authActions.setUserMeta(metaData)),
-        createGroup: (gruop, userMeta) => dispatch(authActions.createGroup(gruop, userMeta)),
+        createGroup: (gruop, userMeta, callback) => dispatch(authActions.createGroup(gruop, userMeta, callback)),
     }
 };
 

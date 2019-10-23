@@ -330,18 +330,22 @@ export const isJoinedGroup = group => ({
     payload: group
 });
 
-export const createGroup = (group, userMeta) => {
+export const createGroup = (group, userMeta, callback = false) => {
     return async dispatch => {
         dispatch(isLoading(true));
         try {
+            let newGroup = Object.assign({}, group);
+            let newUserMeta = Object.assign({}, userMeta);
             const fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
-            group.memberCount = 1;
-            // console.log('===== createGroup');
-            const groupId = await firebase.database()
+            // console.log('===== createGroup1');
+            newGroup.memberCount = 1;
+            let groupId = await firebase.database()
                 .ref('groups')
                 .push(group).key;
             await AsyncStorage.setItem("$leppiGroupId", groupId);
-            group.groupId = groupId;
+            // console.log('===== createGroup4');
+            newGroup.groupId = groupId;
+            // console.log('===== createGroup5');
             let createTime = Math.floor(Date.now());
             let groupUser = {
                 userId: group.userId,
@@ -361,16 +365,24 @@ export const createGroup = (group, userMeta) => {
                 .ref('userGroups')
                 .child(group.userId)
                 .push(userGroup).key;
-            dispatch(isJoinedGroup(group));
-            let userPoints = userMeta.points ? userMeta.points : 0;
+            // console.log('group', group);
+            let userPoints = newUserMeta.points ? newUserMeta.points : 0;
             userPoints += 50;
-            userMeta.points = userPoints;
+            // console.log('===== createGroup2');
+            newUserMeta.points = userPoints;
+            // console.log('===== createGroup3', newGroup);
             await firebase.database()
                 .ref('userMeta')
-                .child(userMeta.userId)
+                .child(newGroup.userId)
                 .update({points: userPoints});
-            dispatch(fetchingUserMetaSuccess(userMeta));
+            dispatch(fetchingUserMetaSuccess(newUserMeta));
+            dispatch(isJoinedGroup(newGroup));
+            // console.log('callback type', typeof callback);
+            if (callback) {
+                callback();
+            }
         } catch (e) {
+            // console.log('createGroup error', e.message);
             dispatch(isLoading(false));
         }
     };
