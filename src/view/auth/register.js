@@ -96,10 +96,10 @@ class Register extends Component {
                     Toast.show('Enter your last name', Toast.SHORT);
                     return false;
                 }
-                if (!state.whatsapp || state.whatsapp.length <= 0) {
-                    Toast.show('Enter your whatsapp', Toast.SHORT);
-                    return false;
-                }
+                // if (!state.whatsapp || state.whatsapp.length <= 0) {
+                //     Toast.show('Enter your whatsapp', Toast.SHORT);
+                //     return false;
+                // }
 
                 console.log('Information ====== ', state);
                 break;

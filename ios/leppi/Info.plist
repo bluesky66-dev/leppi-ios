@@ -58,6 +58,8 @@
 	<string>$(PRODUCT_NAME) requires user’s location to sell and share the products on their location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) requires user’s location to sell and share the products on their location</string>
+	<key>NSMainNibFile</key>
+	<string>LaunchScreen</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your microphone (for videos)</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
