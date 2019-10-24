@@ -35,23 +35,33 @@
 	<string>10</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>yourdomain.com</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-				<false/>
-			</dict>
-		</dict>
-	</dict>
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSExceptionDomains</key>
+    <dict>
+      <key>elasticbeanstalk.com</key>
+      <dict>
+        <!--Include to allow subdomains-->
+        <key>NSIncludesSubdomains</key>
+        <true/>
+        <!--Include to allow HTTP requests-->
+        <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+        <true/>
+        <!--Include to specify minimum TLS version-->
+        <key>NSTemporaryExceptionMinimumTLSVersion</key>
+        <string>TLSv1.1</string>
+      </dict>
+      <key>localhost</key>
+      <dict>
+        <key>NSExceptionAllowsInsecureHTTPLoads</key>
+        <true/>
+      </dict>
+    </dict>
+  </dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your camera to set user's avatar</string>
+	<string>$(PRODUCT_NAME) would like to use your camera to change your profile picture</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) requires user’s location to sell and share the products on their location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -63,9 +73,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your microphone (for videos)</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to save photos to the gallery of the product</string>
+	<string>$(PRODUCT_NAME) would like to save photos to change your profile and product picture</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like access to your photo gallery to set the gallery of the product</string>
+	<string>$(PRODUCT_NAME) would like access to your photo gallery to change your profile and product picture</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Raleway-Black.ttf</string>

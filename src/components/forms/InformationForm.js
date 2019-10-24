@@ -48,7 +48,7 @@ export default class InformationForm extends Component {
                 console.log('======= User tapped custom button: ', response.customButton);
             } else {
                 let image: any = {};
-                image.uri = 'file://' + response.path;
+                image.uri = response.uri;
                 console.log('image.uri', image.uri);
                 image.path = 'users';
                 modalThis.props.onChange({avatar: image});

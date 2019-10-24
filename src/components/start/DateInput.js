@@ -11,6 +11,7 @@ export default class DateInput extends Component {
 
         this.state = {
             date: new Date(),
+            mode: 'date',
             isDateTimePickerVisible: false
         };
     }
