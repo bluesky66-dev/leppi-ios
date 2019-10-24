@@ -4,7 +4,7 @@ import {DateInput, RegisterTextInput} from '../start';
 import infoStyles from '../../styles/auth/information'
 import defaultAvatar from "../../images/office-worker.png";
 import plusIcon from "../../images/plus.png";
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-picker';
 
 export default class InformationForm extends Component {
 
@@ -33,19 +33,27 @@ export default class InformationForm extends Component {
 
     handleChoosePhoto = () => {
         let modalThis = this;
-        ImagePicker.openCamera({
-            width: 300,
-            height: 400,
-            cropping: false,
-            includeExif: true,
-            mediaType: 'photo'
-        }).then(response => {
-            let image: any = {};
-            image.uri = response.path;
-            console.log('======= image url', response);
-            image.path = 'users';
-            modalThis.props.onChange({avatar: image});
-            modalThis.setState({avatar: image});
+        const options = {
+            title: 'Select Avatar',
+            mediaType: 'photo',
+            noData: true,
+        };
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('======= Response = ', response);
+            if (response.didCancel) {
+                console.log('======= User cancelled image picker');
+            } else if (response.error) {
+                console.log('======= ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('======= User tapped custom button: ', response.customButton);
+            } else {
+                let image: any = {};
+                image.uri = 'file://' + response.path;
+                console.log('image.uri', image.uri);
+                image.path = 'users';
+                modalThis.props.onChange({avatar: image});
+                modalThis.setState({avatar: image});
+            }
         });
     };
 
