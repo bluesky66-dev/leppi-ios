@@ -217,6 +217,7 @@ export const createUserMeta = metaData => {
                 .ref('userMeta')
                 .child(metaData.userId)
                 .update(metaData);
+            dispatch(setUserMeta(metaData));    
             dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
@@ -308,16 +309,13 @@ export const isMediaUploaded = (url) => ({
 export const uploadMedia = media => {
     return async dispatch => {
         try {
-            const ext = media.uri.split('.').pop(); // Extract image extension
-            const filename = `${uuid()}.${ext}`; // Generate unique name
+            const filename = `${uuid()}.jpeg`; // Generate unique name
             const uploadPath = `${media.path}/${media.userId}/${filename}`;
-            // console.log('===== uploadMedia');
+            console.log('===== uploadMedia', media);
             dispatch(isLoading(true));
-            const rImage = await firebase
-                .storage()
-                .ref(uploadPath)
-                .putFile(media.uri);
-            dispatch(isMediaUploaded(uploadPath));
+            const ref = firebase.storage().ref(uploadPath);
+            await ref.putFile(media.uri, {cacheControl: 'no-store',});
+            dispatch(isMediaUploaded(await ref.getDownloadURL()));
             dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
@@ -585,13 +583,9 @@ export const createFeed = (feed, userMeta) => {
                 let index;
                 for (index in feed.gallery) {
                     let media = feed.gallery[index];
-                    const ext = media.split('.').pop(); // Extract image extension
-                    const filename = `${uuid()}.${ext}`; // Generate unique name
+                    const filename = `${uuid()}.jpeg`; // Generate unique name
                     const uploadPath = `feeds/${userId}/${filename}`;
-                    const rImage = await firebase
-                        .storage()
-                        .ref(uploadPath)
-                        .putFile(media);
+                    await firebase.storage().ref(uploadPath).putFile(media, {cacheControl: 'no-store',});
                     gallery.push(uploadPath);
                 }
                 feed.gallery = gallery;

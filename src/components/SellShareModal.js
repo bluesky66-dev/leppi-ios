@@ -9,7 +9,8 @@ import IconCloseModal from "../images/close-modal.png";
 import IconPlus from "../images/add-image.png";
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from "../redux/constants/feedConstants";
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-picker';
+import ImageResizer from 'react-native-image-resizer';
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 
 class SellShareModal extends Component {
@@ -73,19 +74,36 @@ class SellShareModal extends Component {
         let modalThis = this;
         let gallery = modalThis.state.gallery;
         if (gallery.length >= 5) {
-            Toast.show('Can only upload up to 6 photos', Toast.SHORT);
+            Toast.show('Can only upload up to 5 photos', Toast.SHORT);
             return false;
         }
-        ImagePicker.openPicker({
-            multiple: true
-        }).then(images => {
-            images.map((image) => {
-                if (gallery.length >= 5) {
-                    return false;
-                }
-                gallery.push(image.path)
-            });
-            modalThis.setState({gallery: gallery});
+        const options = {
+            title: 'Select Picture',
+            mediaType: 'photo',
+            noData: true,
+            storageOptions: {
+                skipBackup: true,
+            },
+        };
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('======= Response = ', response);
+            if (response.didCancel) {
+                // console.log('======= User cancelled image picker');
+            } else if (response.error) {
+                // console.log('======= ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                // console.log('======= User tapped custom button: ', response.customButton);
+            } else {
+                ImageResizer.createResizedImage(response.uri, 500, 600, 'JPEG', 70).then((newImage) => {
+                    console.log('newImage ===', newImage);
+                    if (gallery.length >= 5) {
+                        return false;
+                    }
+                    gallery.push(newImage.uri);
+                    modalThis.setState({gallery: gallery});
+                }).catch((err) => {
+                });
+            }
         });
     }
 

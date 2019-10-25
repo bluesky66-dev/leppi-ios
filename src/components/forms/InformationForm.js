@@ -5,6 +5,7 @@ import infoStyles from '../../styles/auth/information'
 import defaultAvatar from "../../images/office-worker.png";
 import plusIcon from "../../images/plus.png";
 import ImagePicker from 'react-native-image-picker';
+import ImageResizer from 'react-native-image-resizer';
 
 export default class InformationForm extends Component {
 
@@ -37,6 +38,9 @@ export default class InformationForm extends Component {
             title: 'Select Avatar',
             mediaType: 'photo',
             noData: true,
+            storageOptions: {
+                skipBackup: true,
+            },
         };
         ImagePicker.showImagePicker(options, (response) => {
             console.log('======= Response = ', response);
@@ -47,12 +51,16 @@ export default class InformationForm extends Component {
             } else if (response.customButton) {
                 console.log('======= User tapped custom button: ', response.customButton);
             } else {
-                let image: any = {};
-                image.uri = response.uri;
-                console.log('image.uri', image.uri);
-                image.path = 'users';
-                modalThis.props.onChange({avatar: image});
-                modalThis.setState({avatar: image});
+                ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then((newImage) => {
+                    console.log('newImage ===', newImage);
+                    let image: any = {};
+                    image.uri = newImage.uri;
+                    console.log('image.uri', image.uri);
+                    image.path = 'users';
+                    modalThis.props.onChange({avatar: image});
+                    modalThis.setState({avatar: image});
+                }).catch((err) => {
+                });
             }
         });
     };

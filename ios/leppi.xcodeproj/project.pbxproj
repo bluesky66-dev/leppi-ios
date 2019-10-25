@@ -16,7 +16,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18EB0269486D409EA993D323 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1E591B3AC6F4828989F9FDC /* Rubik-Medium.ttf */; };
-		19331746235E8706007A4978 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		19331747235E8E50007A4978 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		19331749235E8E64007A4978 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19331748235E8E63007A4978 /* JavaScriptCore.framework */; };
 		1933174A235E8E73007A4978 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19331748235E8E63007A4978 /* JavaScriptCore.framework */; };
@@ -171,7 +170,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				52AB2B086DD6BCB763B31DCB /* libPods-leppi.a in Frameworks */,
-				19331746235E8706007A4978 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +299,6 @@
 				73C6DF0E5CAB21675ABF5F28 /* Pods-leppiTests.debug.xcconfig */,
 				F8F42F266DCA9BE9488C03E6 /* Pods-leppiTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
