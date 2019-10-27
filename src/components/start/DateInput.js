@@ -23,7 +23,7 @@ export default class DateInput extends Component {
         this.setState({ isDatePickerVisible: false });
     };
 
-    handleConfirm = (newDate) => {
+    handleConfirm = newDate => {
         newDate = newDate || this.state.date;
         //console.log('====== newDate', newDate);
         this.hideDatePicker();
@@ -39,7 +39,7 @@ export default class DateInput extends Component {
                     <View style={auth_styles.registerAddOn}>
                         <Text style={[auth_styles.registerAddOnTxt]}>{this.props.labelText}</Text>
                     </View>
-                    <TouchableOpacity activeOpacity={0.8} onPress={()=> this.showDateTimePicker()} style={[auth_styles.selectInput, {}]}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=> this.showDatePicker()} style={[auth_styles.selectInput, {}]}>
                         <Text  style={[auth_styles.selectInputTxt, this.props.value ? {}: {opacity: 0.5}]}>
                             {this.props.value ? this.props.value: this.props.placeholder}
                         </Text>
@@ -50,8 +50,8 @@ export default class DateInput extends Component {
                     isVisible={isDatePickerVisible}
                     mode={mode}
                     display="default"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}/>
+                    onConfirm={this.handleConfirm}
+                    onCancel={this.hideDatePicker}/>
                 }
             </View>
         );

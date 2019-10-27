@@ -104,7 +104,7 @@ class SolicitationModal extends Component {
                         <View style={styles.estDateLabel}>
                             <Text style={styles.estDateTxt}>Data que precisa</Text>
                         </View>
-                        <TouchableOpacity onPress={() => this.showDateTimePicker()} style={styles.estDateInputView}>
+                        <TouchableOpacity onPress={() => this.showDatePicker()} style={styles.estDateInputView}>
                             <Text style={styles.estDateInput}>{this.state.est_date}</Text>
                         </TouchableOpacity>
                     </View>
@@ -117,8 +117,8 @@ class SolicitationModal extends Component {
                     isVisible={isDatePickerVisible}
                     mode={mode}
                     display="default"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}/>
+                    onConfirm={this.handleConfirm}
+                    onCancel={this.hideDatePicker}/>
                 }
             </Modal>
         );

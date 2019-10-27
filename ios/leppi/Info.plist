@@ -61,7 +61,7 @@
     </dict>
   </dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your camera to change your profile picture</string>
+	<string>$(PRODUCT_NAME) would like to use your camera to change your profile and product picture</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) requires user’s location to sell and share the products on their location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
