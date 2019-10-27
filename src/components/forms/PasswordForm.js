@@ -33,7 +33,7 @@ class PasswordForm extends Component {
             }
             this.props.setLoadingSpinner(true);
             let existPhone = await authActions.checkPhoneNumber(state.phone_number);
-            console.log('====== phone_number', state.phone_number);
+            //console.log('====== phone_number', state.phone_number);
             if (existPhone) {
                 firebase.auth().signInWithPhoneNumber('+' + state.phone_number)
                     .then(confirmResult => {
@@ -43,7 +43,7 @@ class PasswordForm extends Component {
                     .catch(error => {
                             this.props.setLoadingSpinner(false);
                             Toast.show(error.message, Toast.SHORT);
-                            console.log('====== signInWithPhoneNumber error', error.message);
+                            //console.log('====== signInWithPhoneNumber error', error.message);
                         }
                     );
             } else {
@@ -76,7 +76,7 @@ class PasswordForm extends Component {
                         this.props.setLoadingSpinner(false);
                         Toast.show('Updated password successfully!', Toast.SHORT);
                     }).catch((error) => {
-                        console.log(error);
+                        //console.log(error);
                     });
                 })
                 .catch(error => {

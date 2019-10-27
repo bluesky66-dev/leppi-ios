@@ -244,9 +244,9 @@ export default class GooglePlacesAutocomplete extends React.PureComponent {
     }
 
     _onPress = (rowData) => {
-        console.log('===== rowData', rowData);
+        //console.log('===== rowData', rowData);
         if (rowData.isPredefinedPlace !== true && this.props.fetchDetails === true) {
-            console.log('===== rowData', rowData);
+            //console.log('===== rowData', rowData);
             if (rowData.isLoading === true) {
                 // already requesting
                 return;
@@ -674,7 +674,7 @@ export default class GooglePlacesAutocomplete extends React.PureComponent {
         }
     }
     // myclick =()=>{
-    //     console.log("ddddddddddddddddddddddd")
+    //     //console.log("ddddddddddddddddddddddd")
     // }
 
     _getFlatList = () => {
@@ -707,7 +707,7 @@ export default class GooglePlacesAutocomplete extends React.PureComponent {
             clearButtonMode,
             ...userProps
         } = this.props.textInputProps;
-        console.log('======render');
+        //console.log('======render');
         return (
             <View
                 style={[this.props.suppressDefaultStyles ? {} : defaultStyles.container, this.props.styles.container]}

@@ -41,7 +41,7 @@ class joinGroupPage extends Component {
     }
 
     _onMomentumScrollEnd = (e, state, context) => {
-        console.log('step_index === ', state.index);
+        //console.log('step_index === ', state.index);
         let step_index = state.index * 1 + 1;
         this.setState({step_index: step_index});
     }
@@ -102,12 +102,12 @@ class joinGroupPage extends Component {
     }
 
     _toCreateGroupLink = () => {
-        console.log('===== _toCreateGroupLink 2');
+        //console.log('===== _toCreateGroupLink 2');
         this.refs.swiper.scrollBy(1);
     }
 
     _onToCreateGroup = () => {
-        console.log('===== _toCreateGroupLink 2');
+        //console.log('===== _toCreateGroupLink 2');
         this.refs.swiper.scrollBy(2);
     }
 

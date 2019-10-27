@@ -52,7 +52,7 @@ export const fetchLogout = () => {
         let keys = ['$leppiUserId', '$leppiGroupId', '$leppiSkipWelcome', '$leppiFCMToken'];
         try {
             await AsyncStorage.multiRemove(keys);
-            // console.log('===== R_logout');
+            // //console.log('===== R_logout');
             await firebase.auth().signOut();
         } catch (e) {
             dispatch(isLoading(false));
@@ -76,7 +76,7 @@ export const fetchLogin = (data, navigate) => {
     return async dispatch => {
         dispatch(fetchingLoginRequest());
         const {email, password} = data;
-        // console.log('===== fetchLogin');
+        // //console.log('===== fetchLogin');
         try {
             await firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(async (user) => {
@@ -138,10 +138,10 @@ export const fetchSignup = data => {
                 })
             };
             let url = REQUEST_URL + "/api/users/create";
-            console.log('fetch Signup data', requestConfig.body);
+            //console.log('fetch Signup data', requestConfig.body);
             let respond = await fetch(url, requestConfig);
             let json = await respond.json();
-            console.log('====== json uid', json);
+            //console.log('====== json uid', json);
             if (json.result && json.result === 'ok') {
                 await AsyncStorage.setItem('$leppiUserId', json.uid);
                 await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
@@ -163,7 +163,7 @@ export const fetchSignup = data => {
                 dispatch(fetchingSignupFailure('error'));
             }
         } catch (e) {
-            console.log('fetchSignup error ======', e.message);
+            //console.log('fetchSignup error ======', e.message);
             dispatch(isLoading(false));
         }
     };
@@ -184,8 +184,8 @@ export const checkPhoneNumber = async (phoneNumber) => {
         let url = REQUEST_URL + "/api/users/get";
         let respond = await fetch(url, requestConfig);
         let json = await respond.json();
-        // console.log('====== json result', json.result);
-        // console.log('====== json uid', json.uid);
+        // //console.log('====== json result', json.result);
+        // //console.log('====== json uid', json.uid);
         if (json.result && json.result === 'ok') {
             return true;
         } else {
@@ -211,7 +211,7 @@ export const setUserMeta = metaData => {
 export const createUserMeta = metaData => {
     return async dispatch => {
         dispatch(isLoading(true));
-        // console.log('===== createUserMeta');
+        // //console.log('===== createUserMeta');
         try {
             await await firebase.database()
                 .ref('userMeta')
@@ -230,17 +230,17 @@ export const fetchingSocialMetaData = (userId, navigate) => {
         try {
             dispatch(isLoading(true));
             dispatch(setUserId(userId));
-            // console.log('===== fetchingUserMeta');
+            // //console.log('===== fetchingUserMeta');
             const userMetaSnapshot = await firebase.database()
                 .ref('userMeta')
                 .child(userId)
                 .once('value');
             dispatch(isLoading(false));
             if (userMetaSnapshot.exists()) {
-                console.log('======= userMeta exists');
+                //console.log('======= userMeta exists');
                 navigate('Welcome');
             } else {
-                console.log('======= userMeta does not exists');
+                //console.log('======= userMeta does not exists');
                 navigate('EditProfile');
             }
         } catch (error) {
@@ -256,14 +256,22 @@ export const fetchingUserMeta = (navigate) => {
             const fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
             dispatch(isLoading(true));
             dispatch(setUserId(userId));
-            // console.log('===== fetchingUserMeta');
+            // //console.log('===== fetchingUserMeta');
             const userMetaSnapshot = await firebase.database()
                 .ref('userMeta')
                 .child(userId)
                 .once('value');
-
+            console.log('userMetaSnapshot.exists == ', userMetaSnapshot.exists());
             if (!userMetaSnapshot.exists()) {
-                navigate('Start');
+                dispatch(R_logout());
+                let keys = ['$leppiUserId', '$leppiGroupId', '$leppiSkipWelcome', '$leppiFCMToken'];
+                try {
+                    await AsyncStorage.multiRemove(keys);
+                    // //console.log('===== R_logout');
+                    await firebase.auth().signOut();
+                } catch (e) {
+                    dispatch(isLoading(false));
+                }
             } else {
                 let userMeta = userMetaSnapshot.val();
                 firebase.database()
@@ -271,11 +279,11 @@ export const fetchingUserMeta = (navigate) => {
                     .child(userId)
                     .update({fcmToken: fcmToken});
 
-                console.log('userMeta.avatar', userMeta.avatar);
+                //console.log('userMeta.avatar', userMeta.avatar);
                 userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                 dispatch(fetchingUserMetaSuccess(userMeta));
 
-                // console.log('===== fetchingUserMeta result', userMeta);
+                // //console.log('===== fetchingUserMeta result', userMeta);
                 const groupId = await AsyncStorage.getItem('$leppiGroupId');
 
                 if (typeof groupId === 'string' && groupId) {
@@ -291,10 +299,18 @@ export const fetchingUserMeta = (navigate) => {
                 }
             }
         } catch (error) {
-            // console.log('ERROR------- >>>');
-            // console.log(error);
+            console.log('ERROR ------- ', error.message);
+            // //console.log(error);
             dispatch(isLoading(false));
-            navigate('Start');
+            dispatch(R_logout());
+            let keys = ['$leppiUserId', '$leppiGroupId', '$leppiSkipWelcome', '$leppiFCMToken'];
+            try {
+                await AsyncStorage.multiRemove(keys);
+                // //console.log('===== R_logout');
+                await firebase.auth().signOut();
+            } catch (e) {
+                dispatch(isLoading(false));
+            }
         }
     };
 };
@@ -311,11 +327,11 @@ export const uploadMedia = media => {
         try {
             const filename = `${uuid()}.jpeg`; // Generate unique name
             const uploadPath = `${media.path}/${media.userId}/${filename}`;
-            console.log('===== uploadMedia', media);
+            //console.log('===== uploadMedia', media);
             dispatch(isLoading(true));
             const ref = firebase.storage().ref(uploadPath);
             await ref.putFile(media.uri, {cacheControl: 'no-store',});
-            dispatch(isMediaUploaded(await ref.getDownloadURL()));
+            dispatch(isMediaUploaded(uploadPath));
             dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
@@ -335,15 +351,15 @@ export const createGroup = (group, userMeta, callback = false) => {
             let newGroup = Object.assign({}, group);
             let newUserMeta = Object.assign({}, userMeta);
             const fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
-            // console.log('===== createGroup1');
+            // //console.log('===== createGroup1');
             newGroup.memberCount = 1;
             let groupId = await firebase.database()
                 .ref('groups')
                 .push(group).key;
             await AsyncStorage.setItem("$leppiGroupId", groupId);
-            // console.log('===== createGroup4');
+            // //console.log('===== createGroup4');
             newGroup.groupId = groupId;
-            // console.log('===== createGroup5');
+            // //console.log('===== createGroup5');
             let createTime = Math.floor(Date.now());
             let groupUser = {
                 userId: group.userId,
@@ -363,24 +379,24 @@ export const createGroup = (group, userMeta, callback = false) => {
                 .ref('userGroups')
                 .child(group.userId)
                 .push(userGroup).key;
-            // console.log('group', group);
+            // //console.log('group', group);
             let userPoints = newUserMeta.points ? newUserMeta.points : 0;
             userPoints += 50;
-            // console.log('===== createGroup2');
+            // //console.log('===== createGroup2');
             newUserMeta.points = userPoints;
-            // console.log('===== createGroup3', newGroup);
+            // //console.log('===== createGroup3', newGroup);
             await firebase.database()
                 .ref('userMeta')
                 .child(newGroup.userId)
                 .update({points: userPoints});
             dispatch(fetchingUserMetaSuccess(newUserMeta));
             dispatch(isJoinedGroup(newGroup));
-            // console.log('callback type', typeof callback);
+            // //console.log('callback type', typeof callback);
             if (callback) {
                 callback();
             }
         } catch (e) {
-            // console.log('createGroup error', e.message);
+            // //console.log('createGroup error', e.message);
             dispatch(isLoading(false));
         }
     };
@@ -391,7 +407,7 @@ export const joinGroup = (group, userId) => {
     return async (dispatch, getState) => {
 
         dispatch(isLoading(true));
-        // console.log('===== joinGroup');
+        // //console.log('===== joinGroup');
 
         try {
             const fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
@@ -428,7 +444,7 @@ export const joinGroup = (group, userId) => {
                 let count = 0;
                 existUser.forEach(item => {
                     if (count === 0) {
-                        // console.log('=========== exist user key', item.key);
+                        // //console.log('=========== exist user key', item.key);
                         firebase.database()
                             .ref('groupUsers')
                             .child(groupId)
@@ -463,8 +479,8 @@ export const joinGroup = (group, userId) => {
 
             const stateLink = getState().AuthReducer.link;
 
-            // console.log('LINK: ---->');
-            // console.log(stateLink);
+            // //console.log('LINK: ---->');
+            // //console.log(stateLink);
 
             if (stateLink && stateLink.linkgroupId && groupId === stateLink.linkgroupId) {
                 const usuarioId = stateLink.userLinkId;
@@ -479,8 +495,8 @@ export const joinGroup = (group, userId) => {
                     dispatch({type: TYPES.LINK_OUT})
 
                 } catch (error) {
-                    // console.log('ERROR------- >>>');
-                    // console.log(error)
+                    // //console.log('ERROR------- >>>');
+                    // //console.log(error)
                 }
             } else {
 
@@ -513,16 +529,16 @@ export const fetchingGroups = async (groupId, userMeta, callback) => {
         if (json.result && json.result === 'ok') {
             groupList = json.list;
         }
-        // console.log('====== groupList', groupList);
+        // //console.log('====== groupList', groupList);
         callback(groupList);
     } catch (e) {
-        console.log('fetchingGroups error ======', e.message);
+        //console.log('fetchingGroups error ======', e.message);
         callback(groupList);
     }
 };
 
 export const fetchingGroupCreator = async (userId, callback) => {
-    // console.log('===== fetchingGroupCreator');
+    // //console.log('===== fetchingGroupCreator');
     let userMeta = {};
     try {
         const userMetaSnapshot = await firebase.database()
@@ -543,7 +559,7 @@ export const fetchingGroupCreator = async (userId, callback) => {
 
 export const fetchingUserGroups = async (userId, location, callback) => {
     let userGroups = [];
-    // console.log('===== fetchingUserGroups');
+    // //console.log('===== fetchingUserGroups');
     try {
         let userGroupsSnapshot = await firebase.database()
             .ref('userGroups')
@@ -575,7 +591,7 @@ export const createFeed = (feed, userMeta) => {
     return async (dispatch, getState) => {
         const userId = userMeta.userId;
         dispatch(isLoading(true));
-        // console.log('===== createFeed');
+        // //console.log('===== createFeed');
         try {
             feed.createTime = Math.floor(Date.now());
             if (feed.gallery && feed.gallery.length > 0) {
@@ -622,7 +638,7 @@ export const createFeed = (feed, userMeta) => {
 
 export const fetchingFeeds = async (groupId, userData, page, callback) => {
     let feedList = [];
-    // console.log('===== fetchingFeeds');
+    // //console.log('===== fetchingFeeds');
     try {
         let snapshot = await firebase.database()
             .ref('feeds')
@@ -659,7 +675,7 @@ export const fetchingFeeds = async (groupId, userData, page, callback) => {
 
 export const fetchingRecentFeeds = async (groupId, callback) => {
     let feedList = [];
-    // console.log('===== fetchingRecentFeeds groupId', groupId);
+    // //console.log('===== fetchingRecentFeeds groupId', groupId);
     try {
         let snapshot = await firebase.database()
             .ref('feeds')
@@ -674,7 +690,7 @@ export const fetchingRecentFeeds = async (groupId, callback) => {
                 if (feedItem.gallery && Array.isArray(feedItem.gallery) && feedItem.gallery.length > 0) {
                     feedItem.thumbnail = await firebase.storage().ref(feedItem.gallery[0]).getDownloadURL();
                 }
-                // console.log('===== fetchingRecentFeeds feedItem', feedItem);
+                // //console.log('===== fetchingRecentFeeds feedItem', feedItem);
                 feedList.push(feedItem);
                 callback(feedList);
             });
@@ -688,7 +704,7 @@ export const fetchingRecentFeeds = async (groupId, callback) => {
 
 export const filterMediaGallery = (gallery, callback) => {
     let itemList = [];
-    // console.log('===== filterMediaGallery');
+    // //console.log('===== filterMediaGallery');
     try {
         gallery.forEach(async item => {
             let downLoadUrl = await firebase.storage().ref(item).getDownloadURL();
@@ -720,7 +736,7 @@ export const setRoomInfo = json => ({
 
 export const goToChatRoom = (roomInfo) => {
     return async dispatch => {
-        // console.log('===== goToChatRoom');
+        // //console.log('===== goToChatRoom');
         dispatch(isLoading(true));
         try {
             roomInfo.createTime = Math.floor(Date.now());
@@ -798,7 +814,7 @@ export const goToChatRoom = (roomInfo) => {
 
 export const sendMessage = async (userMeta, roomInfo, message) => {
     message.createTime = Math.floor(Date.now());
-    // console.log('===== sendMessage');
+    // //console.log('===== sendMessage');
     const userId = userMeta.userId;
 
     try {
@@ -839,7 +855,7 @@ export const sendMessage = async (userMeta, roomInfo, message) => {
 };
 
 export const onMessages = (roomId, callback) => {
-    // console.log('===== onMessages');
+    // //console.log('===== onMessages');
     let messages = [];
     try {
         firebase.database()
@@ -850,7 +866,7 @@ export const onMessages = (roomId, callback) => {
                     msgId: snapshot.key,
                     ...snapshot.val()
                 };
-                console.log('onMessages ===== ', message);
+                //console.log('onMessages ===== ', message);
                 messages.push(message);
                 callback(messages);
             });
@@ -860,7 +876,7 @@ export const onMessages = (roomId, callback) => {
 };
 
 export const fetchingChatRooms = async (groupId, userData, callback) => {
-    // console.log('====== fetchingChatRooms');
+    // //console.log('====== fetchingChatRooms');
     let chatRooms = [];
     try {
         let chatR = await firebase.database()
@@ -875,7 +891,7 @@ export const fetchingChatRooms = async (groupId, userData, callback) => {
             .ref('myFeeds')
             .child(userData.userId)
             .on('child_added', snapshot => {
-                // console.log('====== fetchingChatRooms 2');
+                // //console.log('====== fetchingChatRooms 2');
                 let chatRoom = {};
                 if (snapshot.exists()) {
                     snapshot.forEach(async item => {
@@ -919,7 +935,7 @@ export const fetchingChatRooms = async (groupId, userData, callback) => {
 
 export const fetchingChatUsers = (roomInfo, page, callback) => {
     let chatUsers = [];
-    // console.log('======= fetchingChatUsers', roomInfo);
+    // //console.log('======= fetchingChatUsers', roomInfo);
     try {
         firebase.database()
             .ref('chatRooms')
@@ -928,11 +944,11 @@ export const fetchingChatUsers = (roomInfo, page, callback) => {
             .orderByChild('sellerId')
             .equalTo(roomInfo.sellerId)
             .on('child_added', async snapshot => {
-                // console.log('===== fetchingChatUsers result');
+                // //console.log('===== fetchingChatUsers result');
                 let chatUser = {};
                 if (snapshot.exists()) {
                     chatUser = snapshot.val();
-                    // console.log('====== chatUser', chatUser);
+                    // //console.log('====== chatUser', chatUser);
                     let userMetaSnapshot = await firebase.database()
                         .ref('userMeta')
                         .child(chatUser.buyerId)
@@ -964,8 +980,8 @@ export const udatePoints = (points) => {
             })
 
         } catch (error) {
-            // console.log('ERROR------- >>>');
-            // console.log(error)
+            // //console.log('ERROR------- >>>');
+            // //console.log(error)
         }
     }
 };

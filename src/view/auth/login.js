@@ -45,9 +45,9 @@ class Login extends Component {
 
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
-            console.log('Google sign userInfo', userInfo);
+            //console.log('Google sign userInfo', userInfo);
             const tokens = await GoogleSignin.getTokens();
-            console.log('Google sign tokens', tokens);
+            //console.log('Google sign tokens', tokens);
             // create a new firebase credential with the token
             const credential = firebase.auth.GoogleAuthProvider.credential(tokens.idToken, tokens.accessToken);
             // login with credential
@@ -58,13 +58,13 @@ class Login extends Component {
             // if (!userId) {
             //     return false;
             // }
-            console.log('userId ====== ', userId);
+            //console.log('userId ====== ', userId);
 
             AsyncStorage.setItem('$leppiUserId', userId);
             await this.props.fetchingSocialMetaData(userId, navigate);
         } catch (error) {
             this.props.setLoadingSpinner(false);
-            console.log('google sign error', error);
+            //console.log('google sign error', error);
         }
     }
 

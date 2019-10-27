@@ -43,19 +43,19 @@ export default class InformationForm extends Component {
             },
         };
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('======= Response = ', response);
+            //console.log('======= Response = ', response);
             if (response.didCancel) {
-                console.log('======= User cancelled image picker');
+                //console.log('======= User cancelled image picker');
             } else if (response.error) {
-                console.log('======= ImagePicker Error: ', response.error);
+                //console.log('======= ImagePicker Error: ', response.error);
             } else if (response.customButton) {
-                console.log('======= User tapped custom button: ', response.customButton);
+                //console.log('======= User tapped custom button: ', response.customButton);
             } else {
                 ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then((newImage) => {
-                    console.log('newImage ===', newImage);
+                    //console.log('newImage ===', newImage);
                     let image: any = {};
                     image.uri = newImage.uri;
-                    console.log('image.uri', image.uri);
+                    //console.log('image.uri', image.uri);
                     image.path = 'users';
                     modalThis.props.onChange({avatar: image});
                     modalThis.setState({avatar: image});
@@ -66,7 +66,7 @@ export default class InformationForm extends Component {
     };
 
     render() {
-        console.log('callingCode ====', this.props.callingCode);
+        //console.log('callingCode ====', this.props.callingCode);
         let whatsapp = this.state.whatsapp;
         let callingCode = this.props.callingCode ? this.props.callingCode: '55';
         if (whatsapp.length < callingCode.length){

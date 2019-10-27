@@ -82,7 +82,7 @@ class Perfil extends Component {
             [
                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 {text: 'OK',  onPress: async () => {
-                        console.log('OK Pressed =========');
+                        //console.log('OK Pressed =========');
                         this.props.setLoadingSpinner(true);
                         await this.props.joinGroup(group, this.props.userId);
                         this.props.setLoadingSpinner(false);
@@ -115,8 +115,8 @@ class Perfil extends Component {
             score = this.props.userMeta.points;
         }
 
-        // console.log('SCORE');
-        // console.log(score)
+        // //console.log('SCORE');
+        // //console.log(score)
 
         let joinedGroup = {};
         if (this.props.joinedGroup) {

@@ -23,7 +23,7 @@ class Start extends Component {
         lor(this);
         const {navigate} = this.props.navigation;
 
-        console.log(' ====== splash screen hide');
+        //console.log(' ====== splash screen hide');
         const date1 = new Date();
         const date2 = new Date('11/1/2019');
         const diffTime = date2 - date1;
@@ -57,7 +57,7 @@ class Start extends Component {
             },
             (error) => {
                 // See error code charts below.
-                console.log(error.code, error.message);
+                //console.log(error.code, error.message);
             },
             options
         );
@@ -71,8 +71,8 @@ class Start extends Component {
             //             const groupId = url.split('/').pop();
             //             const userId = url.split('/').pop();
             //
-            //             // console.log('GROUP ID ======= ', groupId);
-            //             // console.log('USER ID ======== ', userId);
+            //             // //console.log('GROUP ID ======= ', groupId);
+            //             // //console.log('USER ID ======== ', userId);
             //
             //             this.props.authActions(userId, groupId);
             //         }
@@ -80,9 +80,9 @@ class Start extends Component {
             this.authSubscription = firebase.auth().onAuthStateChanged(async (user) => {
                 if (this.props.navigation.state && this.props.navigation.state.routeName !== 'Register' && this.props.navigation.state.routeName !== 'Password') {
                     if (user) {
-                        console.log('onAuthStateChanged ==== user');
+                        //console.log('onAuthStateChanged ==== user');
                     } else {
-                        console.log('onAuthStateChanged ==== else');
+                        //console.log('onAuthStateChanged ==== else');
                         navigate('Start');
                     }
                 }
@@ -98,7 +98,7 @@ class Start extends Component {
                 }
             }
         } catch (e) {
-            console.log('====== start didMount error', e.message);
+            //console.log('====== start didMount error', e.message);
         }
         SplashScreen.hide();
     }

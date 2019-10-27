@@ -38,7 +38,7 @@ class UserItem extends Component {
         }
         let avatarImage = UserAvatar;
         if (userInfo.userMeta && userInfo.userMeta.avatarUrl) {
-            console.log('===== avatarUrl', userInfo.userMeta.avatarUrl);
+            //console.log('===== avatarUrl', userInfo.userMeta.avatarUrl);
             avatarImage = {uri: userInfo.userMeta.avatarUrl};
         }
         let username = '';

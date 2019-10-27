@@ -46,7 +46,7 @@ class Register extends Component {
     }
 
     _onMomentumScrollEnd(e, state, context) {
-        // console.log('step_index === ', state.index);
+        // //console.log('step_index === ', state.index);
         let step_index = state.index * 1 + 1;
         this.setState({step_index: step_index});
     }
@@ -78,10 +78,10 @@ class Register extends Component {
                 //     return false;
                 // }
                 let callingCode =  utils.getCallingCode(state.cca2);
-                console.log('callingCode === ', callingCode);
+                //console.log('callingCode === ', callingCode);
                 this.setState({callingCode: callingCode});
 
-                console.log('Location ====== ', state);
+                //console.log('Location ====== ', state);
                 break;
             case 2:
                 if (!state.avatar || !state.avatar.uri || state.avatar.uri.length <= 0) {
@@ -101,7 +101,7 @@ class Register extends Component {
                     return false;
                 }
 
-                console.log('Information ====== ', state);
+                //console.log('Information ====== ', state);
                 break;
             case 3:
                 if (!state.email || state.email.length <= 0) {
@@ -124,9 +124,9 @@ class Register extends Component {
                     Toast.show('Those passwords didn\'t match', Toast.SHORT);
                     return false;
                 }
-                console.log('fetchSignup start ====== ', state);
+                //console.log('fetchSignup start ====== ', state);
                 await this.props.fetchSignup(state);
-                console.log('====== fetchSignup end');
+                //console.log('====== fetchSignup end');
                 if (!this.props.isSignuped) {
                     return false;
                 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {RegisterLocation, RegisterTextView} from '../start';
+import {RegisterLocation} from '../start';
 import locationStyles from '../../styles/auth/location'
 
 export default class LocationForm extends Component {
@@ -53,7 +53,7 @@ export default class LocationForm extends Component {
                     && !item.types.includes('postal_code_suffix');
             });
             address_components.reverse();
-            console.log('============= address_components', address_components);
+            //console.log('============= address_components', address_components);
             if (address_components.length > 0) {
                 state.country = address_components[0].long_name;
                 state.cca2 = address_components[0].short_name;
@@ -68,7 +68,7 @@ export default class LocationForm extends Component {
                 state.district = address_components[3].long_name;
             }
 
-            console.log('======= state', state);
+            //console.log('======= state', state);
             this.props.onChange(state);
             this.setState(state);
         }
@@ -81,38 +81,6 @@ export default class LocationForm extends Component {
                 <View style={locationStyles.formContainer}>
                     <RegisterLocation
                         onAutoComplete={this._onAutocomplete}
-                    />
-                    <RegisterTextView
-                        labelText={"Country"}
-                        onChangeText={(text) => this._onChangeValue({country: text})}
-                        placeholder={"País"}
-                        autoFocus={false}
-                        value={this.state.country}
-                        secureTextEntry={false}
-                    />
-                    <RegisterTextView
-                        labelText={"City"}
-                        onChangeText={(text) => this._onChangeValue({city: text})}
-                        placeholder={"Cidade"}
-                        autoFocus={false}
-                        value={this.state.city}
-                        secureTextEntry={false}
-                    />
-                    <RegisterTextView
-                        labelText={"State"}
-                        onChangeText={(text) => this._onChangeValue({street: text})}
-                        placeholder={"Estado"}
-                        autoFocus={false}
-                        value={this.state.street}
-                        secureTextEntry={false}
-                    />
-                    <RegisterTextView
-                        labelText={"District"}
-                        onChangeText={(text) => this._onChangeValue({district: text})}
-                        placeholder={"Bairro"}
-                        autoFocus={false}
-                        value={this.state.district}
-                        secureTextEntry={false}
                     />
                 </View>
             </View>

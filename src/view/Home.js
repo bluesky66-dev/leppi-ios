@@ -32,9 +32,7 @@ class Home extends Component {
     async componentDidMount() {
         lor(this);
         const {navigate} = this.props.navigation;
-        if (this.props.userMeta.constructor === Object && Object.keys(this.props.userMeta).length === 0) {
-            await this.props.fetchingUserMeta(navigate);
-        }
+        await this.props.fetchingUserMeta(navigate);
     }
 
     componentWillUnmount() {

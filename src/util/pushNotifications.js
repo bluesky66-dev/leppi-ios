@@ -4,10 +4,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export const getToken = async () => {
     let fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
-    // console.log('====== fcmToken', fcmToken);
+    // //console.log('====== fcmToken', fcmToken);
     if (!fcmToken) {
         fcmToken = await firebase.messaging().getToken();
-        // console.log('====== fcmToken', fcmToken);
+        // //console.log('====== fcmToken', fcmToken);
         if (fcmToken) {
             await AsyncStorage.setItem('$leppiFCMToken', fcmToken);
         }

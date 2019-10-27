@@ -39,9 +39,9 @@ class JoinGroup extends Component {
         let mainThis = this;
         if (this.props.userMeta && Object.keys(this.props.userMeta).length !== 0 && this.props.userMeta.constructor === Object) {
             this.props.setLoadingSpinner(true);
-            console.log('========= fetchingGroups call');
+            //console.log('========= fetchingGroups call');
             authActions.fetchingGroups(this.props.groupId, this.props.userMeta, groupList => {
-                console.log('========= fetchingGroups callback');
+                //console.log('========= fetchingGroups callback');
                 mainThis.props.setLoadingSpinner(false);
                 if (groupList !== null) {
                     let groupSwiperLength = 0;
@@ -78,17 +78,17 @@ class JoinGroup extends Component {
     }
 
     _onJoinGroup = (group) => {
-        console.log('===== _onJoinGroup');
+        //console.log('===== _onJoinGroup');
         this.setState({ isJoinGroup: true, joinGroupInfo: group });
     }
 
     _toCreateGroupLink = () => {
-        console.log('===== _toCreateGroupLink 1');
+        //console.log('===== _toCreateGroupLink 1');
         this.props.toCreateGroup();
     }
 
     render() {
-        console.log('this.state.isJoinGroup', this.state.isJoinGroup);
+        //console.log('this.state.isJoinGroup', this.state.isJoinGroup);
         let groupSwiper = <View />;
         if (this.state.groupList.length > 0) {
             let groupCount = 0;

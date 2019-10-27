@@ -38,13 +38,13 @@ class Welcome extends Component {
     }
 
     _onMomentumScrollEnd(e, state, context) {
-        console.log('welecom state', state.index);
+        //console.log('welecom state', state.index);
         this.setState({step_index: state.index});
     }
 
     _onPressButton() {
         const {navigate} = this.props.navigation;
-        console.log('welecom index', this.state.step_index);
+        //console.log('welecom index', this.state.step_index);
         if (this.state.step_index === 1) {
             this.props.clickMenu(MENU_TYPES.HOME);
             navigate('Home');

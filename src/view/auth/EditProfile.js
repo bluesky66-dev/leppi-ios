@@ -39,7 +39,7 @@ class EditProfile extends Component {
     }
 
     _onMomentumScrollEnd(e, state, context) {
-        // console.log('step_index === ', state.index);
+        // //console.log('step_index === ', state.index);
         let step_index = state.index * 1 + 1;
         this.setState({step_index: step_index});
     }

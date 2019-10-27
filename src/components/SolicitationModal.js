@@ -59,7 +59,7 @@ class SolicitationModal extends Component {
 
     handleDatePicked = (event, newDate) => {
         newDate = newDate || this.state.date;
-        console.log('====== newDate', newDate);
+        //console.log('====== newDate', newDate);
         this.hideDateTimePicker();
         this.setState({date: newDate, est_date: date.format(newDate, 'MM/DD/YYYY')});
     };
