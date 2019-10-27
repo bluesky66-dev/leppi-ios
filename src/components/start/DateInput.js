@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import auth_styles from '../../styles/auth/auth'
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import date from 'date-and-time';
 
 export default class DateInput extends Component {
@@ -12,27 +12,27 @@ export default class DateInput extends Component {
         this.state = {
             date: new Date(),
             mode: 'date',
-            isDateTimePickerVisible: false
+            isDatePickerVisible: false
         };
     }
-    showDateTimePicker = () => {
-        this.setState({ isDateTimePickerVisible: true });
+    showDatePicker = () => {
+        this.setState({ isDatePickerVisible: true });
     };
 
-    hideDateTimePicker = () => {
-        this.setState({ isDateTimePickerVisible: false });
+    hideDatePicker = () => {
+        this.setState({ isDatePickerVisible: false });
     };
 
-    handleDatePicked = (event, newDate) => {
+    handleConfirm = (newDate) => {
         newDate = newDate || this.state.date;
         //console.log('====== newDate', newDate);
-        this.hideDateTimePicker();
-        this.props.onChangeText(   date.format(newDate, 'MM/DD/YYYY'));
+        this.hideDatePicker();
+        this.props.onChangeText(date.format(newDate, 'MM/DD/YYYY'));
         this.setState({date: newDate});
     };
 
     render() {
-        const { isDateTimePickerVisible, date, mode } = this.state;
+        const { isDatePickerVisible, date, mode } = this.state;
         return (
             <View style={auth_styles.registerTextInputBox}>
                 <View style={auth_styles.registerInputContainer}>
@@ -45,11 +45,13 @@ export default class DateInput extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                { isDateTimePickerVisible && <DateTimePicker
+                { isDatePickerVisible && <DateTimePickerModal
                     value={date}
+                    isVisible={isDatePickerVisible}
                     mode={mode}
                     display="default"
-                    onChange={this.handleDatePicked} />
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}/>
                 }
             </View>
         );

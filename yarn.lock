@@ -5409,6 +5409,13 @@ react-native-loading-spinner-overlay@^1.0.1:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-modal-datetime-picker@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-8.0.1.tgz#51860d588f5e814663253ef25ed1f6e8bbfc0f27"
+  integrity sha512-w+OIoztz95tj8NFQ2a8gkTodmiIpXDs8jCFIcmaGP3LViEZOKaoCK27Zbg7RwXZOILT9wHe5cd3gFDxDctVlQQ==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-modal@^11.4.0:
   version "11.4.0"
   resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.4.0.tgz#29f2fd241aed864f3c7ce25a941498ebe2ab217a"

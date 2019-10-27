@@ -9,7 +9,7 @@ import IconCloseModal from "../images/close-modal.png";
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from '../redux/constants/feedConstants'
 import {MENU_TYPES} from "../redux/constants/menuTypes";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import date from "date-and-time";
 
 class SolicitationModal extends Component {
@@ -21,7 +21,9 @@ class SolicitationModal extends Component {
             product_desc: '',
             est_time: '',
             est_date: '',
+            mode: 'date',
             date: new Date(),
+            isDatePickerVisible: false
         };
         this._onSolicitation = this._onSolicitation.bind(this);
     }
@@ -49,15 +51,15 @@ class SolicitationModal extends Component {
         navigate('Feed');
     }
 
-    showDateTimePicker = () => {
-        this.setState({ isDateTimePickerVisible: true });
+    showDatePicker = () => {
+        this.setState({ isDatePickerVisible: true });
     };
 
-    hideDateTimePicker = () => {
-        this.setState({ isDateTimePickerVisible: false });
+    hideDatePicker = () => {
+        this.setState({ isDatePickerVisible: false });
     };
 
-    handleDatePicked = (event, newDate) => {
+    handleConfirm = (newDate) => {
         newDate = newDate || this.state.date;
         //console.log('====== newDate', newDate);
         this.hideDateTimePicker();
@@ -65,7 +67,7 @@ class SolicitationModal extends Component {
     };
 
     render() {
-        const { isDateTimePickerVisible, date, mode } = this.state;
+        const { isDatePickerVisible, date, mode } = this.state;
         return (
             <Modal
                 ref={'modal'}
@@ -110,11 +112,13 @@ class SolicitationModal extends Component {
                         <Text style={styles.sellShareTxt}>Solicitar</Text>
                     </TouchableOpacity>
                 </View>
-                { isDateTimePickerVisible && <DateTimePicker
+                { isDatePickerVisible && <DateTimePickerModal
                     value={date}
+                    isVisible={isDatePickerVisible}
                     mode={mode}
                     display="default"
-                    onChange={this.handleDatePicked} />
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}/>
                 }
             </Modal>
         );
