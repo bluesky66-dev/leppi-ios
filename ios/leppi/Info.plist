@@ -73,9 +73,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your microphone (for videos)</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to save photos to change your profile and product picture</string>
+	<string>$(PRODUCT_NAME) would like to save photos to change user's profile and product picture</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like access to your photo gallery to change your profile and product picture</string>
+	<string>$(PRODUCT_NAME) would like access to user's photo gallery to change your profile and product picture</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Raleway-Black.ttf</string>
