@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Image, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView} from "react-native";
 import Toast from 'react-native-simple-toast';
 import styles from '../styles/solicitationModal';
 import Modal from "react-native-modal";
@@ -88,7 +88,7 @@ class SolicitationModal extends Component {
                 onBackdropPress={this.props.onBackdropPress}
                 style={styles.container}
                 isVisible={this.props.isVisible}>
-                <View style={styles.content}>
+                <KeyboardAvoidingView style={styles.content}>
                     <View style={styles.feedBadge}/>
                     <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
                                       onPress={() => this.props.onBackdropPress()}>
@@ -125,7 +125,7 @@ class SolicitationModal extends Component {
                     <TouchableOpacity onPress={() => this._onSolicitation()} disabled={this.props.isLoading} style={styles.btnSellShare}>
                         <Text style={styles.sellShareTxt}>Solicitar</Text>
                     </TouchableOpacity>
-                </View>
+                </KeyboardAvoidingView>
                 { isDatePickerVisible && <DateTimePickerModal
                     isVisible={isDatePickerVisible}
                     mode={mode}

@@ -4,7 +4,7 @@ import {PasswordForm} from "../../components/forms";
 import styles from "../../styles/auth/auth";
 import Spinner from 'react-native-loading-spinner-overlay';
 import {AppTopSection} from "../../components/start";
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, KeyboardAvoidingView} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 
 class Password extends Component {
@@ -23,7 +23,7 @@ class Password extends Component {
     render() {
         var title = "Leppi";
         return (
-            <View style={styles.rootWrapper}>
+            <KeyboardAvoidingView style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -34,7 +34,7 @@ class Password extends Component {
                     <View style={styles.emptySpace}/>
                     <PasswordForm/>
                 </ScrollView>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

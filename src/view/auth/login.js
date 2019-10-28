@@ -7,7 +7,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import facebookIcon from "../../images/facebook.png";
 import googleIcon from "../../images/google.png";
 import {AppTopSection} from "../../components/start";
-import {Image, ScrollView, TouchableOpacity, Text, View} from "react-native";
+import {Image, ScrollView, TouchableOpacity, Text, View, KeyboardAvoidingView} from "react-native";
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import firebase from '@react-native-firebase/app'
@@ -71,7 +71,7 @@ class Login extends Component {
     render() {
         var title = "Leppi";
         return (
-            <View style={styles.rootWrapper}>
+            <KeyboardAvoidingView style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -94,7 +94,7 @@ class Login extends Component {
                         </View>
                     </View>
                 </ScrollView>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

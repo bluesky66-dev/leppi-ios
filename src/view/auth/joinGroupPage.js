@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {CreateGroup, GroupForm, JoinGroup} from "../../components/forms";
 import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, KeyboardAvoidingView} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from '../../components/swiper';
 import {heightPercentage as hp} from '../../util';
@@ -141,7 +141,7 @@ class joinGroupPage extends Component {
         }
 
         return (
-            <View style={styles.rootWrapper}>
+            <KeyboardAvoidingView style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -179,7 +179,7 @@ class joinGroupPage extends Component {
                         }
                     </ScrollView>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

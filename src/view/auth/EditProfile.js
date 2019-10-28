@@ -4,7 +4,7 @@ import * as authActions from '../../redux/actions/AuthActions'; //Import your ac
 import {InformationForm, LocationForm} from "../../components/forms";
 import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, KeyboardAvoidingView} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from '../../components/swiper';
 import {heightPercentage as hp} from '../../util';
@@ -149,7 +149,7 @@ class EditProfile extends Component {
                 break;
         }
         return (
-            <View>
+            <KeyboardAvoidingView style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -174,7 +174,7 @@ class EditProfile extends Component {
                                         onPress={()=>this._onNextStep()} btnText={title}/>
                     </View>
                 </ScrollView>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 

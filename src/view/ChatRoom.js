@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import {Image, ScrollView, TextInput, TouchableOpacity, View, Text} from 'react-native';
+import {Image, ScrollView, TextInput, TouchableOpacity, View, Text, KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import HeaderSection from '../components/HeaderSection';
@@ -92,7 +92,7 @@ class ChatRoom extends Component {
             );
         });
         return (
-            <View style={styles.rootWrapper}>
+            <KeyboardAvoidingView style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -142,7 +142,7 @@ class ChatRoom extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

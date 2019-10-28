@@ -4,7 +4,7 @@ import * as authActions from '../../redux/actions/AuthActions'; //Import your ac
 import {CreateGroup, CredentialsForm, InformationForm, JoinGroup, LocationForm} from "../../components/forms";
 import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, KeyboardAvoidingView} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from  '../../components/swiper';
 import * as utils from '../../util';
@@ -252,7 +252,7 @@ class Register extends Component {
                 break;
         }
         return (
-            <View style={styles.rootWrapper}>
+            <KeyboardAvoidingView style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -291,7 +291,7 @@ class Register extends Component {
                         </View>
                     }
                 </ScrollView>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 
