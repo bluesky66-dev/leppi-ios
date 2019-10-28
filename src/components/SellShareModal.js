@@ -7,7 +7,7 @@ import Modal from "react-native-modal";
 import TextArea from "../components/start/TextArea";
 import IconCloseModal from "../images/close-modal.png";
 import IconPlus from "../images/add-image.png";
-import IconLoader from "../images/blue_loading.gif";
+import IconLoader from "../images/white-loader.gif";
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from "../redux/constants/feedConstants";
 import ImagePicker from 'react-native-image-picker';
@@ -25,6 +25,7 @@ class SellShareModal extends Component {
             product_qty: '',
             product_price: '',
             gallery: [],
+            gallery_uris: [],
         };
         this._onSellShare = this._onSellShare.bind(this);
         this._onAddImage = this._onAddImage.bind(this);
@@ -38,6 +39,7 @@ class SellShareModal extends Component {
             product_qty: '',
             product_price: '',
             gallery: [],
+            gallery_uris: [],
         });
     }
 
@@ -58,6 +60,7 @@ class SellShareModal extends Component {
         state.userId = this.props.userId;
         this.props.onBackdropPress();    
         this.props.setLoadingSpinner(true);
+        delete state.gallery_uris;
         await this.props.createFeed(state, this.props.userMeta);
         this.props.setLoadingSpinner(false);
         this.clearForm();
@@ -90,6 +93,7 @@ class SellShareModal extends Component {
     _onAddImage() {
         let modalThis = this;
         let gallery = modalThis.state.gallery;
+        let gallery_uris = modalThis.state.gallery_uris;
         if (gallery.length >= 5) {
             Toast.show('Can only upload up to 5 photos', Toast.SHORT);
             return false;
@@ -122,7 +126,8 @@ class SellShareModal extends Component {
                     modalThis.props.setLoadingSpinner(false);
                     if (uploadPath) {
                         gallery.push(uploadPath);
-                        modalThis.setState({gallery: gallery});
+                        gallery_uris.push(newImage.uri);
+                        modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
                     }        
                 }).catch((err) => {
                 });
@@ -131,9 +136,7 @@ class SellShareModal extends Component {
     }
 
     render() {
-        let gallery = this.state.gallery.map(async (image, i) => {
-            const ref = firebase.storage().ref(image);
-            const url = await ref.getDownloadURL();
+        let gallery = this.state.gallery_uris.map((image, i) => {
             return (
                 <TouchableOpacity onPress={() => this._onRemoveImage(i)} style={styles.imageItem} key={i}>
                     <Image source={{uri: image}} style={styles.imageView}/>
@@ -193,13 +196,13 @@ class SellShareModal extends Component {
                     <Text style={styles.imageLabel}>Product Images</Text>
                     <View style={styles.imageGallery}>
                         {gallery}
-                        <TouchableOpacity onPress={() => this._onAddImage()} style={styles.imageItem}>
+                        <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.props.isLoading} style={styles.imageItem}>
                             <View style={styles.btnAddImage}>
-                                <Image source={this.props.isLoading ? IconLoader :IconPlus} style={styles.iconPlus}/>
+                                <Image source={this.props.isLoading ? IconLoader : IconPlus} style={styles.iconPlus}/>
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this._onSellShare()} style={styles.btnSellShare}>
+                    <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.props.isLoading} style={styles.btnSellShare}>
                         <Text style={styles.sellShareTxt}>Anunciar</Text>
                     </TouchableOpacity>
                 </View>

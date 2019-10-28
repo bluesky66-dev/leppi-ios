@@ -76,7 +76,7 @@ class SolicitationModal extends Component {
     handleConfirm = newDate => {
         newDate = newDate || this.state.date;
         //console.log('====== newDate', newDate);
-        this.hideDateTimePicker();
+        this.hideDatePicker();
         this.setState({date: newDate, est_date: date.format(newDate, 'MM/DD/YYYY')});
     };
 
@@ -122,7 +122,7 @@ class SolicitationModal extends Component {
                             <Text style={styles.estDateInput}>{this.state.est_date}</Text>
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this._onSolicitation()} style={styles.btnSellShare}>
+                    <TouchableOpacity onPress={() => this._onSolicitation()} disabled={this.props.isLoading} style={styles.btnSellShare}>
                         <Text style={styles.sellShareTxt}>Solicitar</Text>
                     </TouchableOpacity>
                 </View>

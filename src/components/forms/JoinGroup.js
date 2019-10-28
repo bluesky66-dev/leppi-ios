@@ -128,16 +128,13 @@ class JoinGroup extends Component {
                     <Text style={[joinGroupStyles.topTitleTxt]}>Grupos próximos do seu Endereço</Text>
                 </View>
                 {groupSwiper}
-                {
-                    this.state.groupList.length === 0 &&
-                    <View style={joinGroupStyles.otherCaseView}>
+                <View style={joinGroupStyles.otherCaseView}>
                         <Text style={joinGroupStyles.otherCaseTxt}>Não encontrou um grupo do seu bairro ou condomínio? Crie agora!</Text>
                         <TouchableOpacity style={joinGroupStyles.toCreateGroupLink} onPress={() => this._toCreateGroupLink()}
                             activeOpacity={0.5}>
                             <Text style={joinGroupStyles.toCreateGroupLinkTxt}>Criar um grupo agora!</Text>
                         </TouchableOpacity>
-                    </View>
-                }
+                </View>
                 <TouchableOpacity style={joinGroupStyles.prevIcon} onPress={this._onPrevPress}>
                     <Image source={prevIcon} style={joinGroupStyles.prevIconStyle} />
                 </TouchableOpacity>

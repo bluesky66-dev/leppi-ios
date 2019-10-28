@@ -592,7 +592,7 @@ export const uploadFile = async (filePath, dir) => {
         const userId = await AsyncStorage.getItem('$leppiUserId');
         const filename = `${uuid()}.jpeg`; // Generate unique name
         const uploadPath = `${dir}/${userId}/${filename}`;
-        await firebase.storage().ref(uploadPath).putFile(imagePath, {cacheControl: 'no-store',});
+        await firebase.storage().ref(uploadPath).putFile(filePath, {cacheControl: 'no-store',});
         return uploadPath;
     } catch (e) {
         console.log('upload file error', e.message);
