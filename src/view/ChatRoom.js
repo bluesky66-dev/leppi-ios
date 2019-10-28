@@ -92,7 +92,7 @@ class ChatRoom extends Component {
             );
         });
         return (
-            <KeyboardAvoidingView style={styles.rootWrapper}>
+            <KeyboardAvoidingView style={styles.rootWrapper} behavior={'padding'}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}

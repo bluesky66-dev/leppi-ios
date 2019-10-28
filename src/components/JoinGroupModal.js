@@ -104,7 +104,7 @@ class JoinGroupModal extends Component {
                 onBackdropPress={this.props.onBackdropPress}
                 style={styles.container}
                 isVisible={this.props.isVisible && this.state.isVisible}>
-                <KeyboardAvoidingView style={styles.content}>
+                <KeyboardAvoidingView style={styles.content} behavior={'padding'}>
                     <Image style={styles.bookMark} source={IconBookmark}/>
                     <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
                                       onPress={this.props.onBackdropPress}>

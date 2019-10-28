@@ -115,7 +115,7 @@ class SellShareModal extends Component {
                 } else if (response.customButton) {
                     // //console.log('======= User tapped custom button: ', response.customButton);
                 } else {
-                    ImageResizer.createResizedImage(response.uri, 500, 600, 'JPEG', 70).then(async (newImage) => {
+                    ImageResizer.createResizedImage(response.uri, 400, 500, 'JPEG', 70).then(async (newImage) => {
                         //console.log('newImage ===', newImage);
                         if (gallery.length >= 5) {
                             return false;
@@ -159,7 +159,7 @@ class SellShareModal extends Component {
                 onBackdropPress={this.props.onBackdropPress}
                 style={styles.container}
                 isVisible={this.props.isVisible}>
-                <KeyboardAvoidingView style={styles.content}>
+                <KeyboardAvoidingView style={styles.content} behavior={'padding'}>
                     <View style={styles.feedBadge}/>
                     <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
                                       onPress={() => this.props.onBackdropPress()}>
