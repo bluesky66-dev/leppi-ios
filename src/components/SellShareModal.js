@@ -105,33 +105,44 @@ class SellShareModal extends Component {
                 skipBackup: true,
             },
         };
-        ImagePicker.showImagePicker(options, (response) => {
-            //console.log('======= Response = ', response);
-            if (response.didCancel) {
-                // //console.log('======= User cancelled image picker');
-            } else if (response.error) {
-                // //console.log('======= ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                // //console.log('======= User tapped custom button: ', response.customButton);
-            } else {
-                ImageResizer.createResizedImage(response.uri, 500, 600, 'JPEG', 70).then(async (newImage) => {
-                    //console.log('newImage ===', newImage);
-                    if (gallery.length >= 5) {
-                        return false;
-                    }
-                    modalThis.props.setLoadingSpinner(true);
-                    const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds');
-                    //console.log(uploadPath);
-                    modalThis.props.setLoadingSpinner(false);
-                    if (uploadPath) {
-                        gallery.push(uploadPath);
-                        gallery_uris.push(newImage.uri);
-                        modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
-                    }        
-                }).catch((err) => {
-                });
-            }
-        });
+        try {
+            ImagePicker.showImagePicker(options, (response) => {
+                //console.log('======= Response = ', response);
+                if (response.didCancel) {
+                    // //console.log('======= User cancelled image picker');
+                } else if (response.error) {
+                    // //console.log('======= ImagePicker Error: ', response.error);
+                } else if (response.customButton) {
+                    // //console.log('======= User tapped custom button: ', response.customButton);
+                } else {
+                    ImageResizer.createResizedImage(response.uri, 500, 600, 'JPEG', 70).then(async (newImage) => {
+                        //console.log('newImage ===', newImage);
+                        if (gallery.length >= 5) {
+                            return false;
+                        }
+                        modalThis.props.setLoadingSpinner(true);
+                        try {
+                            const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds');
+                            //console.log(uploadPath);
+                            modalThis.props.setLoadingSpinner(false);
+                            if (uploadPath) {
+                                gallery.push(uploadPath);
+                                gallery_uris.push(newImage.uri);
+                                modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
+                            }  
+                        } catch (e) {
+                            console.log(e.message);
+                            modalThis.props.setLoadingSpinner(false);
+                        }      
+                    }).catch((err) => {
+                        console.log(err.message);
+                        modalThis.props.setLoadingSpinner(false);
+                    });
+                }
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
     }
 
     render() {
