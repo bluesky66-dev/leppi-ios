@@ -20,10 +20,10 @@ class ChatUsers extends Component {
 
      componentDidMount() {
         lor(this);
-         const roomInfo = this.props.navigation.getParam('roomInfo', false);
+         const roomInfo = this.props.navigation.getParam('roomInfo', {});
          if (roomInfo) {
              this.props.setLoadingSpinner(true);
-             authActions.fetchingChatUsers(this.props.roomInfo, this.state.page, userList => {
+             authActions.fetchingChatUsers(roomInfo, this.state.page, userList => {
                  this.props.setLoadingSpinner(false);
                  if (userList !== null) {
                      this.setState({ userList: userList });
@@ -37,6 +37,7 @@ class ChatUsers extends Component {
     }
 
     render() {
+        console.log('this.state.userList', this.state.userList.length);
         let userList = this.state.userList.map((item, i) => {
             return(
                 <UserItem

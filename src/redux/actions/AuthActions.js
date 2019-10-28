@@ -950,7 +950,7 @@ export const fetchingChatRooms = async (groupId, userData, callback) => {
 
 export const fetchingChatUsers = (roomInfo, page, callback) => {
     let chatUsers = [];
-    // //console.log('======= fetchingChatUsers', roomInfo);
+    console.log('======= fetchingChatUsers', roomInfo);
     try {
         firebase.database()
             .ref('chatRooms')
@@ -978,6 +978,7 @@ export const fetchingChatUsers = (roomInfo, page, callback) => {
                 }
             });
     } catch (e) {
+        console.log('fetchingChatUsers', e.message);
         callback(chatUsers);
     }
 

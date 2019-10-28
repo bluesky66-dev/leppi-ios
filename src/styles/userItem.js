@@ -24,7 +24,7 @@ module.exports = StyleSheet.create({
         justifyContent: 'center',
     },
     thumbnail: {
-        width: wp(75),
+        width: hp(75),
         height: hp(75),
         borderRadius: hp(75/2),
         backgroundColor: '#ffffff',

@@ -11,6 +11,7 @@ module.exports = StyleSheet.create({
     },
 
     contentWrapper: {
+        flex: 1,
         backgroundColor: '#ffffff',
         paddingLeft: wp(23),
         paddingRight: wp(23),
