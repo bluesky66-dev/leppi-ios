@@ -143,6 +143,7 @@ function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
         userMeta: state.AuthReducer.userMeta,
+        isLoading: state.AuthReducer.isLoading,
     }
 }
 

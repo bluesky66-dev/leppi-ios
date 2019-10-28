@@ -7,6 +7,7 @@ import Modal from "react-native-modal";
 import TextArea from "../components/start/TextArea";
 import IconCloseModal from "../images/close-modal.png";
 import IconPlus from "../images/add-image.png";
+import IconLoader from "../images/blue_loading.gif";
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from "../redux/constants/feedConstants";
 import ImagePicker from 'react-native-image-picker';
@@ -117,6 +118,7 @@ class SellShareModal extends Component {
                     }
                     modalThis.props.setLoadingSpinner(true);
                     const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds');
+                    console.log(uploadPath);
                     modalThis.props.setLoadingSpinner(false);
                     if (uploadPath) {
                         gallery.push(uploadPath);
@@ -129,7 +131,7 @@ class SellShareModal extends Component {
     }
 
     render() {
-        let gallery = this.state.gallery.map((image, i) => {
+        let gallery = this.state.gallery.map(async (image, i) => {
             const ref = firebase.storage().ref(image);
             const url = await ref.getDownloadURL();
             return (
@@ -193,7 +195,7 @@ class SellShareModal extends Component {
                         {gallery}
                         <TouchableOpacity onPress={() => this._onAddImage()} style={styles.imageItem}>
                             <View style={styles.btnAddImage}>
-                                <Image source={IconPlus} style={styles.iconPlus}/>
+                                <Image source={this.props.isLoading ? IconLoader :IconPlus} style={styles.iconPlus}/>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -210,6 +212,7 @@ function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
         userMeta: state.AuthReducer.userMeta,
+        isLoading: state.AuthReducer.isLoading,
     }
 }
 

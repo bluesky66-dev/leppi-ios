@@ -60,7 +60,6 @@ class JoinGroupModal extends Component {
             Toast.show('Invalid access code', Toast.SHORT);
             return false;
         }
-        this.refs.joinModal.close();
         await this.props.joinGroup(this.props.groupInfo, this.props.userId);
         this.setState({isVisible: false});
         this.props.onJoinGroup();
@@ -179,6 +178,7 @@ function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
         userMeta: state.AuthReducer.userMeta,
+        isLoading: state.AuthReducer.isLoading,
     }
 }
 

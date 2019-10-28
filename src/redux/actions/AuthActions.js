@@ -595,6 +595,7 @@ export const uploadFile = async (filePath, dir) => {
         await firebase.storage().ref(uploadPath).putFile(imagePath, {cacheControl: 'no-store',});
         return uploadPath;
     } catch (e) {
+        console.log('upload file error', e.message);
         return false;
     }
 
@@ -605,6 +606,7 @@ export const deleteFile = async (filePath, dir) => {
         await firebase.storage().ref(filePath).delete();
         return true;
     } catch (e) {
+        console.log('delete file error', e.message);
         return false;
     }
 
