@@ -60,7 +60,6 @@ class SellShareModal extends Component {
         state.userId = this.props.userId;
         this.props.onBackdropPress();    
         this.props.setLoadingSpinner(true);
-        delete state.gallery_uris;
         await this.props.createFeed(state, this.props.userMeta);
         this.props.setLoadingSpinner(false);
         this.clearForm();
@@ -122,7 +121,7 @@ class SellShareModal extends Component {
                     }
                     modalThis.props.setLoadingSpinner(true);
                     const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds');
-                    console.log(uploadPath);
+                    //console.log(uploadPath);
                     modalThis.props.setLoadingSpinner(false);
                     if (uploadPath) {
                         gallery.push(uploadPath);
@@ -143,6 +142,8 @@ class SellShareModal extends Component {
                 </TouchableOpacity>
             )
         });
+        console.log('this.props.isLoading ======', this.props.isLoading);
+        let iconAddImage = this.props.isLoading ? IconLoader : IconPlus;
         return (
             <Modal
                 ref={'modal'}
@@ -198,7 +199,7 @@ class SellShareModal extends Component {
                         {gallery}
                         <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.props.isLoading} style={styles.imageItem}>
                             <View style={styles.btnAddImage}>
-                                <Image source={this.props.isLoading ? IconLoader : IconPlus} style={styles.iconPlus}/>
+                                <Image source={iconAddImage} style={styles.iconPlus}/>
                             </View>
                         </TouchableOpacity>
                     </View>

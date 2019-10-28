@@ -617,6 +617,7 @@ export const createFeed = (feed, userMeta) => {
         const userId = userMeta.userId;
         dispatch(isLoading(true));
         // //console.log('===== createFeed');
+        if (! typeof feed.gallery_uris === 'undefined') delete feed.gallery_uris;
         try {
             feed.createTime = Math.floor(Date.now());
             const groupId = await AsyncStorage.getItem('$leppiGroupId');
