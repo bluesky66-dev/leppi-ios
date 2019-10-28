@@ -142,8 +142,6 @@ class SellShareModal extends Component {
                 </TouchableOpacity>
             )
         });
-        console.log('this.props.isLoading ======', this.props.isLoading);
-        let iconAddImage = this.props.isLoading ? IconLoader : IconPlus;
         return (
             <Modal
                 ref={'modal'}
@@ -199,7 +197,8 @@ class SellShareModal extends Component {
                         {gallery}
                         <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.props.isLoading} style={styles.imageItem}>
                             <View style={styles.btnAddImage}>
-                                <Image source={iconAddImage} style={styles.iconPlus}/>
+                                {this.props.isLoading && <Image source={IconLoader} style={styles.iconPlus}/>}
+                                {!this.props.isLoading && <Image source={IconPlus} style={styles.iconPlus}/>}
                             </View>
                         </TouchableOpacity>
                     </View>
