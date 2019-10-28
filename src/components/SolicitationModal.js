@@ -28,6 +28,18 @@ class SolicitationModal extends Component {
         this._onSolicitation = this._onSolicitation.bind(this);
     }
 
+    clearForm = () => {
+        this.setState({
+            product_title: '',
+            product_desc: '',
+            est_time: '',
+            est_date: '',
+            mode: 'date',
+            date: new Date(),
+            isDatePickerVisible: false
+        });
+    }
+
     async _onSolicitation() {
         const {navigate} = this.props.navigation;
 
@@ -44,9 +56,9 @@ class SolicitationModal extends Component {
         state.feed_category = this.props.feedCategory;
         state.feed_type = FeedTypes.solicitation;
         state.userId = this.props.userId;
-        await this.props.createFeed(state, this.props.userMeta);
-        this.refs.modal.close();
         this.props.onBackdropPress();
+        await this.props.createFeed(state, this.props.userMeta);
+        this.clearForm();
         this.props.clickMenu(MENU_TYPES.FEED);
         navigate('Feed');
     }
@@ -59,7 +71,7 @@ class SolicitationModal extends Component {
         this.setState({ isDatePickerVisible: false });
     };
 
-    handleConfirm = (newDate) => {
+    handleConfirm = newDate => {
         newDate = newDate || this.state.date;
         //console.log('====== newDate', newDate);
         this.hideDateTimePicker();
@@ -77,7 +89,7 @@ class SolicitationModal extends Component {
                 <View style={styles.content}>
                     <View style={styles.feedBadge}/>
                     <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
-                                      onPress={this.props.onBackdropPress}>
+                                      onPress={() => this.props.onBackdropPress()}>
                         <Image source={IconCloseModal} style={styles.iconClose}/>
                     </TouchableOpacity>
                     <View style={styles.titleView}>
@@ -113,10 +125,8 @@ class SolicitationModal extends Component {
                     </TouchableOpacity>
                 </View>
                 { isDatePickerVisible && <DateTimePickerModal
-                    value={date}
                     isVisible={isDatePickerVisible}
                     mode={mode}
-                    display="default"
                     onConfirm={this.handleConfirm}
                     onCancel={this.hideDatePicker}/>
                 }

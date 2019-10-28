@@ -29,6 +29,16 @@ class SellShareModal extends Component {
         this._onRemoveImage = this._onRemoveImage.bind(this);
     }
 
+    clearForm = () => {
+        this.setState({
+            product_title: '',
+            product_desc: '',
+            product_qty: '',
+            product_price: '',
+            gallery: [],
+        });
+    }
+
     async _onSellShare() {
         const {navigate} = this.props.navigation;
 
@@ -44,9 +54,9 @@ class SellShareModal extends Component {
         state.feed_category = this.props.feedCategory;
         state.feed_type = FeedTypes.sell;
         state.userId = this.props.userId;
+        this.props.onBackdropPress();    
         await this.props.createFeed(state, this.props.userMeta);
-        this.refs.modal.close();
-        this.props.onBackdropPress();
+        this.clearForm();
         this.props.clickMenu(MENU_TYPES.FEED);
         navigate('Feed');
     }
@@ -124,7 +134,7 @@ class SellShareModal extends Component {
                 <View style={styles.content}>
                     <View style={styles.feedBadge}/>
                     <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
-                                      onPress={this.props.onBackdropPress}>
+                                      onPress={() => this.props.onBackdropPress()}>
                         <Image source={IconCloseModal} style={styles.iconClose}/>
                     </TouchableOpacity>
                     <View style={styles.titleView}>
