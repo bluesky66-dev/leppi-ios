@@ -77,7 +77,7 @@ class Login extends Component {
                     textContent={''}
                     textStyle={{ color: '#FFF' }}
                 />
-                <ScrollView>
+                <ScrollView style={styles.rootWrapper}>
                     <AppTopSection authStep={0} onBackPress={() => { this.props.navigation.goBack() }} />
                     <LoginForm
                         login

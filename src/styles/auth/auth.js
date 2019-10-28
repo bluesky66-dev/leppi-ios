@@ -11,7 +11,8 @@ module.exports = StyleSheet.create({
 
     rootWrapper: {
         flex: 1,
-        backgroundColor: '#02C8A7'
+        backgroundColor: '#02C8A7',
+        justifyContent: 'flex-end',
     },
 
     swiperSlide: {
