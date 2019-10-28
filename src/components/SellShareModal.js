@@ -12,6 +12,7 @@ import {FeedTypes} from "../redux/constants/feedConstants";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import {MENU_TYPES} from "../redux/constants/menuTypes";
+import firebase from '@react-native-firebase/app'
 
 class SellShareModal extends Component {
 
@@ -55,7 +56,9 @@ class SellShareModal extends Component {
         state.feed_type = FeedTypes.sell;
         state.userId = this.props.userId;
         this.props.onBackdropPress();    
+        this.props.setLoadingSpinner(true);
         await this.props.createFeed(state, this.props.userMeta);
+        this.props.setLoadingSpinner(false);
         this.clearForm();
         this.props.clickMenu(MENU_TYPES.FEED);
         navigate('Feed');
@@ -71,8 +74,11 @@ class SellShareModal extends Component {
                 {text: 'Cancel', onPress: () => {
 
                     }, style: 'cancel'},
-                {text: 'OK', onPress: () => {
+                {text: 'OK', onPress: async () => {
                         gallery.splice(index, 1);
+                        modalThis.props.setLoadingSpinner(true);
+                        await authActions.deleteFile(gallery[index]);
+                        modalThis.props.setLoadingSpinner(false);
                         modalThis.setState({gallery: gallery});
                     }},
             ],
@@ -104,13 +110,18 @@ class SellShareModal extends Component {
             } else if (response.customButton) {
                 // //console.log('======= User tapped custom button: ', response.customButton);
             } else {
-                ImageResizer.createResizedImage(response.uri, 500, 600, 'JPEG', 70).then((newImage) => {
+                ImageResizer.createResizedImage(response.uri, 500, 600, 'JPEG', 70).then(async (newImage) => {
                     //console.log('newImage ===', newImage);
                     if (gallery.length >= 5) {
                         return false;
                     }
-                    gallery.push(newImage.uri);
-                    modalThis.setState({gallery: gallery});
+                    modalThis.props.setLoadingSpinner(true);
+                    const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds');
+                    modalThis.props.setLoadingSpinner(false);
+                    if (uploadPath) {
+                        gallery.push(uploadPath);
+                        modalThis.setState({gallery: gallery});
+                    }        
                 }).catch((err) => {
                 });
             }
@@ -119,6 +130,8 @@ class SellShareModal extends Component {
 
     render() {
         let gallery = this.state.gallery.map((image, i) => {
+            const ref = firebase.storage().ref(image);
+            const url = await ref.getDownloadURL();
             return (
                 <TouchableOpacity onPress={() => this._onRemoveImage(i)} style={styles.imageItem} key={i}>
                     <Image source={{uri: image}} style={styles.imageView}/>
@@ -204,6 +217,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createFeed: (feed, userMeta) => dispatch(authActions.createFeed(feed, userMeta)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
+        setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
     }
 };
 

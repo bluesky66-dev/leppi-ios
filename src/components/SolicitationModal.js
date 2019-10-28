@@ -57,7 +57,9 @@ class SolicitationModal extends Component {
         state.feed_type = FeedTypes.solicitation;
         state.userId = this.props.userId;
         this.props.onBackdropPress();
+        this.props.setLoadingSpinner(true);
         await this.props.createFeed(state, this.props.userMeta);
+        this.props.setLoadingSpinner(false);
         this.clearForm();
         this.props.clickMenu(MENU_TYPES.FEED);
         navigate('Feed');
@@ -148,6 +150,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createFeed: (feed, userMeta) => dispatch(authActions.createFeed(feed, userMeta)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
+        setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
     }
 };
 

@@ -587,6 +587,29 @@ export const fetchingUserGroups = async (userId, location, callback) => {
     }
 };
 
+export const uploadFile = async (filePath, dir) => {
+    try {
+        const userId = await AsyncStorage.getItem('$leppiUserId');
+        const filename = `${uuid()}.jpeg`; // Generate unique name
+        const uploadPath = `${dir}/${userId}/${filename}`;
+        await firebase.storage().ref(uploadPath).putFile(imagePath, {cacheControl: 'no-store',});
+        return uploadPath;
+    } catch (e) {
+        return false;
+    }
+
+}
+
+export const deleteFile = async (filePath, dir) => {
+    try {
+        await firebase.storage().ref(filePath).delete();
+        return true;
+    } catch (e) {
+        return false;
+    }
+
+}
+
 export const createFeed = (feed, userMeta) => {
     return async (dispatch, getState) => {
         const userId = userMeta.userId;
@@ -594,18 +617,6 @@ export const createFeed = (feed, userMeta) => {
         // //console.log('===== createFeed');
         try {
             feed.createTime = Math.floor(Date.now());
-            if (feed.gallery && feed.gallery.length > 0) {
-                let gallery = [];
-                let index;
-                for (index in feed.gallery) {
-                    let media = feed.gallery[index];
-                    const filename = `${uuid()}.jpeg`; // Generate unique name
-                    const uploadPath = `feeds/${userId}/${filename}`;
-                    await firebase.storage().ref(uploadPath).putFile(media, {cacheControl: 'no-store',});
-                    gallery.push(uploadPath);
-                }
-                feed.gallery = gallery;
-            }
             const groupId = await AsyncStorage.getItem('$leppiGroupId');
             const feedId = await firebase.database()
                 .ref('feeds')
@@ -630,6 +641,7 @@ export const createFeed = (feed, userMeta) => {
             };
             let url = REQUEST_URL + "/api/push/newFeed/" + groupId;
             let respond = fetch(url, requestConfig);
+            dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
         }
