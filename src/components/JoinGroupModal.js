@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, TextInput, TouchableOpacity, View, Text, KeyboardAvoidingView} from "react-native";
+import {Image, TextInput, TouchableOpacity, View, Text } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Toast from 'react-native-simple-toast';
 import styles from '../styles/joinGroupModal';
 import Modal from "react-native-modal";
@@ -104,7 +105,7 @@ class JoinGroupModal extends Component {
                 onBackdropPress={this.props.onBackdropPress}
                 style={styles.container}
                 isVisible={this.props.isVisible && this.state.isVisible}>
-                <KeyboardAvoidingView style={styles.content} behavior={'padding'}>
+                <KeyboardAwareScrollView style={styles.content} behavior={'padding'}>
                     <Image style={styles.bookMark} source={IconBookmark}/>
                     <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
                                       onPress={this.props.onBackdropPress}>
@@ -168,7 +169,7 @@ class JoinGroupModal extends Component {
                         </TouchableOpacity>
                     </View>}
                     {(!isVisibleJoinButton)&& <View style={styles.emptyView}/>}
-                </KeyboardAvoidingView>
+                </KeyboardAwareScrollView>
             </Modal>
         );
     }

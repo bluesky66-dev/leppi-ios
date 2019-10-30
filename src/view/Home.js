@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import {Image, ScrollView, TouchableOpacity, View, Text, KeyboardAvoidingView} from 'react-native';
+import {Image, ScrollView, TouchableOpacity, View, Text} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Toast from 'react-native-simple-toast';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -84,7 +85,7 @@ class Home extends Component {
             joinedGroup = this.props.joinedGroup;
         }
         return (
-            <KeyboardAvoidingView style={styles.rootWrapper}>
+            <KeyboardAwareScrollView style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -142,7 +143,7 @@ class Home extends Component {
                         isVisibleJoinButton={false}
                         onBackdropPress={()=>this.setState({isJoinGroup: false})}/>
                 </View>
-            </KeyboardAvoidingView>
+            </KeyboardAwareScrollView>
         );
     }
 }
