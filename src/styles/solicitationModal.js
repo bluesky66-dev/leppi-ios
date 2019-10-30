@@ -16,7 +16,6 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(22),
         paddingRight: wp(22),
         borderRadius: hp(42),
-        justifyContent: 'flex-end',
     },
     feedBadge: {
         height: wp(17),

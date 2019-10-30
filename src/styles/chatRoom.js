@@ -8,7 +8,6 @@ module.exports = StyleSheet.create({
 
     container: {
         flex: 1,
-        justifyContent: 'flex-end',
     },
 
     contentWrapper: {
