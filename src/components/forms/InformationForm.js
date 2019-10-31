@@ -6,7 +6,7 @@ import defaultAvatar from "../../images/office-worker.png";
 import plusIcon from "../../images/plus.png";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
-import * as authActions from "../redux/actions/AuthActions";
+import * as authActions from "../../redux/actions/AuthActions";
 
 class InformationForm extends Component {
 
@@ -44,6 +44,7 @@ class InformationForm extends Component {
             },
         };
         try {
+            modalThis.props.setLoadingSpinner(true);
             ImagePicker.showImagePicker(options, (response) => {
                 //console.log('======= Response = ', response);
                 if (response.didCancel) {
@@ -53,10 +54,9 @@ class InformationForm extends Component {
                 } else if (response.customButton) {
                     //console.log('======= User tapped custom button: ', response.customButton);
                 } else {
-                    if (response.uri) {
-                        ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then((newImage) => {
+                    if (typeof response.uri !== 'undefined') {
+                        ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then(async (newImage) => {
                             //console.log('newImage ===', newImage);
-                            modalThis.props.setLoadingSpinner(true);
                             try {
                                 let image: any = {};
                                 image.uri = newImage.uri;
@@ -75,13 +75,17 @@ class InformationForm extends Component {
                             }
                         }).catch((err) => {
                             console.log(err.message);
+                            modalThis.props.setLoadingSpinner(false);
                         });
-                    }
+                    } else {
+                        modalThis.props.setLoadingSpinner(false);
+                    }  
                 }
-
+                modalThis.props.setLoadingSpinner(false);
             });
         } catch (e) {
             console.log(e.message);
+            modalThis.props.setLoadingSpinner(false);
         }
     };
 

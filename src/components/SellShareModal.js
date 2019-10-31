@@ -106,6 +106,7 @@ class SellShareModal extends Component {
             },
         };
         try {
+            modalThis.props.setLoadingSpinner(true);
             ImagePicker.showImagePicker(options, (response) => {
                 //console.log('======= Response = ', response);
                 if (response.didCancel) {
@@ -115,13 +116,12 @@ class SellShareModal extends Component {
                 } else if (response.customButton) {
                     // //console.log('======= User tapped custom button: ', response.customButton);
                 } else {
-                    if (response.uri) {
+                    if (typeof response.uri !== 'undefined') {
                         ImageResizer.createResizedImage(response.uri, 400, 500, 'JPEG', 70).then(async (newImage) => {
                             //console.log('newImage ===', newImage);
                             if (gallery.length >= 5) {
                                 return false;
                             }
-                            modalThis.props.setLoadingSpinner(true);
                             try {
                                 const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds/' + this.props.userId);
                                 console.log(uploadPath);
@@ -139,11 +139,14 @@ class SellShareModal extends Component {
                             console.log(err.message);
                             modalThis.props.setLoadingSpinner(false);
                         });
-                    }                    
+                    } else {
+                        modalThis.props.setLoadingSpinner(false);
+                    }                  
                 }
             });
         } catch (e) {
             console.log(e.message);
+            modalThis.props.setLoadingSpinner(false);
         }
     }
 
