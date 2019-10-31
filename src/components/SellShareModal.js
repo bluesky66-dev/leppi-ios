@@ -14,7 +14,6 @@ import {FeedTypes} from "../redux/constants/feedConstants";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import {MENU_TYPES} from "../redux/constants/menuTypes";
-import firebase from '@react-native-firebase/app'
 
 class SellShareModal extends Component {
 
@@ -124,8 +123,8 @@ class SellShareModal extends Component {
                             }
                             modalThis.props.setLoadingSpinner(true);
                             try {
-                                const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds');
-                                //console.log(uploadPath);
+                                const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds/' + this.props.userId);
+                                console.log(uploadPath);
                                 modalThis.props.setLoadingSpinner(false);
                                 if (uploadPath) {
                                     gallery.push(uploadPath);

@@ -6,8 +6,9 @@ import defaultAvatar from "../../images/office-worker.png";
 import plusIcon from "../../images/plus.png";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
+import * as authActions from "../redux/actions/AuthActions";
 
-export default class InformationForm extends Component {
+class InformationForm extends Component {
 
     constructor(props) {
         super(props);
@@ -55,15 +56,22 @@ export default class InformationForm extends Component {
                     if (response.uri) {
                         ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then((newImage) => {
                             //console.log('newImage ===', newImage);
+                            modalThis.props.setLoadingSpinner(true);
                             try {
                                 let image: any = {};
-                            image.uri = newImage.uri;
-                            //console.log('image.uri', image.uri);
-                            image.path = 'users';
-                            modalThis.props.onChange({avatar: image});
-                            modalThis.setState({avatar: image});
+                                image.uri = newImage.uri;
+                                //console.log('image.uri', image.uri);
+                                const uploadPath = await authActions.uploadFile(newImage.uri, 'users');
+                                console.log(uploadPath);
+                                modalThis.props.setLoadingSpinner(false);
+                                if (uploadPath) {
+                                    modalThis.props.onChange({avatar: uploadPath});
+                                }  
+                                
+                                modalThis.setState({avatar: image});
                             } catch (e) {
                                 console.log(e.message);
+                                modalThis.props.setLoadingSpinner(false);
                             }
                         }).catch((err) => {
                             console.log(err.message);
@@ -139,3 +147,17 @@ export default class InformationForm extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state, props) {
+    return {
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InformationForm);

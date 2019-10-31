@@ -589,9 +589,8 @@ export const fetchingUserGroups = async (userId, location, callback) => {
 
 export const uploadFile = async (filePath, dir) => {
     try {
-        const userId = await AsyncStorage.getItem('$leppiUserId');
         const filename = `${uuid()}.jpeg`; // Generate unique name
-        const uploadPath = `${dir}/${userId}/${filename}`;
+        const uploadPath = `${dir}/${filename}`;
         await firebase.storage().ref(uploadPath).putFile(filePath, {cacheControl: 'no-store',});
         return uploadPath;
     } catch (e) {

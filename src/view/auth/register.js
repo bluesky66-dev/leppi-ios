@@ -131,8 +131,6 @@ class Register extends Component {
                 if (!this.props.isSignuped) {
                     return false;
                 }
-                state.avatar.userId = this.props.userId;
-                await this.props.uploadMedia(state.avatar);
 
                 let userMeta = {
                     userId: this.props.userId,
@@ -147,7 +145,7 @@ class Register extends Component {
                     last_name: state.last_name,
                     whatsapp: state.whatsapp.replace(/\D/g,''),
                     birth_date: state.birth_date,
-                    avatar: this.props.downloadURL,
+                    avatar: state.avatar,
                     points: 0,
                     createTime: Math.floor(Date.now()),
                 };
@@ -306,7 +304,6 @@ function mapStateToProps(state, props) {
         isSignuped: state.AuthReducer.isSignuped,
         groupId: state.AuthReducer.groupId,
         isLoading: Boolean(state.AuthReducer.isLoading),
-        downloadURL: state.AuthReducer.downloadURL,
     }
 }
 
