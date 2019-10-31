@@ -116,29 +116,31 @@ class SellShareModal extends Component {
                 } else if (response.customButton) {
                     // //console.log('======= User tapped custom button: ', response.customButton);
                 } else {
-                    ImageResizer.createResizedImage(response.uri, 400, 500, 'JPEG', 70).then(async (newImage) => {
-                        //console.log('newImage ===', newImage);
-                        if (gallery.length >= 5) {
-                            return false;
-                        }
-                        modalThis.props.setLoadingSpinner(true);
-                        try {
-                            const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds');
-                            //console.log(uploadPath);
+                    if (response.uri) {
+                        ImageResizer.createResizedImage(response.uri, 400, 500, 'JPEG', 70).then(async (newImage) => {
+                            //console.log('newImage ===', newImage);
+                            if (gallery.length >= 5) {
+                                return false;
+                            }
+                            modalThis.props.setLoadingSpinner(true);
+                            try {
+                                const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds');
+                                //console.log(uploadPath);
+                                modalThis.props.setLoadingSpinner(false);
+                                if (uploadPath) {
+                                    gallery.push(uploadPath);
+                                    gallery_uris.push(newImage.uri);
+                                    modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
+                                }  
+                            } catch (e) {
+                                console.log(e.message);
+                                modalThis.props.setLoadingSpinner(false);
+                            }      
+                        }).catch((err) => {
+                            console.log(err.message);
                             modalThis.props.setLoadingSpinner(false);
-                            if (uploadPath) {
-                                gallery.push(uploadPath);
-                                gallery_uris.push(newImage.uri);
-                                modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
-                            }  
-                        } catch (e) {
-                            console.log(e.message);
-                            modalThis.props.setLoadingSpinner(false);
-                        }      
-                    }).catch((err) => {
-                        console.log(err.message);
-                        modalThis.props.setLoadingSpinner(false);
-                    });
+                        });
+                    }                    
                 }
             });
         } catch (e) {

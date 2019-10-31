@@ -143,6 +143,18 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - Permission-Camera (2.0.3):
+    - RNPermissions
+  - Permission-LocationAlways (2.0.3):
+    - RNPermissions
+  - Permission-LocationWhenInUse (2.0.3):
+    - RNPermissions
+  - Permission-MediaLibrary (2.0.3):
+    - RNPermissions
+  - Permission-Notifications (2.0.3):
+    - RNPermissions
+  - Permission-PhotoLibrary (2.0.3):
+    - RNPermissions
   - Protobuf (3.10.0)
   - QBImagePickerController (3.4.0)
   - RCTRequired (0.61.2)
@@ -397,6 +409,8 @@ PODS:
     - React-Core
     - React-RCTImage
     - RSKImageCropper
+  - RNPermissions (2.0.3):
+    - React
   - RNReanimated (1.3.0):
     - React
   - RSKImageCropper (2.2.3)
@@ -410,6 +424,12 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - GoogleSignIn (~> 5.0.0)
+  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera.podspec`)
+  - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
+  - Permission-MediaLibrary (from `../node_modules/react-native-permissions/ios/MediaLibrary.podspec`)
+  - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications.podspec`)
+  - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -449,6 +469,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-community/google-signin`)"
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -494,6 +515,18 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Permission-Camera:
+    :path: "../node_modules/react-native-permissions/ios/Camera.podspec"
+  Permission-LocationAlways:
+    :path: "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
+  Permission-LocationWhenInUse:
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
+  Permission-MediaLibrary:
+    :path: "../node_modules/react-native-permissions/ios/MediaLibrary.podspec"
+  Permission-Notifications:
+    :path: "../node_modules/react-native-permissions/ios/Notifications.podspec"
+  Permission-PhotoLibrary:
+    :path: "../node_modules/react-native-permissions/ios/PhotoLibrary.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -566,6 +599,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/google-signin"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   Yoga:
@@ -601,6 +636,12 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  Permission-Camera: 731959b8ffb5757e1ee85893fb49c3aa021ef512
+  Permission-LocationAlways: 781e472b8235fb8b6d2e947b2e4d6cce2c0343c9
+  Permission-LocationWhenInUse: 5cb8e0df1463dfab567d2a3d2589ab557fda68cb
+  Permission-MediaLibrary: 63091db2ea9b81e921430faafd1f13ce318b2163
+  Permission-Notifications: c11ff327feb378a2e18ccffcb0af482973ed7482
+  Permission-PhotoLibrary: 23a656a9694dfba3f8ae1cbc0f33c67b35db0065
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   RCTRequired: c639d59ed389cfb1f1203f65c2ea946d8ec586e2
@@ -639,11 +680,12 @@ SPEC CHECKSUMS:
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
   RNGoogleSignin: a8504be96dea98b2fd006ec3f2bbe04cef8b3692
   RNImageCropPicker: e1d8c3381e5b05a1bdcd13ea57a4f1c020a09cef
+  RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
   RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: 9ed513941807e0e7a44a3483d071c5a4f43bed5b
+PODFILE CHECKSUM: 27126a51f1783cadbfbccbdc71a7529c083c91f3
 
 COCOAPODS: 1.8.4

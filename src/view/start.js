@@ -9,6 +9,7 @@ import {listenOrientationChange as lor, removeOrientationListener as rol} from '
 import * as authActions from "../redux/actions/AuthActions";
 import {connect} from "react-redux";
 import * as push from '../util/pushNotifications';
+import * as permissions from '../util/permissions';
 import AsyncStorage from "@react-native-community/async-storage";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 import Geolocation from 'react-native-geolocation-service';
@@ -35,6 +36,11 @@ class Start extends Component {
         // push.checkPermission();
         // push.notificationListener();
         // push.createChannel();
+        permissions.checkCamera();
+        permissions.checkLocationAlways();
+        permissions.checkLocationWhenInUse();
+        //permissions.checkMediaLibrary();
+        permissions.checkPhotoLibrary();
 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 

@@ -37,6 +37,14 @@ target 'leppi' do
   pod 'GoogleSignIn', '~> 5.0.0'
   pod 'react-native-geolocation', path: '../node_modules/@react-native-community/geolocation'
   
+   permissions_path = '../node_modules/react-native-permissions/ios'
+
+   pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
+   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
+   pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary.podspec"
+   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications.podspec"
+   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary.podspec"
 
   target 'leppiTests' do
     inherit! :search_paths

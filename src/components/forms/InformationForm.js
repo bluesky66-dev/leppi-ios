@@ -52,22 +52,25 @@ export default class InformationForm extends Component {
                 } else if (response.customButton) {
                     //console.log('======= User tapped custom button: ', response.customButton);
                 } else {
-                    ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then((newImage) => {
-                        //console.log('newImage ===', newImage);
-                        try {
-                            let image: any = {};
-                        image.uri = newImage.uri;
-                        //console.log('image.uri', image.uri);
-                        image.path = 'users';
-                        modalThis.props.onChange({avatar: image});
-                        modalThis.setState({avatar: image});
-                        } catch (e) {
-                            console.log(e.message);
-                        }
-                    }).catch((err) => {
-                        console.log(err.message);
-                    });
+                    if (response.uri) {
+                        ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then((newImage) => {
+                            //console.log('newImage ===', newImage);
+                            try {
+                                let image: any = {};
+                            image.uri = newImage.uri;
+                            //console.log('image.uri', image.uri);
+                            image.path = 'users';
+                            modalThis.props.onChange({avatar: image});
+                            modalThis.setState({avatar: image});
+                            } catch (e) {
+                                console.log(e.message);
+                            }
+                        }).catch((err) => {
+                            console.log(err.message);
+                        });
+                    }
                 }
+
             });
         } catch (e) {
             console.log(e.message);
