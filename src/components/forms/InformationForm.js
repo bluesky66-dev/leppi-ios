@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 import {Image, TouchableOpacity, View} from 'react-native';
 import {DateInput, RegisterTextInput} from '../start';
 import infoStyles from '../../styles/auth/information'

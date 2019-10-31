@@ -85,7 +85,7 @@ class Register extends Component {
                 //console.log('Location ====== ', state);
                 break;
             case 2:
-                if (!state.avatar || !state.avatar.uri || state.avatar.uri.length <= 0) {
+                if (!state.avatar || state.avatar.length <= 0) {
                     Toast.show('Select your avatar', Toast.SHORT);
                     return false;
                 }

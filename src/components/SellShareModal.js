@@ -164,7 +164,7 @@ class SellShareModal extends Component {
                 onBackdropPress={this.props.onBackdropPress}
                 style={styles.container}
                 isVisible={this.props.isVisible}>
-                <KeyboardAwareScrollView style={styles.content} behavior={'padding'}>
+                <View style={styles.content} behavior={'padding'}>
                     <View style={styles.feedBadge}/>
                     <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
                                       onPress={() => this.props.onBackdropPress()}>
@@ -221,7 +221,7 @@ class SellShareModal extends Component {
                     <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.props.isLoading} style={styles.btnSellShare}>
                         <Text style={styles.sellShareTxt}>Anunciar</Text>
                     </TouchableOpacity>
-                </KeyboardAwareScrollView>
+                </View>
             </Modal>
         );
     }
