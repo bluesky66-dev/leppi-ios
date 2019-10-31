@@ -5,8 +5,10 @@ import {DateInput, RegisterTextInput} from '../start';
 import infoStyles from '../../styles/auth/information'
 import defaultAvatar from "../../images/office-worker.png";
 import plusIcon from "../../images/plus.png";
+import IconLoader from "../../images/white-loader.gif";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
+import Spinner from "react-native-loading-spinner-overlay";
 import * as authActions from "../../redux/actions/AuthActions";
 
 class InformationForm extends Component {
@@ -105,12 +107,18 @@ class InformationForm extends Component {
         }
         return (
             <View style={infoStyles.formWrapper}>
+                <Spinner
+                    visible={this.props.isLoading}
+                    textContent={''}
+                    textStyle={{color: '#FFF'}}
+                />
                 <View style={infoStyles.avatarWrapper}>
                     <View style={infoStyles.avatarContainer}>
                         <Image style={this.state.avatar.uri ? infoStyles.realAvatar: infoStyles.defaultAvatar} source={avatarSource}/>
                     </View>
-                    <TouchableOpacity style={infoStyles.plusIcon} activeOpacity={0.8} onPress={() => this.handleChoosePhoto()}>
-                        <Image source={plusIcon} style={infoStyles.plusIconStyle}/>
+                    <TouchableOpacity style={infoStyles.plusIcon} activeOpacity={0.8} onPress={() => this.handleChoosePhoto()} disabled={this.props.isLoading}>
+                        {!this.props.isLoading && <Image source={plusIcon} style={infoStyles.plusIconStyle}/>}
+                        {this.props.isLoading && <Image source={IconLoader} style={infoStyles.plusIconStyle}/>}
                     </TouchableOpacity>
                 </View>
                 <View style={infoStyles.formContainer}>
@@ -156,6 +164,7 @@ class InformationForm extends Component {
 
 function mapStateToProps(state, props) {
     return {
+        isLoading: state.AuthReducer.isLoading,
     }
 }
 

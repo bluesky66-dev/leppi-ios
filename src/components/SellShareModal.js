@@ -75,13 +75,13 @@ class SellShareModal extends Component {
             'Are you sure you want to remove the image?',
             [
                 {text: 'Cancel', onPress: () => {
-
                     }, style: 'cancel'},
                 {text: 'OK', onPress: async () => {
-                        gallery.splice(index, 1);
                         modalThis.props.setLoadingSpinner(true);
                         await authActions.deleteFile(gallery[index]);
                         modalThis.props.setLoadingSpinner(false);
+
+                        gallery.splice(index, 1);
                         modalThis.setState({gallery: gallery});
                     }},
             ],
@@ -143,6 +143,7 @@ class SellShareModal extends Component {
                         modalThis.props.setLoadingSpinner(false);
                     }                  
                 }
+                modalThis.props.setLoadingSpinner(false);
             });
         } catch (e) {
             console.log(e.message);
