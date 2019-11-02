@@ -26,7 +26,7 @@ class Start extends Component {
 
         //console.log(' ====== splash screen hide');
         const date1 = new Date();
-        const date2 = new Date('11/5/2019');
+        const date2 = new Date('11/10/2019');
         const diffTime = date2 - date1;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         if (diffDays <= 0) {
