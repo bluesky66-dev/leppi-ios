@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import SplashScreen from 'react-native-splash-screen'
-import {BackHandler, Image, Platform, ScrollView, Text, View} from "react-native";
+import {BackHandler, Image, Platform, Text, View} from "react-native";
 import firebase from '@react-native-firebase/app';
 import {Button} from "../components/start";
 import styles from "../styles/auth";
@@ -8,7 +8,6 @@ import logoimage from '../images/monkey.png'
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import * as authActions from "../redux/actions/AuthActions";
 import {connect} from "react-redux";
-import * as push from '../util/pushNotifications';
 import * as permissions from '../util/permissions';
 import AsyncStorage from "@react-native-community/async-storage";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
@@ -131,14 +130,17 @@ class Start extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.containerScroll}>
-                    <Text style={[styles.welcomeText]}>Leppi</Text>
-                    <View style={styles.logoCotainer}>
-                        <Image style={styles.logoimage} source={logoimage} resizeMode="contain"/>
+                <View style={styles.startBox}>
+                    <View style={styles.logoBox}>
+                        <View style={styles.logoCotainer}>
+                            <Image style={styles.logoimage} source={logoimage}/>
+                        </View>
+                        <Text style={[styles.welcomeText]}>Leppi</Text>
                     </View>
                     <Button style={[styles.btnLogin]} onPress={this._onLogin} btnText={"Login"}/>
                     <Button style={[styles.btnRegister]} onPress={this._onRegister} btnText={"Register"} bordered/>
-                </ScrollView>
+                    <View style={{height: 107}}/>
+                </View>
             </View>
         );
     }
