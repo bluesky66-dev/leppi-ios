@@ -6,13 +6,14 @@ let screenWidth = Dimensions.get('window').width;
 module.exports = StyleSheet.create({
 
     contentWrapper: {
-        height: hp(300),
+        height: hp(150),
         backgroundColor: '#02C8A7',
+        marginBottom: hp(100)
     },
 
     headerRound: {
         position: 'absolute',
-        top: hp(-73),
+        top: hp(-223),
         left: wp(-74),
         width: wp(523),
         height: hp(373),
@@ -37,7 +38,7 @@ module.exports = StyleSheet.create({
 
     appHeader: {
         width: '100%',
-        height: hp(250),
+        height: hp(100),
         zIndex: 2
     },
 

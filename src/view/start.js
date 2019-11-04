@@ -38,7 +38,6 @@ class Start extends Component {
         permissions.checkCamera();
         permissions.checkLocationAlways();
         permissions.checkLocationWhenInUse();
-        //permissions.checkMediaLibrary();
         permissions.checkPhotoLibrary();
 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -68,20 +67,6 @@ class Start extends Component {
         );
 
         try {
-            // firebase.dynamicLinks()
-            //     .getInitialLink()
-            //     .then((url) => {
-            //         if (url) {
-            //             // app opened from a dynamic link URL
-            //             const groupId = url.split('/').pop();
-            //             const userId = url.split('/').pop();
-            //
-            //             // //console.log('GROUP ID ======= ', groupId);
-            //             // //console.log('USER ID ======== ', userId);
-            //
-            //             this.props.authActions(userId, groupId);
-            //         }
-            //     });
             this.authSubscription = firebase.auth().onAuthStateChanged(async (user) => {
                 if (this.props.navigation.state && this.props.navigation.state.routeName !== 'Register' && this.props.navigation.state.routeName !== 'Password') {
                     if (user) {

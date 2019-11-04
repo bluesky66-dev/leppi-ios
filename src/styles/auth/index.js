@@ -42,8 +42,8 @@ module.exports = StyleSheet.create({
 
   logoimage: {
     alignSelf: "flex-start",
-    width: hp(56),
-    height: hp(56),
+    width: hp(60),
+    height: hp(60),
   },
 
   btnContainer: {

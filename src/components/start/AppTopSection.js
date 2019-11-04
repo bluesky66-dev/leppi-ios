@@ -67,10 +67,6 @@ export default class AppTopSection extends Component {
                 <ImageBackground source={topEllipse} resizeMode="stretch" style={styles.headerRound}/>
                 <AppTopBack onBackPress={this.props.onBackPress}/>
                 <View style={styles.appHeader}>
-                    <Text style={styles.headerText}>{title}</Text>
-                    <View style={styles.logoBox}>
-                        <Image source={logoImage} style={styles.headerLogo}/>
-                    </View>
                 </View>
                 <View style={styles.stepTitleWrapper}>
                     <Text style={styles.stepTitle}>{stepTile}</Text>
