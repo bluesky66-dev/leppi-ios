@@ -85,14 +85,14 @@ class Login extends Component {
                         navigation={this.props.navigation}
                         onPress={this.login.bind(this)} />
                     <View style={styles.thirdLoginWrapper}>
-                        <View style={styles.thirdLoginContainer}>
-                            <Text style={[styles.generalText]}>{"or login through"}</Text>
-                        </View>
-                        <View style={styles.thirdLoginContainer}>    
-                            <TouchableOpacity onPress={this.googleLogin.bind(this)} style={styles.socialButton} activeOpacity={1}>
-                                <Image source={googleIcon} style={styles.socialButtonIcon} />
-                            </TouchableOpacity>
-                        </View>
+                        {/*<View style={styles.thirdLoginContainer}>*/}
+                        {/*    <Text style={[styles.generalText]}>{"or login through"}</Text>*/}
+                        {/*</View>*/}
+                        {/*<View style={styles.thirdLoginContainer}>    */}
+                        {/*    <TouchableOpacity onPress={this.googleLogin.bind(this)} style={styles.socialButton} activeOpacity={1}>*/}
+                        {/*        <Image source={googleIcon} style={styles.socialButtonIcon} />*/}
+                        {/*    </TouchableOpacity>*/}
+                        {/*</View>*/}
                     </View>
                 </ScrollView>
             </KeyboardAwareScrollView>
