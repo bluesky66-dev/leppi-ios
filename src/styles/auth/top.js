@@ -8,7 +8,7 @@ module.exports = StyleSheet.create({
     contentWrapper: {
         height: hp(150),
         backgroundColor: '#02C8A7',
-        marginBottom: hp(100)
+        marginBottom: hp(80)
     },
 
     headerRound: {

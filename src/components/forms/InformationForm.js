@@ -4,8 +4,8 @@ import {Image, TouchableOpacity, View} from 'react-native';
 import {DateInput, RegisterTextInput} from '../start';
 import infoStyles from '../../styles/auth/information'
 import defaultAvatar from "../../images/office-worker.png";
-import plusIcon from "../../images/plus.png";
-import IconLoader from "../../images/white-loader.gif";
+import plusIcon from "../../images/avatar-plus.png";
+import IconLoader from "../../images/blue_loading.gif";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import Spinner from "react-native-loading-spinner-overlay";
