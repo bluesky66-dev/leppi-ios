@@ -8,9 +8,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import HeaderSection from '../components/HeaderSection';
 import SellShareModal from '../components/SellShareModal';
 import SolicitationModal from '../components/SolicitationModal';
-
+import SellShareSwitchModal from "../components/SellShareSwitchModal";
 import styles from '../styles/home';
-import JoinGroupModal from "../components/JoinGroupModal";
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedCategories} from '../redux/constants/feedConstants'
 
@@ -20,13 +19,11 @@ class Home extends Component {
         this.state = {
             isSellShare: false,
             isSolicitation: false,
-            isJoinGroup: false,
-            // isOpenedJoinGroup: false,
+            isSwitchModal: false,
             feedCategory: '',
         };
         this._onSellShare = this._onSellShare.bind(this);
         this._onSolicitation = this._onSolicitation.bind(this);
-        this._onInfoGroup = this._onInfoGroup.bind(this);
         this._onSelectFeedCat = this._onSelectFeedCat.bind(this);
     }
 
@@ -45,7 +42,7 @@ class Home extends Component {
             Toast.show('Select a category', Toast.SHORT);
             return false;
         }
-        this.setState({isSellShare: true})
+        this.setState({isSellShare: true, isSwitchModal: false})
     }
 
     _onSolicitation = () => {
@@ -53,15 +50,11 @@ class Home extends Component {
             Toast.show('Select a category', Toast.SHORT);
             return false;
         }
-        this.setState({isSolicitation: true})
-    }
-
-    _onInfoGroup = () => {
-        this.setState({isJoinGroup: true})
+        this.setState({isSolicitation: true, isSwitchModal: false})
     }
 
     _onSelectFeedCat = (feedCategory) => {
-        this.setState({feedCategory: feedCategory});
+        this.setState({feedCategory: feedCategory, isSwitchModal: true});
     }
 
     render() {
@@ -99,9 +92,6 @@ class Home extends Component {
                                 Você está no grupo <Text style={[styles.groupInfoTxt, {fontWeight: "bold"}]}>{joinedGroup.group_name?joinedGroup.group_name:''}</Text>. Código de Acesso <Text style={[styles.groupInfoTxt, {fontWeight: "bold"}]}>{joinedGroup.group_code?joinedGroup.group_code:''}</Text>. {"\n"}Convide seus vizinhos!
                             </Text>
                         </View>
-                        <TouchableOpacity onPress={()=>this._onInfoGroup()} style={styles.btnInfoGroup} activeOpacity={0.8}>
-                            <Text style={styles.btnInfoGroupTxt}>Informações do Grupo</Text>
-                        </TouchableOpacity>
                         <View style={styles.titleWrapper}>
                             <Text style={styles.titleTxt}>Clique em uma das opções e depois escolha Anunciar ou Solicitar!</Text>
                         </View>
@@ -109,39 +99,23 @@ class Home extends Component {
                             {typeBoxList}
                         </View>
                         <View style={styles.buttonGroup}>
-                            <TouchableOpacity style={[styles.sellButton]} onPress={()=>this._onSellShare()}>
-                                <View style={styles.buttonOut}>
-                                    <View style={[styles.buttonIn, styles.buttonInRed]}>
-                                        <Text style={styles.buttonTxt}>Anunciar</Text>
-                                    </View>
-                                </View>
-                                <View style={[styles.btnBadge, styles.badgeRed]}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[styles.solicitationButton]} onPress={()=>this._onSolicitation()}>
-                                <View style={styles.buttonOut}>
-                                    <View style={[styles.buttonIn, styles.buttonInBlue]}>
-                                        <Text style={styles.buttonTxt}>Solicitar</Text>
-                                    </View>
-                                </View>
-                                <View style={[styles.btnBadge, styles.badgeBlue]}/>
-                            </TouchableOpacity>
                         </View>
                     </ScrollView>
-                    <SellShareModal
+                    {this.state.isSellShare && <SellShareModal
                         navigation={this.props.navigation}
                         isVisible={this.state.isSellShare}
                         feedCategory={this.state.feedCategory}
-                        onBackdropPress={()=>this.setState({isSellShare: false})}/>
-                    <SolicitationModal
+                        onBackdropPress={()=>this.setState({isSellShare: false})}/>}
+                    {this.state.isSolicitation && <SolicitationModal
                         navigation={this.props.navigation}
                         feedCategory={this.state.feedCategory}
                         isVisible={this.state.isSolicitation}
-                        onBackdropPress={()=>this.setState({isSolicitation: false})}/>
-                    <JoinGroupModal
-                        isVisible={this.state.isJoinGroup}
-                        groupInfo={joinedGroup}
-                        isVisibleJoinButton={false}
-                        onBackdropPress={()=>this.setState({isJoinGroup: false})}/>
+                        onBackdropPress={()=>this.setState({isSolicitation: false})}/>}
+                    {this.state.isSwitchModal && <SellShareSwitchModal
+                        isVisible={this.state.isSwitchModal}
+                        openSellModal={this._onSellShare}
+                        openSolicitaionModal={this._onSolicitation}
+                        onBackdropPress={()=>this.setState({isSwitchModal: false})}/>}
                 </View>
             </KeyboardAwareScrollView>
         );
