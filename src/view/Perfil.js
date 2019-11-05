@@ -3,6 +3,7 @@ import {listenOrientationChange as lor, removeOrientationListener as rol} from '
 import {Alert, Image, ImageBackground, ScrollView, Share, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
+import JoinGroupModal from "../components/JoinGroupModal";
 import {dynamicEventLink} from '../util/dynamicLink';
 import HeaderSection from '../components/HeaderSection';
 import UserAvatar from "../images/user-avatar.png";
@@ -26,6 +27,7 @@ class Perfil extends Component {
         super(props);
         this.state = {
             user_about: '',
+            isJoinGroup: false,
             userGroups: [],
         };
     }
@@ -97,6 +99,10 @@ class Perfil extends Component {
     _onChangeGroup() {
         const {navigate} = this.props.navigation;
         navigate('JoinGroupPage');
+    }
+
+    _onInfoGroup = () => {
+        this.setState({isJoinGroup: true})
     }
 
     async _onLogout() {
@@ -220,9 +226,17 @@ class Perfil extends Component {
                                     <Text style={styles.btnBottomTxt}>Logout</Text>
                                 </TouchableOpacity>
                             </View>
+                            <TouchableOpacity onPress={()=>this._onInfoGroup()} style={styles.btnInfoGroup} activeOpacity={0.8}>
+                                <Text style={styles.btnInfoGroupTxt}>Informações do Grupo</Text>
+                            </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </View>
+                {this.state.isJoinGroup && <JoinGroupModal
+                    isVisible={this.state.isJoinGroup}
+                    groupInfo={joinedGroup}
+                    isVisibleJoinButton={false}
+                    onBackdropPress={()=>this.setState({isJoinGroup: false})}/>}
             </View>
         );
     }

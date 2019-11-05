@@ -230,5 +230,22 @@ module.exports = StyleSheet.create({
         fontSize: hp(11),
         fontFamily: "Raleway-Regular",
         opacity: 0.4
-    }
+    },
+
+    btnInfoGroup: {
+        marginTop: hp(23),
+        width: wp(300),
+        alignSelf: 'center',
+        backgroundColor: '#35d3b9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: hp(38),
+        borderRadius: hp(35),
+    },
+
+    btnInfoGroupTxt: {
+        color: "#ffffff",
+        fontSize: hp(14),
+        fontFamily: "Raleway-SemiBold",
+    },
 });
