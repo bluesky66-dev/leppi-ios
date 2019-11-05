@@ -608,7 +608,6 @@ export const deleteFile = async (filePath, dir) => {
         console.log('delete file error', e.message);
         return false;
     }
-
 }
 
 export const createFeed = (feed, userMeta) => {

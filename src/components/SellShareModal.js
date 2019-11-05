@@ -70,6 +70,7 @@ class SellShareModal extends Component {
     _onRemoveImage(index) {
         let modalThis = this;
         let gallery = modalThis.state.gallery;
+        let gallery_uris = modalThis.state.gallery_uris;
         Alert.alert(
             'Remove Image',
             'Are you sure you want to remove the image?',
@@ -82,7 +83,8 @@ class SellShareModal extends Component {
                         modalThis.props.setLoadingSpinner(false);
 
                         gallery.splice(index, 1);
-                        modalThis.setState({gallery: gallery});
+                        gallery_uris.splice(index, 1);
+                        modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
                     }},
             ],
             { cancelable: false }
