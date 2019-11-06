@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Toast from 'react-native-simple-toast';
 import styles from '../styles/solicitationModal';
 import Modal from "react-native-modal";
@@ -11,6 +10,7 @@ import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from '../redux/constants/feedConstants'
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import date from "date-and-time";
 
 class SolicitationModal extends Component {
@@ -74,11 +74,15 @@ class SolicitationModal extends Component {
         this.setState({ isDatePickerVisible: false });
     };
 
-    handleConfirm = newDate => {
+    handleDateChange = (event, newDate) => {
         newDate = newDate || this.state.date;
         //console.log('====== newDate', newDate);
+        this.props.onChangeText(date.format(newDate, 'MM/DD/YYYY'));
+        this.setState({date: newDate});
+    };
+
+    handleConfirm = newDate => {
         this.hideDatePicker();
-        this.setState({date: newDate, est_date: date.format(newDate, 'MM/DD/YYYY')});
     };
 
     render() {
@@ -128,9 +132,11 @@ class SolicitationModal extends Component {
                     </TouchableOpacity>
                 </View>
                 { isDatePickerVisible && <DateTimePickerModal
+                    customDatePickerIOS={DateTimePicker}
                     isVisible={isDatePickerVisible}
                     mode={mode}
                     onConfirm={this.handleConfirm}
+                    onChange={this.handleDateChange}
                     onCancel={this.hideDatePicker}/>
                 }
             </Modal>
