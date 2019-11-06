@@ -24,15 +24,12 @@ export default class DateInput extends Component {
         this.setState({ isDatePickerVisible: false });
     };
 
-    handleDateChange = (event, newDate) => {
+    handleConfirm = newDate => {
         newDate = newDate || this.state.date;
         //console.log('====== newDate', newDate);
+        this.hideDatePicker();
         this.props.onChangeText(date.format(newDate, 'MM/DD/YYYY'));
         this.setState({date: newDate});
-    };
-
-    handleConfirm = newDate => {
-        this.hideDatePicker();
     };
 
     render() {
@@ -50,13 +47,11 @@ export default class DateInput extends Component {
                     </TouchableOpacity>
                 </View>
                 { isDatePickerVisible && <DateTimePickerModal
-                    customDatePickerIOS={DateTimePicker}
                     value={date}
                     isVisible={isDatePickerVisible}
                     mode={mode}
-                    display="spinner"
+                    display="default"
                     onConfirm={this.handleConfirm}
-                    onChange={this.handleDateChange}
                     onCancel={this.hideDatePicker}/>
                 }
             </View>

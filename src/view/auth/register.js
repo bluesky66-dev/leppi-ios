@@ -62,10 +62,10 @@ class Register extends Component {
         let state = this.state;
         switch (this.state.step_index) {
             case 1:
-                if (!state.country || state.country.length <= 0) {
-                    Toast.show('Digite seu país', Toast.SHORT);
-                    return false;
-                }
+                // if (!state.country || state.country.length <= 0) {
+                //     Toast.show('Digite seu país', Toast.SHORT);
+                //     return false;
+                // }
                 // if (!state.country || state.city.length <= 0) {
                 //     Toast.show('Enter your city', Toast.SHORT);
                 //     return false;

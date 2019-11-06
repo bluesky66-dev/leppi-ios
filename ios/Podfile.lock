@@ -324,14 +324,14 @@ PODS:
     - React
   - react-native-image-picker (1.1.0):
     - React
-  - react-native-image-resizer (1.0.1):
+  - react-native-image-resizer (1.1.0):
     - React
   - react-native-simple-toast (1.0.0):
     - React
     - Toast (~> 4.0.0)
   - react-native-splash-screen (3.2.0):
     - React
-  - react-native-viewpager (2.0.1):
+  - react-native-viewpager (2.0.2):
     - React
   - React-RCTActionSheet (0.61.2):
     - React-Core/RCTActionSheetHeaders (= 0.61.2)
@@ -372,36 +372,36 @@ PODS:
     - React
   - RNDateTimePicker (2.1.0):
     - React
-  - RNFBApp (6.0.1):
+  - RNFBApp (6.0.3):
     - Firebase/Core (~> 6.8.1)
     - React
-  - RNFBAuth (6.0.1):
+  - RNFBAuth (6.0.3):
     - Firebase/Auth (~> 6.8.1)
     - Firebase/Core (~> 6.8.1)
     - React
     - RNFBApp
-  - RNFBDatabase (6.0.1):
+  - RNFBDatabase (6.0.3):
     - Firebase/Core (~> 6.8.1)
     - Firebase/Database (~> 6.8.1)
     - React
     - RNFBApp
-  - RNFBDynamicLinks (6.0.1):
+  - RNFBDynamicLinks (6.0.3):
     - Firebase/Core (~> 6.8.1)
     - Firebase/DynamicLinks (~> 6.8.1)
     - React
     - RNFBApp
-  - RNFBMessaging (6.0.1):
+  - RNFBMessaging (6.0.3):
     - Firebase/Messaging (~> 6.8.1)
     - React
     - RNFBApp
-  - RNFBStorage (6.0.1):
+  - RNFBStorage (6.0.3):
     - Firebase/Core (~> 6.8.1)
     - Firebase/Storage (~> 6.8.1)
     - React
     - RNFBApp
-  - RNGestureHandler (1.4.1):
+  - RNGestureHandler (1.5.0):
     - React
-  - RNGoogleSignin (3.0.2):
+  - RNGoogleSignin (3.0.3):
     - GoogleSignIn (~> 5.0.0)
     - React
   - RNImageCropPicker (0.26.1):
@@ -411,7 +411,7 @@ PODS:
     - RSKImageCropper
   - RNPermissions (2.0.3):
     - React
-  - RNReanimated (1.3.0):
+  - RNReanimated (1.4.0):
     - React
   - RSKImageCropper (2.2.3)
   - Toast (4.0.0)
@@ -655,10 +655,10 @@ SPEC CHECKSUMS:
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
   react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
   react-native-image-picker: 7a85cf7b0a53845f03ae52fb4592a2748ded069b
-  react-native-image-resizer: 48eb06a18a6d0a632ffa162a51ca61a68fb5322f
+  react-native-image-resizer: 1ffe71ec5f2596c3a24d42548c03bfbfb06fe810
   react-native-simple-toast: 6c376bd79b1e255a4bee90a72ead6447f96ea10d
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-viewpager: f41b42bba71407e916654d64e87ff2680edecc92
+  react-native-viewpager: 88f4269c19d626d2ccd5f7c7f5f7f76422ddb9e3
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6
   React-RCTAnimation: e3cefa93c38c004c318f7ec04b883eb14b8b8235
   React-RCTBlob: d26ac0e313fbf14e7203473fd593ccaaeee8329e
@@ -671,17 +671,17 @@ SPEC CHECKSUMS:
   ReactCommon: 5848032ed2f274fcb40f6b9ec24067787c42d479
   RNCAsyncStorage: 60a80e72d95bf02a01cace55d3697d9724f0d77f
   RNDateTimePicker: 9db00606d689f5653f08aa601c81b9d3266a0a19
-  RNFBApp: 5dd12fdb688ddd25aa756d8cd2780abaadf15709
-  RNFBAuth: 7011c2d87c84bac55b5feb414cf1b0b92169f4b9
-  RNFBDatabase: e5c2bd3bfb20af7ee07c17ecc607d7a1ac941e72
-  RNFBDynamicLinks: 1d499cc50b99e61be7ef1c545fbafe49a25c1eed
-  RNFBMessaging: f47ff44a2d40958fecdb19f113a7f9d1985799d2
-  RNFBStorage: 7bde147a5039116d1c419c0eb609c36a0d259066
-  RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
-  RNGoogleSignin: a8504be96dea98b2fd006ec3f2bbe04cef8b3692
+  RNFBApp: 92ae594c85e82e1e68434049b2a37e1f584cf8b9
+  RNFBAuth: edc2e5986b92f0dfd0076b312caf7871a1646ed8
+  RNFBDatabase: d7777fb4e6e312321a26f0ff5f5ef3a669bc2215
+  RNFBDynamicLinks: d24d7658b224b74a493807b08244c207b7477390
+  RNFBMessaging: 5a82056efc1bf45a8467121d1a531feca34b9fa4
+  RNFBStorage: 30bfae04c2c5c54d884e2edf86884a54f718d2e9
+  RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
+  RNGoogleSignin: a10b849c165088c737d4465de6c2062f24d06002
   RNImageCropPicker: e1d8c3381e5b05a1bdcd13ea57a4f1c020a09cef
   RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
-  RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
+  RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f

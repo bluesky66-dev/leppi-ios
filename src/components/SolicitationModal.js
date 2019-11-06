@@ -74,15 +74,11 @@ class SolicitationModal extends Component {
         this.setState({ isDatePickerVisible: false });
     };
 
-    handleDateChange = (event, newDate) => {
+    handleConfirm = newDate => {
         newDate = newDate || this.state.date;
         //console.log('====== newDate', newDate);
-        this.props.onChangeText(date.format(newDate, 'MM/DD/YYYY'));
-        this.setState({date: newDate});
-    };
-
-    handleConfirm = newDate => {
         this.hideDatePicker();
+        this.setState({date: newDate, est_date: date.format(newDate, 'MM/DD/YYYY')});
     };
 
     render() {
@@ -132,11 +128,9 @@ class SolicitationModal extends Component {
                     </TouchableOpacity>
                 </View>
                 { isDatePickerVisible && <DateTimePickerModal
-                    customDatePickerIOS={DateTimePicker}
                     isVisible={isDatePickerVisible}
                     mode={mode}
                     onConfirm={this.handleConfirm}
-                    onChange={this.handleDateChange}
                     onCancel={this.hideDatePicker}/>
                 }
             </Modal>
