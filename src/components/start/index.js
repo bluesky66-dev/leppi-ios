@@ -6,8 +6,6 @@ import RegisterTextInput from "./RegisterTextInput";
 import RegisterTextView from "./RegisterTextView";
 import AppTopSection from "./AppTopSection";
 import TextArea from "./TextArea";
-import GroupAccessCode from "./GroupAccessCode";
-import JoinGroupItem from "./JoinGroupItem";
 import AppTopBack from "./AppTopBack";
 import SelectInput from "./SelectInput";
 import DateInput from "./DateInput";
@@ -22,8 +20,6 @@ export {
     RegisterTextView,
     AppTopSection,
     TextArea,
-    GroupAccessCode,
-    JoinGroupItem,
     AppTopBack,
     SelectInput,
     DateInput,

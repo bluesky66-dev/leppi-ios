@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import {Alert, Image, ImageBackground, ScrollView, Share, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
-import JoinGroupModal from "../components/JoinGroupModal";
-import {dynamicEventLink} from '../util/dynamicLink';
 import HeaderSection from '../components/HeaderSection';
 import UserAvatar from "../images/user-avatar.png";
 import IconIdea from "../images/idea.png";
@@ -20,90 +18,27 @@ import PointExcellent2a from "../images/excellent2a.png";
 
 import styles from '../styles/perfil';
 import * as authActions from "../redux/actions/AuthActions";
-import {MENU_TYPES} from "../redux/constants/menuTypes";
 
 class Perfil extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user_about: '',
-            isJoinGroup: false,
-            userGroups: [],
         };
     }
 
     componentDidMount() {
         lor(this);
-        this.props.setLoadingSpinner(true);
-        authActions.fetchingUserGroups(this.props.userId, this.props.userMeta, userGroups => {
-            this.props.setLoadingSpinner(false);
-            if (userGroups !== null) {
-                this.setState({ userGroups: userGroups });
-            }
-        });
     }
 
     componentWillUnmount() {
         rol();
     }
 
-    async _onInvite(groupId) {
-        return false;
-        this.props.setLoadingSpinner(true);
-        let link = await dynamicEventLink(this.props.userId, groupId);
-        this.props.setLoadingSpinner(false);
-
-        try {
-            this.props.setLoadingSpinner(true);
-            const result = await Share.share({
-                message:
-                    link,
-            });
-            this.props.setLoadingSpinner(false);
-
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
-        } catch (error) {
-            alert(error.message);
-        }
-
+    async _onInvite() {
     }
 
-    _onOtherGroup(group) {
-        const {navigate} = this.props.navigation;
-        Alert.alert(
-            'Change Group',
-            'Are you sure you want to view the group!',
-            [
-                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {text: 'OK',  onPress: async () => {
-                        //console.log('OK Pressed =========');
-                        this.props.setLoadingSpinner(true);
-                        await this.props.joinGroup(group, this.props.userId);
-                        this.props.setLoadingSpinner(false);
-                        this.props.clickMenu(MENU_TYPES.HOME);
-                        navigate('Home');
-                    }},
-            ],
-            { cancelable: false }
-        )
-    }
 
-    _onChangeGroup() {
-        const {navigate} = this.props.navigation;
-        navigate('JoinGroupPage');
-    }
-
-    _onInfoGroup = () => {
-        this.setState({isJoinGroup: true})
-    }
 
     async _onLogout() {
         await this.props.fetchLogout();
@@ -120,21 +55,6 @@ class Perfil extends Component {
         if (this.props.userMeta.points) {
             score = this.props.userMeta.points;
         }
-
-        // //console.log('SCORE');
-        // //console.log(score)
-
-        let joinedGroup = {};
-        if (this.props.joinedGroup) {
-            joinedGroup = this.props.joinedGroup;
-        }
-        let userGroups = this.state.userGroups.map((item, i) => {
-            return (
-                <TouchableOpacity key={i} style={styles.userGroupBtn} onPress={() => this._onOtherGroup(item.groupInfo)}>
-                    <Text style={styles.userGroupBtnTxt}>{item.groupInfo.group_name}</Text>
-                </TouchableOpacity>
-            );
-        });
 
         return (
             <View style={styles.rootWrapper}>
@@ -199,44 +119,27 @@ class Perfil extends Component {
                                     </ImageBackground>
                                 </View>
                             </View>
-                            <View style={styles.groupView}>
-                                <View style={styles.groupViewRow}>
-                                    <Text style={styles.groupViewLeft}>Seu Endereço: </Text>
-                                    <Text style={styles.groupViewRight}>
+                            <View style={styles. addressView}>
+                                <View style={styles. addressViewRow}>
+                                    <Text style={styles. addressViewLeft}>Seu Endereço: </Text>
+                                    <Text style={styles. addressViewRight}>
                                         {`${this.props.userMeta.district ? this.props.userMeta.district + ', ' : ''}${this.props.userMeta.street ? this.props.userMeta.street + ', ' : ''}${this.props.userMeta.city ? this.props.userMeta.city + ', ' : ''}${this.props.userMeta.country ? this.props.userMeta.country : ''}`}
                                     </Text>
                                 </View>
-                                <View style={styles.groupViewRow}>
-                                    <Text style={styles.groupViewLeft}>Grupos: </Text>
-                                    <View style={styles.groupViewRight}>
-                                        {userGroups}
-                                    </View>
-                                </View>
                                 {/*<View style={styles.inviteWrapper}>*/}
-                                {/*    <TouchableOpacity style={styles.inviteBtn} onPress={() => this._onInvite(this.props.groupId)}>*/}
+                                {/*    <TouchableOpacity style={styles.inviteBtn} onPress={() => this._onInvite()}>*/}
                                 {/*        <Text style={styles.inviteBtnTxt}>Convidar vizinho</Text>*/}
                                 {/*    </TouchableOpacity>*/}
                                 {/*</View>*/}
                             </View>
                             <View style={styles.btnBottomWrapper}>
-                                <TouchableOpacity style={styles.btnBottom} onPress={() => this._onChangeGroup()}>
-                                    <Text style={styles.btnBottomTxt}>Mudar de Grupo</Text>
-                                </TouchableOpacity>
                                 <TouchableOpacity style={[styles.btnBottom, { marginRight: 0 }]} onPress={() => this._onLogout()}>
                                     <Text style={styles.btnBottomTxt}>Logout</Text>
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={()=>this._onInfoGroup()} style={styles.btnInfoGroup} activeOpacity={0.8}>
-                                <Text style={styles.btnInfoGroupTxt}>Informações do Grupo</Text>
-                            </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </View>
-                {this.state.isJoinGroup && <JoinGroupModal
-                    isVisible={this.state.isJoinGroup}
-                    groupInfo={joinedGroup}
-                    isVisibleJoinButton={false}
-                    onBackdropPress={()=>this.setState({isJoinGroup: false})}/>}
             </View>
         );
     }
@@ -245,9 +148,7 @@ class Perfil extends Component {
 function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
-        groupId: state.AuthReducer.groupId,
         userMeta: state.AuthReducer.userMeta,
-        joinedGroup: state.AuthReducer.joinedGroup,
         isLoading: Boolean(state.AuthReducer.isLoading),
     }
 }
@@ -257,8 +158,6 @@ const mapDispatchToProps = (dispatch) => {
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
         fetchLogout: () => dispatch(authActions.fetchLogout()),
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
-        joinGroup: (group, userId) => dispatch(authActions.joinGroup(group, userId)),
-        // udatePoints: (points) => dispatch(authActions.udatePoints(points))
     }
 };
 

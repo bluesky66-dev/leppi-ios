@@ -14,7 +14,7 @@ module.exports = StyleSheet.create({
     contentWrapper: {
     },
 
-    groupInfo: {
+    addressInfo: {
         width: wp(303),
         alignSelf: 'center',
         backgroundColor: '#e2e2e2',
@@ -27,28 +27,11 @@ module.exports = StyleSheet.create({
         paddingBottom: hp(9),
     },
 
-    groupInfoTxt: {
+    addressInfoTxt: {
         color: "#3d3d3d",
         fontSize: hp(11),
         fontFamily: "Rubik-Regular",
         textAlign: 'center'
-    },
-
-    btnInfoGroup: {
-        marginTop: hp(23),
-        width: wp(300),
-        alignSelf: 'center',
-        backgroundColor: '#35d3b9',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: hp(38),
-        borderRadius: hp(35)
-    },
-
-    btnInfoGroupTxt: {
-        color: "#ffffff",
-        fontSize: hp(14),
-        fontFamily: "Raleway-SemiBold",
     },
 
     titleWrapper: {

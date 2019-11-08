@@ -253,36 +253,8 @@ module.exports = StyleSheet.create({
         borderRadius: 8,
     },
 
-    groupAccessCodeContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
 
-    groupAccessCode: {
-        width: wp(107),
-        padding: 7,
-        paddingLeft: wp(15),
-        fontSize: hp(14),
-        height: hp(33),
-        fontFamily: "Roboto-Regular",
-        color: "#3D3D3D",
-        backgroundColor: "#ffffff",
-        borderTopRightRadius: 8,
-        borderBottomRightRadius: 8,
-        letterSpacing: wp(6),
-    },
 
-    groupCodeAddonHelpTxt: {
-        fontFamily: "Raleway-Bold",
-        fontSize: hp(15),
-        color: "#3D3D3D",
-        width: wp(20),
-        height: hp(20),
-        borderRadius: 10,
-        backgroundColor: '#ffffff',
-        textAlign: 'center',
-        marginLeft: wp(20)
-    },
 
     joinTextInputBox: {
         borderWidth: 0,
@@ -312,24 +284,6 @@ module.exports = StyleSheet.create({
         fontFamily: "Raleway-Regular",
         color: "#02C8A7",
         fontSize: hp(11),
-    },
-
-
-    joinGroupTitle: {
-        flex: 1,
-        padding: 7,
-        paddingLeft: wp(19),
-        height: hp(33),
-        justifyContent: 'center',
-        backgroundColor: "#ffffff",
-        borderTopLeftRadius: 8,
-        borderBottomLeftRadius: 8,
-    },
-
-    groupTitleTxt: {
-        fontSize: hp(14),
-        fontFamily: "Raleway-Medium",
-        color: "#3D3D3D",
     },
 
     emptySpace: {

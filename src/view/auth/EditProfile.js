@@ -23,7 +23,6 @@ class EditProfile extends Component {
         this.state = {
             step_index: 1,
             userMeta: {},
-            isJoinGroup: false,
         };
         this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this);
         this._onNextStep = this._onNextStep.bind(this);
@@ -186,7 +185,6 @@ function mapStateToProps(state, props) {
         currentLocation: state.AuthReducer.currentLocation,
         userId: state.AuthReducer.userId,
         isSignuped: state.AuthReducer.isSignuped,
-        groupId: state.AuthReducer.groupId,
         isLoading: Boolean(state.AuthReducer.isLoading),
         downloadURL: state.AuthReducer.downloadURL,
     }

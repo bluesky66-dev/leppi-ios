@@ -70,7 +70,6 @@ class ChatUsers extends Component {
 function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
-        groupId: state.AuthReducer.groupId,
     }
 }
 

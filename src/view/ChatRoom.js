@@ -55,7 +55,6 @@ class ChatRoom extends Component {
             isRead: false,
         };
         let roomInfo = {
-            groupId: this.props.groupId,
             roomId: this.props.roomInfo.roomId,
             sellerFeed: this.props.roomInfo.sellerFeed,
             buyerFeed: this.props.roomInfo.buyerFeed,
@@ -153,7 +152,6 @@ function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
         userMeta: state.AuthReducer.userMeta,
-        groupId: state.AuthReducer.groupId,
         roomInfo: state.AuthReducer.roomInfo,
         feedInfo: state.AuthReducer.feedInfo,
         isLoading: state.AuthReducer.isLoading,

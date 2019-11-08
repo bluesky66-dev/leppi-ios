@@ -28,7 +28,6 @@ class ChatItem extends Component {
             await this.props.setChatFoodInfo(feedInfo);
             if (feedInfo.userId === this.props.userId) {
                 let roomInfo = {
-                    groupId: this.props.groupId,
                     sellerId: this.props.userId,
                     feedId: feedInfo.feedId,
                 };
@@ -111,7 +110,6 @@ class ChatItem extends Component {
 function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
-        groupId: state.AuthReducer.groupId,
     }
 }
 

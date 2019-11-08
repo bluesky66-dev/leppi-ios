@@ -8,13 +8,9 @@ const initialState = {
     isLoading: false,
     currentLocation: {},
     isSignuped: false,
-    isJoinedGroup: false,
     userId: '',
-    groupId: '',
     userMeta: {},
     downloadURL: '',
-    groupSwiperLength: 0,
-    joinedGroup: {},
     feedInfo: {},
     roomInfo: {},
     currentMenu: MENU_TYPES.HOME,
@@ -31,13 +27,9 @@ const AuthReducer = createReducer(initialState, {
             errorMessage: null,
             isLoading: false,
             isSignuped: false,
-            isJoinedGroup: false,
             userId: '',
-            groupId: '',
             userMeta: {},
             downloadURL: '',
-            groupSwiperLength: 0,
-            joinedGroup: {},
             feedInfo: {},
             roomInfo: {},
             currentMenu: '',
@@ -125,15 +117,6 @@ const AuthReducer = createReducer(initialState, {
             isLoading: action.payload,
         }
     },
-    [TYPES.JOIN_GROUP_SUCCESS]: (state, action) => {
-        return {
-            ...state,
-            groupId: action.payload.groupId,
-            joinedGroup: action.payload,
-            isJoinedGroup: true,
-            isLoading: false,
-        }
-    },
     [TYPES.SET_FEED_INFO]: (state, action) => {
         return {
             ...state,
@@ -146,12 +129,6 @@ const AuthReducer = createReducer(initialState, {
             ...state,
             roomInfo: action.payload,
             isLoading: false,
-        }
-    },
-    [TYPES.LINK_IN]: (state, action) => {
-        return {
-            ...state,
-            link: { userLinkId: action.userLinkId, linkgroupId: action.linkgroupId }
         }
     },
     [TYPES.LINK_OUT]: (state, action) => {

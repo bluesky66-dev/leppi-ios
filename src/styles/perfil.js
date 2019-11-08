@@ -143,7 +143,7 @@ module.exports = StyleSheet.create({
         fontSize: hp(12),
         fontFamily: "Roboto-Regular",
     },
-    groupView: {
+    addressView: {
         minHeight: hp(287),
         alignSelf: 'center',
         marginTop: hp(21),
@@ -151,37 +151,23 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(10),
         paddingRight: wp(10),
     },
-    groupViewRow: {
+    addressViewRow: {
         flexDirection: 'row',
         marginTop: hp(12)
     },
-    groupViewLeft: {
+    addressViewLeft: {
         color: "#3D3D3D",
         fontSize: hp(12),
         fontFamily: "Roboto-Regular",
         width: wp(57),
     },
-    groupViewRight: {
+    addressViewRight: {
         marginLeft: wp(8),
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap'
     },
-    userGroupBtn: {
-        backgroundColor: '#02C8A7',
-        borderRadius: hp(20),
-        width: wp(117),
-        height: hp(30),
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: hp(7),
-    },
-    userGroupBtnTxt: {
-        color: "#3D3D3D",
-        fontSize: hp(11),
-        fontFamily: "Raleway-Regular",
-        opacity: 0.4
-    },
+
     inviteWrapper: {
         width: wp(289),
         flexDirection: 'row',
@@ -230,22 +216,5 @@ module.exports = StyleSheet.create({
         fontSize: hp(11),
         fontFamily: "Raleway-Regular",
         opacity: 0.4
-    },
-
-    btnInfoGroup: {
-        marginTop: hp(23),
-        width: wp(300),
-        alignSelf: 'center',
-        backgroundColor: '#35d3b9',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: hp(38),
-        borderRadius: hp(35),
-    },
-
-    btnInfoGroupTxt: {
-        color: "#ffffff",
-        fontSize: hp(14),
-        fontFamily: "Raleway-SemiBold",
     },
 });

@@ -19,7 +19,6 @@ import Home from "./src/view/Home";
 import Start from "./src/view/start";
 import Login from "./src/view/auth/login";
 import Register from "./src/view/auth/register";
-import JoinGroupPage from "./src/view/auth/joinGroupPage";
 import Password from "./src/view/auth/password";
 import Welcome from "./src/view/welcome";
 import Feed from "./src/view/Feed";
@@ -53,7 +52,6 @@ const ActivityProject = createStackNavigator(
         Start: {screen: Start, navigationOptions: {header: null,},},
         Login: {screen: Login, navigationOptions: {header: null,},},
         Register: {screen: Register, navigationOptions: {header: null,},},
-        JoinGroupPage: {screen: JoinGroupPage, navigationOptions: {header: null,},},
         Password: {screen: Password, navigationOptions: {header: null,},},
         Welcome: {screen: Welcome, navigationOptions: {header: null,},},
         EditProfile: {screen: EditProfile, navigationOptions: {header: null,},},

@@ -21,7 +21,7 @@ class Chat extends Component {
     componentDidMount() {
         lor(this);
         this.props.setLoadingSpinner(true);
-        authActions.fetchingChatRooms(this.props.groupId, this.props.userMeta, chatRooms => {
+        authActions.fetchingChatRooms(this.props.userMeta, chatRooms => {
             this.props.setLoadingSpinner(false);
             if (chatRooms !== null) {
                 this.setState({ chatRooms: chatRooms });
@@ -66,7 +66,6 @@ class Chat extends Component {
 function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
-        groupId: state.AuthReducer.groupId,
         userMeta: state.AuthReducer.userMeta,
         isLoading: state.AuthReducer.isLoading,
     }

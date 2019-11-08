@@ -22,7 +22,7 @@ class Feed extends Component {
      componentDidMount() {
         lor(this);
          this.props.setLoadingSpinner(true);
-         authActions.fetchingFeeds(this.props.groupId, this.props.userMeta, this.state.page, feedList => {
+         authActions.fetchingFeeds(this.props.userMeta, this.state.page, feedList => {
              this.props.setLoadingSpinner(false);
              if (feedList !== null) {
                  let cloneFeedList = [...feedList];
@@ -72,7 +72,6 @@ class Feed extends Component {
 function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
-        groupId: state.AuthReducer.groupId,
         userMeta: state.AuthReducer.userMeta,
         isLoading: state.AuthReducer.isLoading,
     }

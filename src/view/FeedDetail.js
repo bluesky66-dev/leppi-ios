@@ -215,7 +215,6 @@ class FeedDetail extends Component {
 function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
-        groupId: state.AuthReducer.groupId,
         mediaGallery: state.AuthReducer.mediaGallery,
         isLoading: state.AuthReducer.isLoading,
     }
