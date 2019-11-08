@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {widthPercentage as wp, heightPercentage as hp} from '../util';
-
+let deviceHeight = Dimensions.get('window').height
 module.exports = StyleSheet.create({
     rootWrapper: {
         flex: 1,
@@ -64,7 +64,9 @@ module.exports = StyleSheet.create({
     height104: {
         height:hp(104),
     },
-
+    msgsWrapper: {
+    
+    },
     chatBtnBox: {
         height: hp(77),
         width: '100%',

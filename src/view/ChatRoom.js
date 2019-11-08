@@ -91,7 +91,7 @@ class ChatRoom extends Component {
             );
         });
         return (
-            <KeyboardAwareScrollView style={styles.rootWrapper} behavior={'padding'}>
+            <View style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -115,10 +115,13 @@ class ChatRoom extends Component {
                                 <Text style={styles.otherTxts}>{location}</Text>
                             </View>
                         </View>
-                        {chatMsgs}
+                        <View style={styles.msgsWrapper}>
+                            {chatMsgs}
+                        </View>
                         <View style={styles.height104}/>
                     </ScrollView>
-                    <View style={styles.chatBtnBox}>
+                </View>
+                <View style={styles.chatBtnBox}>
                         <TextInput
                             onChangeText={(text) => this._onChangeText(text)}
                             placeholder={'Type your message'}
@@ -140,8 +143,7 @@ class ChatRoom extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                </View>
-            </KeyboardAwareScrollView>
+            </View>
         );
     }
 }

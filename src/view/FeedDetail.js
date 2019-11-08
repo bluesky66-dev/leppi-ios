@@ -134,79 +134,77 @@ class FeedDetail extends Component {
 
 
         return (
-            <View style={styles.container}>
+            <View style={styles.rootWrapper}>
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{ color: '#FFF' }}
                 />
-                <View style={styles.container}>
-                    <ScrollView style={styles.contentWrapper}>
-                        <AppTopBack onBackPress={() => {
-                            this.props.navigation.goBack()
-                        }} />
-                        {(feedInfo.feed_type === FeedTypes.sell) && <Swiper ref={'swiper'}
-                            scrollEnabled={true}
-                            showsPagination={true}
-                            dotStyle={styles.dotStyle}
-                            activeDotStyle={styles.activeDotStyle}
-                            loop={true}
-                            autoplay={true}
-                            style={styles.swiperWrapper}>
-                            {swiperContent}
-                        </Swiper>}
-                        <View style={[styles.detailWrapper, detailTop]}>
-                            <View style={[styles.feedBadge, feedBadge]} />
-                            <Text style={styles.feedTitle}>{feedInfo.product_title ? feedInfo.product_title : ''}</Text>
-                            <View style={styles.dateView}>
-                                <Image style={styles.iconDate} source={IconClock} />
-                                <Text style={styles.dateTxt}>{feedAge}</Text>
+                <ScrollView style={styles.contentWrapper}>
+                    <AppTopBack onBackPress={() => {
+                        this.props.navigation.goBack()
+                    }} />
+                    {(feedInfo.feed_type === FeedTypes.sell) && <Swiper ref={'swiper'}
+                        scrollEnabled={true}
+                        showsPagination={true}
+                        dotStyle={styles.dotStyle}
+                        activeDotStyle={styles.activeDotStyle}
+                        loop={true}
+                        autoplay={true}
+                        style={styles.swiperWrapper}>
+                        {swiperContent}
+                    </Swiper>}
+                    <View style={[styles.detailWrapper, detailTop]}>
+                        <View style={[styles.feedBadge, feedBadge]} />
+                        <Text style={styles.feedTitle}>{feedInfo.product_title ? feedInfo.product_title : ''}</Text>
+                        <View style={styles.dateView}>
+                            <Image style={styles.iconDate} source={IconClock} />
+                            <Text style={styles.dateTxt}>{feedAge}</Text>
+                        </View>
+                        <View style={styles.otherView}>
+                            <View style={styles.otherViewBox}>
+                                <Image style={styles.iconProfile} source={IconAvatar} />
+                                <Text style={styles.otherTxts}>{username}</Text>
                             </View>
-                            <View style={styles.otherView}>
-                                <View style={styles.otherViewBox}>
-                                    <Image style={styles.iconProfile} source={IconAvatar} />
-                                    <Text style={styles.otherTxts}>{username}</Text>
-                                </View>
-                                <View style={styles.otherViewBox}>
-                                    <Image style={styles.iconPoint} source={IconIdea} />
-                                    <Text style={styles.otherTxts}>{point} points</Text>
-                                </View>
-                                <View style={styles.otherViewBox}>
-                                    <Image style={styles.iconLocation} source={IconMarker} />
-                                    <Text style={styles.otherTxts}>{location}</Text>
-                                </View>
+                            <View style={styles.otherViewBox}>
+                                <Image style={styles.iconPoint} source={IconIdea} />
+                                <Text style={styles.otherTxts}>{point} points</Text>
                             </View>
-                            <View style={styles.descWrapper}>
-                                <Text style={styles.descTitle}>Descrição</Text>
-                                <Text style={styles.feedDesc}>
-                                    {feedInfo.product_desc ? feedInfo.product_desc : ''}
+                            <View style={styles.otherViewBox}>
+                                <Image style={styles.iconLocation} source={IconMarker} />
+                                <Text style={styles.otherTxts}>{location}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.descWrapper}>
+                            <Text style={styles.descTitle}>Descrição</Text>
+                            <Text style={styles.feedDesc}>
+                                {feedInfo.product_desc ? feedInfo.product_desc : ''}
+                            </Text>
+                        </View>
+                        <View style={styles.metaWrapper}>
+                            <View style={styles.metaRow}>
+                                <Text style={[styles.metaRowLeft, styles.metaRowLeftL]}>Data: </Text>
+                                <Text style={styles.metaRowRight}>{est_date}</Text>
+                            </View>
+                        </View>
+                        {(feedInfo.feed_type === FeedTypes.sell) && <View style={styles.metaWrapper}>
+                            <View style={styles.metaRow}>
+                                <Text style={styles.metaRowLeft}>Preço: </Text>
+                                <Text style={styles.metaRowUnit}>R$</Text>
+                                <Text style={styles.metaRowRight}>{product_price}</Text>
+                            </View>
+                        </View>
+                        }
+
+                        <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChatWrapper, disabledOpacity]} disabled={disabled}>
+                            <View style={[styles.btnChat, feedBadge]}>
+                                <Text style={[styles.btnChatTxt, btnColor]}>
+                                    {feedInfo.feed_type === FeedTypes.solicitation ? 'Chat' : 'Chat'}
                                 </Text>
                             </View>
-                            <View style={styles.metaWrapper}>
-                                <View style={styles.metaRow}>
-                                    <Text style={[styles.metaRowLeft, styles.metaRowLeftL]}>Data: </Text>
-                                    <Text style={styles.metaRowRight}>{est_date}</Text>
-                                </View>
-                            </View>
-                            {(feedInfo.feed_type === FeedTypes.sell) && <View style={styles.metaWrapper}>
-                                <View style={styles.metaRow}>
-                                    <Text style={styles.metaRowLeft}>Preço: </Text>
-                                    <Text style={styles.metaRowUnit}>R$</Text>
-                                    <Text style={styles.metaRowRight}>{product_price}</Text>
-                                </View>
-                            </View>
-                            }
-
-                            <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChatWrapper, disabledOpacity]} disabled={disabled}>
-                                <View style={[styles.btnChat, feedBadge]}>
-                                    <Text style={[styles.btnChatTxt, btnColor]}>
-                                        {feedInfo.feed_type === FeedTypes.solicitation ? 'Chat' : 'Chat'}
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
-                </View>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
             </View>
         );
     }

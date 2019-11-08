@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {widthPercentage as wp, heightPercentage as hp} from '../util';
+let deviceHeight = Dimensions.get('window').height
 
 module.exports = StyleSheet.create({
     rootWrapper: {
@@ -8,11 +9,11 @@ module.exports = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#35D3B9',
     },
 
     contentWrapper: {
         flex: 1,
+        backgroundColor: '#35D3B9',
     },
 
     swiperWrapper: {
@@ -59,15 +60,16 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(43),
         paddingRight: wp(42),
         paddingBottom: hp(35),
-        minHeight: hp(525),
     },
 
     detailRed: {
         marginTop: hp(-35),
+        minHeight: deviceHeight - hp(267)
     },
 
     detailBlue: {
         marginTop: hp(135),
+        minHeight: deviceHeight - hp(135)
     },
 
     feedBadge: {

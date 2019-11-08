@@ -85,6 +85,7 @@ class Home extends Component {
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.addressInfo}>
                             <Text style={styles.addressInfoTxt}>
+                                Você está no {this.props.userMeta.street ? this.props.userMeta.street : ''}. Suas publicações tem um alcance de 5 km do seu endereço.
                             </Text>
                         </View>
                         <View style={styles.titleWrapper}>
