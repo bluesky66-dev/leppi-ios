@@ -66,7 +66,7 @@ class Welcome extends Component {
                     <ImageBackground source={welcomeImage} style={styles.backgroundImage}>
                         <AppTopBack onBackPress={this._onBackPress}/>
                         <View style={styles.titleWrapper}>
-                            <Text style={styles.titleTxt}>Leppi</Text>
+                            <Text style={styles.titleTxt} />
                         </View>
                         <View style={styles.howToWorkWrapper}>
                             <Text style={styles.howToWorkTxt}>Leppi</Text>

@@ -123,7 +123,7 @@ class Perfil extends Component {
                                 <View style={styles. addressViewRow}>
                                     <Text style={styles. addressViewLeft}>Seu Endereço: </Text>
                                     <Text style={styles. addressViewRight}>
-                                        {`${this.props.userMeta.district ? this.props.userMeta.district + ', ' : ''}${this.props.userMeta.street ? this.props.userMeta.street + ', ' : ''}${this.props.userMeta.city ? this.props.userMeta.city + ', ' : ''}${this.props.userMeta.country ? this.props.userMeta.country : ''}`}
+                                        {`${this.props.userMeta.address ? this.props.userMeta.address + '' : ''}`}
                                     </Text>
                                 </View>
                                 {/*<View style={styles.inviteWrapper}>*/}

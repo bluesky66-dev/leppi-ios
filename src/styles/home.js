@@ -56,6 +56,7 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(33),
         paddingRight: wp(32),
         marginTop: hp(14),
+        paddingBottom: hp(100)
     },
 
     isSelected: {

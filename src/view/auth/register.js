@@ -66,14 +66,14 @@ class Register extends Component {
                 //     Toast.show('Enter your city', Toast.SHORT);
                 //     return false;
                 // }
-                if (!state.country || state.street.length <= 0) {
+                // if (!state.country || state.street.length <= 0) {
+                //     Toast.show('Digite sua Rua', Toast.SHORT);
+                //     return false;
+                // }
+                if (!state.country || state.district.length <= 0) {
                     Toast.show('Digite sua Rua', Toast.SHORT);
                     return false;
                 }
-                // if (!state.country || state.district.length <= 0) {
-                //     Toast.show('Enter your district', Toast.SHORT);
-                //     return false;
-                // }
                 let callingCode =  utils.getCallingCode(state.cca2);
                 //console.log('callingCode === ', callingCode);
                 this.setState({callingCode: callingCode});

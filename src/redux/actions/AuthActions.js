@@ -385,19 +385,32 @@ export const createFeed = (feed, userMeta) => {
     };
 };
 
-export const fetchingFeeds = async (userData, page, callback) => {
+export const fetchingFeeds = async (userMeta, page, callback) => {
     let feedList = [];
     // //console.log('===== fetchingFeeds');
     try {
-        let snapshot = await firebase.database()
-            .ref('feeds')
-            .once('value');
-        if (snapshot.exists()) {
-            snapshot.forEach(async item => {
-                let feedItem = item.val();
-                feedItem.feedId = item.key;
-                if (feedItem.userId === userData.userId) {
-                    feedItem.userMeta = userData;
+        let requestConfig = {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                lat: userMeta.location.lat,
+                lng: userMeta.location.lng,
+            })
+        };
+        let url = REQUEST_URL + "/api/feeds/list";
+        let respond = await fetch(url, requestConfig);
+        let json = await respond.json();
+        if (json.result && json.result === 'ok') {
+            feedList = json.list;
+        }
+        if (feedList.length > 0) {
+            feedList.forEach(async item => {
+                let feedItem = item;
+                if (feedItem.userId === userMeta.userId) {
+                    feedItem.userMeta = userMeta;
                     feedList.push(feedItem);
                     callback(feedList);
                 } else {
