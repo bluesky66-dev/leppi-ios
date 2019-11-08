@@ -94,22 +94,23 @@ class Home extends Component {
                             {typeBoxList}
                         </View>
                     </ScrollView>
-                    {this.state.isSellShare && <SellShareModal
-                        navigation={this.props.navigation}
-                        isVisible={this.state.isSellShare}
-                        feedCategory={this.state.feedCategory}
-                        onBackdropPress={()=>this.setState({isSellShare: false})}/>}
-                    {this.state.isSolicitation && <SolicitationModal
-                        navigation={this.props.navigation}
-                        feedCategory={this.state.feedCategory}
-                        isVisible={this.state.isSolicitation}
-                        onBackdropPress={()=>this.setState({isSolicitation: false})}/>}
-                    {this.state.isSwitchModal && <SellShareSwitchModal
-                        isVisible={this.state.isSwitchModal}
-                        openSellModal={this._onSellShare}
-                        openSolicitaionModal={this._onSolicitation}
-                        onBackdropPress={()=>this.setState({isSwitchModal: false})}/>}
+                    <View style={{height: 15}}/>
                 </View>
+                {this.state.isSellShare && <SellShareModal
+                    navigation={this.props.navigation}
+                    isVisible={this.state.isSellShare}
+                    feedCategory={this.state.feedCategory}
+                    onBackdropPress={()=>this.setState({isSellShare: false})}/>}
+                {this.state.isSolicitation && <SolicitationModal
+                    navigation={this.props.navigation}
+                    feedCategory={this.state.feedCategory}
+                    isVisible={this.state.isSolicitation}
+                    onBackdropPress={()=>this.setState({isSolicitation: false})}/>}
+                {this.state.isSwitchModal && <SellShareSwitchModal
+                    isVisible={this.state.isSwitchModal}
+                    openSellModal={this._onSellShare}
+                    openSolicitaionModal={this._onSolicitation}
+                    onBackdropPress={()=>this.setState({isSwitchModal: false})}/>}
             </KeyboardAwareScrollView>
         );
     }

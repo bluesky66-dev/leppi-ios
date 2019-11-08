@@ -354,6 +354,7 @@ export const createFeed = (feed, userMeta) => {
         // //console.log('===== createFeed');
         if (! typeof feed.gallery_uris === 'undefined') delete feed.gallery_uris;
         try {
+            feed.location = userMeta.location;
             feed.createTime = Math.floor(Date.now());
             const feedId = await firebase.database()
                 .ref('feeds')

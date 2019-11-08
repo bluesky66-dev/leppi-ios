@@ -133,6 +133,9 @@ class Perfil extends Component {
                                 {/*</View>*/}
                             </View>
                             <View style={styles.btnBottomWrapper}>
+                                {/*<TouchableOpacity style={styles.btnBottom} onPress={() => ()}>*/}
+                                {/*    <Text style={styles.btnBottomTxt}>Mudar de Grupo</Text>*/}
+                                {/*</TouchableOpacity>*/}
                                 <TouchableOpacity style={[styles.btnBottom, { marginRight: 0 }]} onPress={() => this._onLogout()}>
                                     <Text style={styles.btnBottomTxt}>Logout</Text>
                                 </TouchableOpacity>

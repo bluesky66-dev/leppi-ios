@@ -62,7 +62,6 @@ class ChatRoom extends Component {
             sellerId: this.props.roomInfo.sellerId,
             feedId: this.props.feedInfo.feedId,
         };
-        //console.log('chat roomInfo', roomInfo);
         authActions.sendMessage(this.props.userMeta, roomInfo, message);
         this.setState({chat_msg: ''});
     }

@@ -14,6 +14,7 @@ import en from 'javascript-time-ago/locale/en';
 import Spinner from "react-native-loading-spinner-overlay";
 import * as authActions from "../redux/actions/AuthActions";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
+import {FeedTypes} from "../redux/constants/feedConstants";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -82,7 +83,7 @@ class FeedDetail extends Component {
         let product_price = '';
         let product_qty = '';
         let swiperContent = [];
-        if (this.props.feedBadge === 'blue') {
+        if (feedInfo.feed_type === FeedTypes.solicitation) {
             feedBadge = styles.backBlue;
             btnColor = styles.blueTxt;
             detailTop = styles.detailBlue;
@@ -144,7 +145,7 @@ class FeedDetail extends Component {
                         <AppTopBack onBackPress={() => {
                             this.props.navigation.goBack()
                         }} />
-                        {(this.props.feedBadge !== 'blue') && <Swiper ref={'swiper'}
+                        {(feedInfo.feed_type === FeedTypes.sell) && <Swiper ref={'swiper'}
                             scrollEnabled={true}
                             showsPagination={true}
                             dotStyle={styles.dotStyle}
@@ -181,18 +182,17 @@ class FeedDetail extends Component {
                                     {feedInfo.product_desc ? feedInfo.product_desc : ''}
                                 </Text>
                             </View>
-                            {(this.props.feedBadge === 'blue') && <View style={styles.metaWrapper}>
+                            <View style={styles.metaWrapper}>
                                 <View style={styles.metaRow}>
                                     <Text style={[styles.metaRowLeft, styles.metaRowLeftL]}>Data: </Text>
                                     <Text style={styles.metaRowRight}>{est_date}</Text>
                                 </View>
                             </View>
-                            }
-                            {(this.props.feedBadge !== 'blue') && <View style={styles.metaWrapper}>
+                            {(feedInfo.feed_type === FeedTypes.sell) && <View style={styles.metaWrapper}>
                                 <View style={styles.metaRow}>
                                     <Text style={styles.metaRowLeft}>Preço: </Text>
-                                    <Text style={styles.metaRowRight}>{product_price}</Text>
                                     <Text style={styles.metaRowUnit}>R$</Text>
+                                    <Text style={styles.metaRowRight}>{product_price}</Text>
                                 </View>
                             </View>
                             }
@@ -200,7 +200,7 @@ class FeedDetail extends Component {
                             <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChatWrapper, disabledOpacity]} disabled={disabled}>
                                 <View style={[styles.btnChat, feedBadge]}>
                                     <Text style={[styles.btnChatTxt, btnColor]}>
-                                        {this.props.feedBadge === 'blue' ? 'Chat' : 'Chat with seller'}
+                                        {feedInfo.feed_type === FeedTypes.solicitation ? 'Chat' : 'Chat'}
                                     </Text>
                                 </View>
                             </TouchableOpacity>

@@ -69,7 +69,7 @@ class Welcome extends Component {
                             <Text style={styles.titleTxt}>Leppi</Text>
                         </View>
                         <View style={styles.howToWorkWrapper}>
-                            <Text style={styles.howToWorkTxt}>How it Works.</Text>
+                            <Text style={styles.howToWorkTxt}>Leppi</Text>
                             <Image source={logoImage} style={styles.logoImage}/>
                         </View>
                         <Swiper ref={'swiper'}
@@ -80,10 +80,10 @@ class Welcome extends Component {
                                 onMomentumScrollEnd={this._onMomentumScrollEnd}
                                 loop={false} style={styles.swiperWrapper}>
                             <View style={styles.swiperItem}>
-                                <Text style={[styles.swiperItemTxt, styles.width205]}>Leppi is a social network that enables sharing, negotiation and help among neighbors</Text>
+                                <Text style={[styles.swiperItemTxt, styles.width205]}>O nosso ambiente é colaborativo, amigável e rentável. Divulgue tudo o que for bom para sua vizinhança.</Text>
                             </View>
                             <View style={styles.swiperItem}>
-                                <Text style={styles.swiperItemTxt}>With Leppi everyone helps themselves by creating a collaborative, friendly and profitable environment</Text>
+                                <Text style={styles.swiperItemTxt}>Uma comunidade pra você ganhar dinheiro, ajudar e ser ajudado em um raio de até 5 km do seu endereço.</Text>
                             </View>
                         </Swiper>
                         <View style={styles.btnWrapper}>
