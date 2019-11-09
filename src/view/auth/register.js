@@ -231,7 +231,6 @@ function mapStateToProps(state, props) {
         currentLocation: state.AuthReducer.currentLocation,
         userMeta: state.AuthReducer.userMeta,
         userId: state.AuthReducer.userId,
-        isSignuped: state.AuthReducer.isSignuped,
         isLoading: Boolean(state.AuthReducer.isLoading),
     }
 }

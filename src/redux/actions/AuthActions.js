@@ -387,6 +387,7 @@ export const createFeed = (feed, userMeta) => {
 
 export const fetchingFeeds = async (userMeta, page, callback) => {
     let feedList = [];
+    let tempList = [];
     // //console.log('===== fetchingFeeds');
     try {
         let requestConfig = {
@@ -404,10 +405,10 @@ export const fetchingFeeds = async (userMeta, page, callback) => {
         let respond = await fetch(url, requestConfig);
         let json = await respond.json();
         if (json.result && json.result === 'ok') {
-            feedList = json.list;
+            tempList = json.list;
         }
-        if (feedList.length > 0) {
-            feedList.forEach(async item => {
+        if (tempList.length > 0) {
+            tempList.forEach(async item => {
                 let feedItem = item;
                 if (feedItem.userId === userMeta.userId) {
                     feedItem.userMeta = userMeta;
@@ -714,6 +715,29 @@ export const udatePoints = (points) => {
     }
 };
 
+export const updateLocation = (userMeta) => {
+    return async (dispatch, getState) => {
+        dispatch(isLoading(true));
 
+        let location = {
+            address: userMeta.address,
+            city: userMeta.city,
+            street: userMeta.street,
+            district: userMeta.district,
+            country: userMeta.country,
+            cca2: userMeta.cca2,
+            location: userMeta.location,
+        };
 
+        try {
+            await firebase.database()
+                .ref('userMeta')
+                .child(userMeta.userId)
+                .update(location);
 
+            dispatch(fetchingUserMetaSuccess(userMeta));
+        } catch (e) {
+            dispatch(isLoading(false));
+        }
+    };
+};

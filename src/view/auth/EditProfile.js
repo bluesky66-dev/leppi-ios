@@ -12,11 +12,6 @@ import {heightPercentage as hp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import Spinner from "react-native-loading-spinner-overlay";
 
-let defaultStyles = {
-    swiperWrapper: {
-    },
-};
-
 class EditProfile extends Component {
     constructor(props) {
         super(props);
@@ -184,9 +179,7 @@ function mapStateToProps(state, props) {
     return {
         currentLocation: state.AuthReducer.currentLocation,
         userId: state.AuthReducer.userId,
-        isSignuped: state.AuthReducer.isSignuped,
         isLoading: Boolean(state.AuthReducer.isLoading),
-        downloadURL: state.AuthReducer.downloadURL,
     }
 }
 

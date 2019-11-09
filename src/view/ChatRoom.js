@@ -124,7 +124,7 @@ class ChatRoom extends Component {
                 <View style={styles.chatBtnBox}>
                         <TextInput
                             onChangeText={(text) => this._onChangeText(text)}
-                            placeholder={'Type your message'}
+                            placeholder={'Escreva para seu vizinho'}
                             multiline={true}
                             numberOfLines={1}
                             style={[styles.chatInput]}
@@ -139,7 +139,7 @@ class ChatRoom extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.btnSendMsg} activeOpacity={0.8} onPress={()=>this._onSendMsg()}>
                             <View style={styles.btnSendMsgBox}>
-                                <Text style={styles.btnSendTxt}>Send</Text>
+                                <Text style={styles.btnSendTxt}>Enviar</Text>
                             </View>
                         </TouchableOpacity>
                     </View>

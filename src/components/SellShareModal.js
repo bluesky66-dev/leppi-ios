@@ -198,7 +198,6 @@ class SellShareModal extends Component {
                             <TextInput
                                 onChangeText={(text) => this.setState({product_price: text})}
                                 placeholder={''}
-                                autoFocus={true}
                                 style={[styles.priceInput, {}]}
                                 value={this.state.product_price}
                                 keyboardType={'numeric'}

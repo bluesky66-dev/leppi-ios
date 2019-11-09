@@ -28,6 +28,8 @@ import FeedDetail from "./src/view/FeedDetail";
 import ChatRoom from "./src/view/ChatRoom";
 import ChatUsers from "./src/view/ChatUsers";
 import EditProfile from "./src/view/auth/EditProfile";
+import EditLocation from "./src/view/auth/EditLocation";
+
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import '@react-native-firebase/database';
@@ -62,6 +64,7 @@ const ActivityProject = createStackNavigator(
         ChatUsers: {screen: ChatUsers, navigationOptions: {header: null,},},
         ChatRoom: {screen: ChatRoom, navigationOptions: {header: null,},},
         Perfil: {screen: Perfil, navigationOptions: {header: null,},},
+        EditLocation: {screen: EditLocation, navigationOptions: {header: null,},},
     },
     {
         initialRouteName: "Start",
