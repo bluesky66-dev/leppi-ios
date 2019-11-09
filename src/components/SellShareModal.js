@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {Alert, Image, Text, TextInput, TouchableOpacity, View} from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Toast from 'react-native-simple-toast';
 import styles from '../styles/sellModal';
 import Modal from "react-native-modal";
@@ -14,9 +13,6 @@ import {FeedTypes} from "../redux/constants/feedConstants";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import {MENU_TYPES} from "../redux/constants/menuTypes";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import date from "date-and-time";
 
 class SellShareModal extends Component {
 
@@ -29,10 +25,6 @@ class SellShareModal extends Component {
             product_price: '',
             gallery: [],
             gallery_uris: [],
-            est_date: '',
-            mode: 'date',
-            date: new Date(),
-            isDatePickerVisible: false
         };
         this._onSellShare = this._onSellShare.bind(this);
         this._onAddImage = this._onAddImage.bind(this);
@@ -47,10 +39,6 @@ class SellShareModal extends Component {
             product_price: '',
             gallery: [],
             gallery_uris: [],
-            est_date: '',
-            mode: 'date',
-            date: new Date(),
-            isDatePickerVisible: false
         });
     }
 
@@ -164,23 +152,7 @@ class SellShareModal extends Component {
         }
     }
 
-    showDatePicker = () => {
-        this.setState({ isDatePickerVisible: true });
-    };
-
-    hideDatePicker = () => {
-        this.setState({ isDatePickerVisible: false });
-    };
-
-    handleConfirm = newDate => {
-        newDate = newDate || this.state.date;
-        //console.log('====== newDate', newDate);
-        this.hideDatePicker();
-        this.setState({date: newDate, est_date: date.format(newDate, 'MM/DD/YYYY')});
-    };
-
     render() {
-        const { isDatePickerVisible, date, mode } = this.state;
         let gallery = this.state.gallery_uris.map((image, i) => {
             return (
                 <TouchableOpacity onPress={() => this._onRemoveImage(i)} style={styles.imageItem} key={i}>
@@ -238,14 +210,6 @@ class SellShareModal extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={styles.estDateView}>
-                        <View style={styles.estDateLabel}>
-                            <Text style={styles.estDateTxt}>Data que precisa</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => this.showDatePicker()} style={styles.estDateInputView}>
-                            <Text style={styles.estDateInput}>{this.state.est_date}</Text>
-                        </TouchableOpacity>
-                    </View>
                     <Text style={styles.imageLabel}>Product Images</Text>
                     <View style={styles.imageGallery}>
                         {gallery}
@@ -260,12 +224,6 @@ class SellShareModal extends Component {
                         <Text style={styles.sellShareTxt}>Anunciar</Text>
                     </TouchableOpacity>
                 </View>
-                { isDatePickerVisible && <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode={mode}
-                    onConfirm={this.handleConfirm}
-                    onCancel={this.hideDatePicker}/>
-                }
             </Modal>
         );
     }

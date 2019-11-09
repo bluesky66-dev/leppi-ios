@@ -181,26 +181,22 @@ class FeedDetail extends Component {
                                 {feedInfo.product_desc ? feedInfo.product_desc : ''}
                             </Text>
                         </View>
-                        <View style={styles.metaWrapper}>
+                        {(feedInfo.feed_type === FeedTypes.solicitation) && <View style={styles.metaWrapper}>
                             <View style={styles.metaRow}>
                                 <Text style={[styles.metaRowLeft, styles.metaRowLeftL]}>Data: </Text>
                                 <Text style={styles.metaRowRight}>{est_date}</Text>
                             </View>
-                        </View>
+                        </View>}
                         {(feedInfo.feed_type === FeedTypes.sell) && <View style={styles.metaWrapper}>
                             <View style={styles.metaRow}>
                                 <Text style={styles.metaRowLeft}>Preço: </Text>
                                 <Text style={styles.metaRowUnit}>R$</Text>
                                 <Text style={styles.metaRowRight}>{product_price}</Text>
                             </View>
-                        </View>
-                        }
-
+                        </View>}
                         <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChatWrapper, disabledOpacity]} disabled={disabled}>
                             <View style={[styles.btnChat, feedBadge]}>
-                                <Text style={[styles.btnChatTxt, btnColor]}>
-                                    {feedInfo.feed_type === FeedTypes.solicitation ? 'Chat' : 'Chat'}
-                                </Text>
+                                <Text style={[styles.btnChatTxt, btnColor]}>Chat</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
