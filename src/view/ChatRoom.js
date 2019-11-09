@@ -44,7 +44,7 @@ class ChatRoom extends Component {
     _onAttachFile(){
     }
 
-    _onSendMsg = () => {
+    _onSendMsg = async () => {
         if (!this.state.chat_msg) {
             return false;
         }
@@ -62,8 +62,13 @@ class ChatRoom extends Component {
             sellerId: this.props.roomInfo.sellerId,
             feedId: this.props.feedInfo.feedId,
         };
-        authActions.sendMessage(this.props.userMeta, roomInfo, message);
+        await authActions.sendMessage(this.props.userMeta, roomInfo, message);
         this.setState({chat_msg: ''});
+    }
+
+    _onPressBack = () => {
+        const {navigate} = this.props.navigation;
+        navigate('Chat');
     }
 
     render() {
@@ -99,6 +104,9 @@ class ChatRoom extends Component {
                 />
                 <View style={styles.container}>
                     <HeaderSection navigation={this.props.navigation}/>
+                    <TouchableOpacity style={styles.backIcon} onPress={() => this._onPressBack()}>
+                        <Image source={backIcon} style={styles.backIconStyle}/>
+                    </TouchableOpacity>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.height22}/>
                         <View style={styles.otherView}>

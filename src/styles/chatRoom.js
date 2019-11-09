@@ -16,6 +16,21 @@ module.exports = StyleSheet.create({
         paddingRight: wp(15),
     },
 
+    backIcon: {
+        top: hp(20),
+        left: wp(20),
+        width: hp(22),
+        height: hp(20),
+        backgroundColor: 'transparent',
+        zIndex: 3,
+    },
+
+    backIconStyle: {
+        width: hp(22),
+        height: hp(20),
+        resizeMode: 'stretch',
+    },
+
     otherView: {
         flexDirection: 'row',
         flexWrap: 'wrap',
