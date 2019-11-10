@@ -58,7 +58,8 @@ class EditLocation extends Component {
 
         await this.props.updateLocation(userMeta);
 
-        this.props.navigation.goBack();
+        this.props.clickMenu(MENU_TYPES.HOME);
+        navigate('Home');
     }
 
     _onBackPress = () => {
@@ -115,6 +116,7 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateLocation: (metaData) => dispatch(authActions.updateLocation(metaData)),
+        clickMenu: (type) => dispatch(authActions.clickMenu(type)),
     }
 };
 
