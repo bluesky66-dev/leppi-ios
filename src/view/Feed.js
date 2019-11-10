@@ -88,7 +88,7 @@ class Feed extends Component {
     }
 
     render() {
-        let feedList = this.state.feedList.map((feed, i) => {
+        let feedList = this.state.feedList.reverse().map((feed, i) => {
             let feedBadge = 'red';
             if (feed.feed_type === FeedTypes.solicitation) {
                 feedBadge = 'blue';

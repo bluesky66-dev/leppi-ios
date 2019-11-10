@@ -717,7 +717,7 @@ export const fetchingChatUsers = (roomInfo, page, callback) => {
             .equalTo(roomInfo.sellerId)
             .on('child_added', async snapshot => {
                 // //console.log('===== fetchingChatUsers result');
-                let chatUser = {};
+                let chatUser = roomInfo;
                 if (snapshot.exists()) {
                     chatUser = snapshot.val();
                     // //console.log('====== chatUser', chatUser);

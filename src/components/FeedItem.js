@@ -59,9 +59,9 @@ class FeedItem extends Component {
 
         return (
             <TouchableOpacity onPress={() => this._goToDetail()} style={styles.contentWrapper}>
-				<TouchableOpacity style={styles.iconDot} onPress={() => this.props.onAdAction(feedInfo)}>
+				{this.props.userId === feedInfo.userId && <TouchableOpacity style={styles.iconDot} onPress={() => this.props.onAdAction(feedInfo)}>
                     <Image source={IconDot} style={styles.iconDotStyle}/>
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 <View style={[styles.feedBadge, feedBadge]}/>
                 <View style={styles.feedContent}>
                     <View style={styles.imageBox}>
@@ -102,7 +102,9 @@ class FeedItem extends Component {
 
 
 function mapStateToProps(state, props) {
-    return {}
+    return {
+        userId: state.AuthReducer.userId,
+    }
 }
 
 export default connect(mapStateToProps, null)(FeedItem);

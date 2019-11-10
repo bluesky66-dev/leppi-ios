@@ -35,15 +35,6 @@ class SellShareModal extends Component {
 	componentDidMount() {
         if (this.props.isEditAd) {
             let feedInfo = this.props.feedInfo;
-            if (feedInfo && feedInfo.gallery && Array.isArray(feedInfo.gallery)) {
-                this.props.setLoadingSpinner(true);
-                authActions.filterMediaList(feedInfo.gallery, mediaList => {
-                    this.props.setLoadingSpinner(false);
-                    if (mediaList !== null) {
-                        this.setState({ mediaList: mediaList });
-                    }
-                });
-            }
             this.setState({
                 feedId: feedInfo.feedId,
                 product_title: feedInfo.product_title,
@@ -51,6 +42,15 @@ class SellShareModal extends Component {
                 product_price: feedInfo.product_price,
                 gallery: feedInfo.gallery,
             })
+            if (feedInfo && feedInfo.gallery && Array.isArray(feedInfo.gallery)) {
+                // this.props.setLoadingSpinner(true);
+                authActions.filterMediaList(feedInfo.gallery, mediaList => {
+                    // this.props.setLoadingSpinner(false);
+                    if (mediaList !== null) {
+                        this.setState({ mediaList: mediaList });
+                    }
+                });
+            }
         }
     }
 
