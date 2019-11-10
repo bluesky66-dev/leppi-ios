@@ -571,11 +571,14 @@ export const goToChatRoom = (roomInfo) => {
                     dispatch(setRoomInfo(itemVal));
                 });
             } else {
-                roomInfo.roomId = await firebase.database()
+                const roomId = await firebase.database()
                     .ref('chatRooms')
                     .child(roomInfo.feedId)
                     .push(roomInfo).key;
-                dispatch(setRoomInfo(roomInfo));
+                let roomItem = Object.assign({}, roomInfo);
+                roomItem.roomId = roomId;
+                // console.log('roomId ==', roomItem);
+                dispatch(setRoomInfo(roomItem));
             }
         } catch (e) {
             dispatch(isLoading(false));

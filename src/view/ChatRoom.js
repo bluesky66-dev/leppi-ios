@@ -140,11 +140,11 @@ class ChatRoom extends Component {
                             secureTextEntry={false}
                             autoCapitalize='none'
                         />
-                        <TouchableOpacity style={styles.btnAttach} activeOpacity={0.8} onPress={()=>this._onAttachFile()}>
-                            <View style={styles.paperClipBox}>
-                                <Image style={styles.iconPaperClip} source={IconPaperClip}/>
-                            </View>
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity style={styles.btnAttach} activeOpacity={0.8} onPress={()=>this._onAttachFile()}>*/}
+                        {/*    <View style={styles.paperClipBox}>*/}
+                        {/*        <Image style={styles.iconPaperClip} source={IconPaperClip}/>*/}
+                        {/*    </View>*/}
+                        {/*</TouchableOpacity>*/}
                         <TouchableOpacity style={styles.btnSendMsg} activeOpacity={0.8} onPress={()=>this._onSendMsg()}>
                             <View style={styles.btnSendMsgBox}>
                                 <Text style={styles.btnSendTxt}>Enviar</Text>
