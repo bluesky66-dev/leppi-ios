@@ -406,13 +406,19 @@ export const updateFeed = (feedId, feed) => {
 export const deleteFeed = (feedId) => {
     return async (dispatch, getState) => {
         dispatch(isLoading(true));
-        console.log('Operation start', feedId);
         try {
-            await firebase.database()
-                .ref('feeds')
-                .child(feedId).remove(() => {
-                    console.log('Operation Complete', feedId);
-                });
+            let requestConfig = {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    feedId: feedId,
+                })
+            };
+            let url = REQUEST_URL + "/api/feeds/delete";
+            await fetch(url, requestConfig);
             dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
