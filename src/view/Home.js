@@ -104,9 +104,11 @@ class Home extends Component {
                 {this.state.isSolicitation && <SolicitationModal
                     navigation={this.props.navigation}
                     feedCategory={this.state.feedCategory}
+                    isEditAd={false}
                     isVisible={this.state.isSolicitation}
                     onBackdropPress={()=>this.setState({isSolicitation: false})}/>}
                 {this.state.isSwitchModal && <SellShareSwitchModal
+                    isEditAd={false}
                     isVisible={this.state.isSwitchModal}
                     openSellModal={this._onSellShare}
                     openSolicitaionModal={this._onSolicitation}

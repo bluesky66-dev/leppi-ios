@@ -19,26 +19,50 @@ class SellShareModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+			feedId: '',
             product_title: '',
             product_desc: '',
             product_qty: '',
             product_price: '',
             gallery: [],
-            gallery_uris: [],
+            mediaList: [],
         };
         this._onSellShare = this._onSellShare.bind(this);
         this._onAddImage = this._onAddImage.bind(this);
         this._onRemoveImage = this._onRemoveImage.bind(this);
     }
+	
+	componentDidMount() {
+        if (this.props.isEditAd) {
+            let feedInfo = this.props.feedInfo;
+            if (feedInfo && feedInfo.gallery && Array.isArray(feedInfo.gallery)) {
+                this.props.setLoadingSpinner(true);
+                authActions.filterMediaList(feedInfo.gallery, mediaList => {
+                    this.props.setLoadingSpinner(false);
+                    if (mediaList !== null) {
+                        this.setState({ mediaList: mediaList });
+                    }
+                });
+            }
+            this.setState({
+                feedId: feedInfo.feedId,
+                product_title: feedInfo.product_title,
+                product_desc: feedInfo.product_desc,
+                product_price: feedInfo.product_price,
+                gallery: feedInfo.gallery,
+            })
+        }
+    }
 
     clearForm = () => {
         this.setState({
+			feedId: '',
             product_title: '',
             product_desc: '',
             product_qty: '',
             product_price: '',
             gallery: [],
-            gallery_uris: [],
+            mediaList: [],
         });
     }
 
@@ -54,22 +78,35 @@ class SellShareModal extends Component {
             Toast.show('Enter the description', Toast.SHORT);
             return false;
         }
-        state.feed_category = this.props.feedCategory;
-        state.feed_type = FeedTypes.sell;
-        state.userId = this.props.userId;
-        this.props.onBackdropPress();    
-        this.props.setLoadingSpinner(true);
-        await this.props.createFeed(state, this.props.userMeta);
-        this.props.setLoadingSpinner(false);
-        this.clearForm();
-        this.props.clickMenu(MENU_TYPES.FEED);
-        navigate('Feed');
+		  if (this.props.isEditAd) {
+            let feedInfo = {
+                product_title: state.product_title,
+                product_desc: state.product_desc,
+                product_price: state.product_price,
+                gallery: state.gallery,
+            };
+            await this.props.updateFeed(state.feedId, feedInfo);
+            this.clearForm();
+            this.props.onBackdropPress();
+            this.props.afterAction();
+        } else {
+			state.feed_category = this.props.feedCategory;
+			state.feed_type = FeedTypes.sell;
+			state.userId = this.props.userId;
+			this.props.onBackdropPress();    
+			this.props.setLoadingSpinner(true);
+			await this.props.createFeed(state, this.props.userMeta);
+			this.props.setLoadingSpinner(false);
+			this.clearForm();
+			this.props.clickMenu(MENU_TYPES.FEED);
+			navigate('Feed');
+		}
     }
 
     _onRemoveImage(index) {
         let modalThis = this;
         let gallery = modalThis.state.gallery;
-        let gallery_uris = modalThis.state.gallery_uris;
+        let mediaList = modalThis.state.mediaList;
         Alert.alert(
             'Remove Image',
             'Are you sure you want to remove the image?',
@@ -82,8 +119,8 @@ class SellShareModal extends Component {
                         modalThis.props.setLoadingSpinner(false);
 
                         gallery.splice(index, 1);
-                        gallery_uris.splice(index, 1);
-                        modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
+                        mediaList.splice(index, 1);
+                        modalThis.setState({gallery: gallery, mediaList: mediaList});
                     }},
             ],
             { cancelable: false }
@@ -93,7 +130,7 @@ class SellShareModal extends Component {
     _onAddImage() {
         let modalThis = this;
         let gallery = modalThis.state.gallery;
-        let gallery_uris = modalThis.state.gallery_uris;
+        let mediaList = modalThis.state.mediaList;
         if (gallery.length >= 5) {
             Toast.show('Can only upload up to 5 photos', Toast.SHORT);
             return false;
@@ -129,8 +166,8 @@ class SellShareModal extends Component {
                                 modalThis.props.setLoadingSpinner(false);
                                 if (uploadPath) {
                                     gallery.push(uploadPath);
-                                    gallery_uris.push(newImage.uri);
-                                    modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
+                                    mediaList.push(newImage.uri);
+                                    modalThis.setState({gallery: gallery, mediaList: mediaList});
                                 }  
                             } catch (e) {
                                 console.log(e.message);
@@ -153,7 +190,7 @@ class SellShareModal extends Component {
     }
 
     render() {
-        let gallery = this.state.gallery_uris.map((image, i) => {
+        let gallery = this.state.mediaList.map((image, i) => {
             return (
                 <TouchableOpacity onPress={() => this._onRemoveImage(i)} style={styles.imageItem} key={i}>
                     <Image source={{uri: image}} style={styles.imageView}/>
@@ -240,6 +277,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createFeed: (feed, userMeta) => dispatch(authActions.createFeed(feed, userMeta)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
+		updateFeed: (feedId, feed) => dispatch(authActions.updateFeed(feedId, feed)),
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
     }
 };

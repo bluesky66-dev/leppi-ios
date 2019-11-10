@@ -27,7 +27,7 @@ class FeedDetail extends Component {
             disabled: false,
             feedInfo: false,
             feedBadge: 'red',
-            mediaGallery: [],
+            mediaList: [],
         };
     }
 
@@ -38,10 +38,10 @@ class FeedDetail extends Component {
         this.setState({feedInfo, feedBadge});
         if (feedInfo && feedInfo.gallery && Array.isArray(feedInfo.gallery)) {
             this.props.setLoadingSpinner(true);
-            authActions.filterMediaGallery(feedInfo.gallery, mediaGallery => {
+            authActions.filterMediaList(feedInfo.gallery, mediaList => {
                 this.props.setLoadingSpinner(false);
-                if (mediaGallery !== null) {
-                    this.setState({ mediaGallery: mediaGallery });
+                if (mediaList !== null) {
+                    this.setState({ mediaList: mediaList });
                 }
             });
         }
@@ -100,8 +100,8 @@ class FeedDetail extends Component {
             if (feedInfo.product_qty) {
                 product_qty = feedInfo.product_qty;
             }
-            if (this.state.mediaGallery && this.state.mediaGallery.length > 0) {
-                swiperContent = this.state.mediaGallery.map((item, i) => {
+            if (this.state.mediaList && this.state.mediaList.length > 0) {
+                swiperContent = this.state.mediaList.map((item, i) => {
                     return (<View style={styles.slideItem} key={i}>
                         <Image source={{ uri: item }} resizeMode={'cover'} style={styles.slideImage} />
                     </View>);
@@ -209,7 +209,6 @@ class FeedDetail extends Component {
 function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
-        mediaGallery: state.AuthReducer.mediaGallery,
         isLoading: state.AuthReducer.isLoading,
     }
 }

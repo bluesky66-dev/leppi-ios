@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import {ScrollView, View} from 'react-native';
+import {Alert, ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import HeaderSection from '../components/HeaderSection';
 import FeedItem from '../components/FeedItem';
+import AdActionsModal from '../components/AdActionsModal';
 import styles from '../styles/feed';
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from '../redux/constants/feedConstants';
+import SellShareModal from "../components/SellShareModal";
+import SolicitationModal from "../components/SolicitationModal";
 
 class Feed extends Component {
 
@@ -16,23 +19,73 @@ class Feed extends Component {
         this.state = {
             page: 1,
             feedList: [],
+			selectedFeed: {},
+            openModal: false,
+            isSellShare: false,
+            isSolicitation: false,
         };
     }
 
      componentDidMount() {
         lor(this);
-         this.props.setLoadingSpinner(true);
-         authActions.fetchingFeeds(this.props.userMeta, this.state.page, feedList => {
-             this.props.setLoadingSpinner(false);
-             if (feedList !== null) {
-                 let cloneFeedList = [...feedList];
-                 this.setState({ feedList: cloneFeedList.reverse() });
-             }
-         });
+        this._onFetchingFeeds();
     }
 
     componentWillUnmount() {
         rol();
+    }
+	
+	_onFetchingFeeds = () => {
+        this.props.setLoadingSpinner(true);
+        authActions.fetchingFeeds(this.props.userMeta, this.state.page, feedList => {
+            this.props.setLoadingSpinner(false);
+            if (feedList !== null) {
+                let cloneFeedList = [...feedList];
+                this.setState({ feedList: cloneFeedList.reverse() });
+            }
+        });
+    }
+	
+	_onSellShare = () => {
+        this.setState({isSellShare: true})
+    }
+
+    _onSolicitation = () => {
+        this.setState({isSolicitation: true})
+    }
+
+    _onAdAction = (feed) => {
+        delete feed.userMeta;
+        this.setState({openModal: true, selectedFeed: feed});
+    }
+
+    _onEdit = () => {
+        const feed = this.state.selectedFeed;
+        this.setState({openModal: false});
+        if (feed.feed_type === FeedTypes.solicitation) {
+            this._onSolicitation();
+        } else {
+            this._onSellShare();
+        }
+    }
+
+    _onDelete = () => {
+        const mainThis = this;
+        this.setState({openModal: false});
+        Alert.alert(
+            'Remove Image',
+            'Are you sure you want to remove the ad?',
+            [
+                {text: 'Cancel', onPress: () => {
+                    }, style: 'cancel'},
+                {text: 'OK', onPress: async () => {
+                        mainThis.props.deleteFeed(mainThis.state.selectedFeed.feedId);
+                        mainThis.setState({selectedFeed: {}});
+                        mainThis._onFetchingFeeds();
+                    }},
+            ],
+            { cancelable: false }
+        );
     }
 
     render() {
@@ -43,6 +96,7 @@ class Feed extends Component {
             }
             return(
                 <FeedItem
+					onAdAction={this._onAdAction}
                     navigation={this.props.navigation}
                     feed={feed}
                     key={i}
@@ -64,6 +118,27 @@ class Feed extends Component {
                         <View style={styles.height44}/>
                     </ScrollView>
                 </View>
+				{this.state.openModal && <AdActionsModal
+                    isVisible={this.state.openModal}
+                    onEdit={this._onEdit}
+                    onDelete={this._onDelete}
+                    onBackdropPress={()=>this.setState({openModal: false})} />}
+                {this.state.isSellShare && <SellShareModal
+                    navigation={this.props.navigation}
+                    isVisible={this.state.isSellShare}
+                    isEditAd={true}
+                    feedInfo={this.state.selectedFeed}
+                    feedCategory={this.state.feedCategory}
+                    afterAction={this._onFetchingFeeds}
+                    onBackdropPress={()=>this.setState({isSellShare: false})}/>}
+                {this.state.isSolicitation && <SolicitationModal
+                    navigation={this.props.navigation}
+                    feedCategory={this.state.feedCategory}
+                    isVisible={this.state.isSolicitation}
+                    isEditAd={true}
+                    feedInfo={this.state.selectedFeed}
+                    afterAction={this._onFetchingFeeds}
+                    onBackdropPress={()=>this.setState({isSolicitation: false})}/>}
             </View>
         );
     }
@@ -79,7 +154,8 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
+        setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
+		deleteFeed: (feedId) => dispatch(authActions.deleteFeed(feedId))
     }
 };
 
