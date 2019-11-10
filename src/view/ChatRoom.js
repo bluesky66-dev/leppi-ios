@@ -11,6 +11,7 @@ import ChatMessage from "../components/ChatMessage";
 import IconAvatar from "../images/avatar.png";
 import IconIdea from "../images/idea.png";
 import IconMarker from "../images/maps-and-flags.png";
+import backIcon from "../images/back_black.png";
 import IconPaperClip from "../images/school-paper-clip.png";
 import * as authActions from "../redux/actions/AuthActions";
 

@@ -21,6 +21,7 @@ module.exports = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'transparent',
+        zIndex: 5,
     },
     iconDotStyle: {
         width: hp(22),

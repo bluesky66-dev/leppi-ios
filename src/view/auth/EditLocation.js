@@ -5,11 +5,13 @@ import {LocationForm} from "../../components/forms";
 import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Toast from 'react-native-simple-toast';
 import Swiper from '../../components/swiper';
 import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import Spinner from "react-native-loading-spinner-overlay";
+import {MENU_TYPES} from "../../redux/constants/menuTypes";
 
 class EditLocation extends Component {
     constructor(props) {
