@@ -79,11 +79,11 @@ class EditLocation extends Component {
         let title = "Próximo";
         return (
             <KeyboardAwareScrollView style={styles.rootWrapper} behavior={'padding'}>
-                <Spinner
+                {this.props.isLoading && <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
-                />
+                />}
                 <ScrollView style={styles.rootWrapper}>
                     <AppTopSection authStep={this.state.step_index} onBackPress={this._onBackPress}/>
                     <Swiper ref={'swiper'}

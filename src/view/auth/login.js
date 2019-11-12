@@ -73,11 +73,11 @@ class Login extends Component {
         var title = "Leppi";
         return (
             <KeyboardAwareScrollView style={styles.rootWrapper} behavior={'padding'}>
-                <Spinner
+               {this.props.isLoading && <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
-                    textStyle={{ color: '#FFF' }}
-                />
+                    textStyle={{color: '#FFF'}}
+                />}
                 <ScrollView style={styles.rootWrapper}>
                     <AppTopSection authStep={0} onBackPress={() => { this.props.navigation.goBack() }} />
                     <LoginForm

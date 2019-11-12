@@ -135,11 +135,11 @@ class FeedDetail extends Component {
 
         return (
             <View style={styles.rootWrapper}>
-                <Spinner
+                {this.props.isLoading && <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
-                    textStyle={{ color: '#FFF' }}
-                />
+                    textStyle={{color: '#FFF'}}
+                />}
                 <ScrollView style={styles.contentWrapper}>
                     <AppTopBack onBackPress={() => {
                         this.props.navigation.goBack()

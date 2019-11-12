@@ -121,15 +121,8 @@ class Register extends Component {
                     Toast.show('Those passwords didn\'t match', Toast.SHORT);
                     return false;
                 }
-                //console.log('fetchSignup start ====== ', state);
-                await this.props.fetchSignup(state);
-                //console.log('====== fetchSignup end');
-                if (!this.props.isSignuped) {
-                    return false;
-                }
-
+                
                 let userMeta = {
-                    userId: this.props.userId,
                     address: state.address,
                     city: state.city,
                     street: state.street,
@@ -145,11 +138,12 @@ class Register extends Component {
                     points: 0,
                     createTime: Math.floor(Date.now()),
                 };
-                this.setState({userMeta: userMeta});
-                await this.props.createUserMeta(userMeta);
+
+                await this.props.fetchSignup(state, userMeta);
                 break;
         }
         let step_index = this.state.step_index + 1;
+        console.log('step_index', step_index);
         if (step_index >= 4) {
             navigate('Welcome');
         } else if (step_index < 4) {
@@ -189,11 +183,11 @@ class Register extends Component {
         }
         return (
             <KeyboardAwareScrollView style={styles.rootWrapper} behavior={'padding'}>
-                <Spinner
+                {this.props.isLoading && <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
-                />
+                />}
                 <ScrollView style={styles.rootWrapper}>
                     <AppTopSection authStep={this.state.step_index} onBackPress={this._onBackPress}/>
                     <Swiper ref={'swiper'}
@@ -237,7 +231,7 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSignup: (type) => dispatch(authActions.fetchSignup(type)),
+        fetchSignup: (data, userMeta) => dispatch(authActions.fetchSignup(data, userMeta)),
         uploadMedia: (media) => dispatch(authActions.uploadMedia(media)),
         createUserMeta: (metaData) => dispatch(authActions.createUserMeta(metaData)),
         setUserMeta: (metaData) => dispatch(authActions.setUserMeta(metaData)),

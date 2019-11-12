@@ -44,11 +44,11 @@ class Chat extends Component {
         });
         return (
             <View style={styles.rootWrapper}>
-                <Spinner
+                {this.props.isLoading && <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
-                />
+                />}
                 <View style={styles.container}>
                     <HeaderSection navigation={this.props.navigation}/>
                     <ScrollView style={styles.contentWrapper}>

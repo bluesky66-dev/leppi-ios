@@ -120,7 +120,7 @@ export const fetchingSignupFailure = error => ({
     payload: error
 });
 
-export const fetchSignup = data => {
+export const fetchSignup = (data, userMeta) => {
     return async dispatch => {
         dispatch(fetchingSignupRequest());
         try {
@@ -147,24 +147,19 @@ export const fetchSignup = data => {
                 await AsyncStorage.setItem('$leppiUserId', json.uid);
                 await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
                 dispatch(fetchingSignupSuccess(json.uid));
+                userMeta.userId = json.uid;
+                dispatch(createUserMeta(userMeta));
             } else {
                 if (json.msg && json.msg.code) {
-                    if (json.msg.code === 'auth/invalid-phone-number') {
-                        Toast.show("Invalid phone number!", Toast.SHORT);
-                    } else  if (json.msg.code === 'auth/invalid-email') {
-                        Toast.show("Invalid email address!", Toast.SHORT);
-                    } else if (json.msg.code === 'auth/invalid-email') {
-                        Toast.show("Invalid email address!", Toast.SHORT);
-                    } else {
-                        Toast.show(json.msg.message, Toast.SHORT);
-                    }
+                    Toast.show(json.msg.message, Toast.SHORT);
                 } else {
                     Toast.show("The system is busy now!", Toast.SHORT);
                 }
+                console.log('fetchSignup error ======');
                 dispatch(fetchingSignupFailure('error'));
             }
         } catch (e) {
-            //console.log('fetchSignup error ======', e.message);
+            console.log('fetchSignup error ======', e.message);
             dispatch(isLoading(false));
         }
     };
