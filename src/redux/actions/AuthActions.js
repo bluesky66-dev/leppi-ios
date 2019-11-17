@@ -120,7 +120,7 @@ export const fetchingSignupFailure = error => ({
     payload: error
 });
 
-export const fetchSignup = (data, userMeta) => {
+export const fetchSignup = (data, userMeta, callback) => {
     return async dispatch => {
         dispatch(fetchingSignupRequest());
         try {
@@ -147,8 +147,12 @@ export const fetchSignup = (data, userMeta) => {
                 await AsyncStorage.setItem('$leppiUserId', json.uid);
                 await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
                 dispatch(fetchingSignupSuccess(json.uid));
-                userMeta.userId = json.uid;
-                dispatch(createUserMeta(userMeta));
+
+                let tUserMeta = Object.assign({}, userMeta);
+                tUserMeta.userId = json.uid;
+                
+                console.log('userMeta ===', tUserMeta);
+                dispatch(createUserMeta(tUserMeta));
             } else {
                 if (json.msg && json.msg.code) {
                     Toast.show(json.msg.message, Toast.SHORT);
@@ -216,6 +220,7 @@ export const createUserMeta = metaData => {
             dispatch(setUserMeta(metaData));    
             dispatch(isLoading(false));
         } catch (e) {
+            console.log('===== createUserMeta error', e.message);
             dispatch(isLoading(false));
         }
     };

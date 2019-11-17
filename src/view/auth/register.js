@@ -93,10 +93,10 @@ class Register extends Component {
                     Toast.show('Enter your last name', Toast.SHORT);
                     return false;
                 }
-                // if (!state.whatsapp || state.whatsapp.length <= 0) {
-                //     Toast.show('Enter your whatsapp', Toast.SHORT);
-                //     return false;
-                // }
+                if (!state.whatsapp || state.whatsapp.length <= 0) {
+                    Toast.show('Enter your whatsapp', Toast.SHORT);
+                    return false;
+                }
 
                 //console.log('Information ====== ', state);
                 break;
@@ -139,7 +139,7 @@ class Register extends Component {
                     createTime: Math.floor(Date.now()),
                 };
 
-                await this.props.fetchSignup(state, userMeta);
+                await this.props.fetchSignup(state, userMeta, this.props.createUserMeta);
                 break;
         }
         let step_index = this.state.step_index + 1;
@@ -231,7 +231,7 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSignup: (data, userMeta) => dispatch(authActions.fetchSignup(data, userMeta)),
+        fetchSignup: (data, userMeta, callback) => dispatch(authActions.fetchSignup(data, userMeta, callback)),
         uploadMedia: (media) => dispatch(authActions.uploadMedia(media)),
         createUserMeta: (metaData) => dispatch(authActions.createUserMeta(metaData)),
         setUserMeta: (metaData) => dispatch(authActions.setUserMeta(metaData)),
