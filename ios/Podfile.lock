@@ -313,8 +313,6 @@ PODS:
     - React
   - react-native-image-resizer (1.1.0):
     - React
-  - react-native-notifications (2.1.5):
-    - React
   - react-native-simple-toast (1.0.0):
     - React
     - Toast (~> 4.0.0)
@@ -358,6 +356,8 @@ PODS:
     - React-jsi (= 0.61.2)
     - ReactCommon/jscallinvoker (= 0.61.2)
   - RNCAsyncStorage (1.6.2):
+    - React
+  - RNCPushNotificationIOS (1.0.3):
     - React
   - RNDateTimePicker (2.1.0):
     - React
@@ -429,7 +429,6 @@ DEPENDENCIES:
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
-  - react-native-notifications (from `../node_modules/react-native-notifications`)
   - react-native-simple-toast (from `../node_modules/react-native-simple-toast`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
@@ -445,6 +444,7 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
@@ -534,8 +534,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-image-resizer:
     :path: "../node_modules/react-native-image-resizer"
-  react-native-notifications:
-    :path: "../node_modules/react-native-notifications"
   react-native-simple-toast:
     :path: "../node_modules/react-native-simple-toast"
   react-native-splash-screen:
@@ -564,6 +562,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFBApp:
@@ -637,7 +637,6 @@ SPEC CHECKSUMS:
   react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
   react-native-image-picker: 7a85cf7b0a53845f03ae52fb4592a2748ded069b
   react-native-image-resizer: 1ffe71ec5f2596c3a24d42548c03bfbfb06fe810
-  react-native-notifications: 62adcf7ef6fefa462e2037c6e72ad21fa569d0ff
   react-native-simple-toast: 6c376bd79b1e255a4bee90a72ead6447f96ea10d
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-viewpager: 88f4269c19d626d2ccd5f7c7f5f7f76422ddb9e3
@@ -652,6 +651,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: fb54c732fd20405a76598e431aa2f8c2bf527de9
   ReactCommon: 5848032ed2f274fcb40f6b9ec24067787c42d479
   RNCAsyncStorage: 60a80e72d95bf02a01cace55d3697d9724f0d77f
+  RNCPushNotificationIOS: 83ec11fe19d4ea9e32cc339d8e7d2cc3c88f543e
   RNDateTimePicker: 9db00606d689f5653f08aa601c81b9d3266a0a19
   RNFBApp: 92ae594c85e82e1e68434049b2a37e1f584cf8b9
   RNFBAuth: edc2e5986b92f0dfd0076b312caf7871a1646ed8

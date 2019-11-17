@@ -12,20 +12,12 @@ import * as permissions from '../util/permissions';
 import AsyncStorage from "@react-native-community/async-storage";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 import Geolocation from 'react-native-geolocation-service';
-import NotificationsIOS from 'react-native-notifications';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 class Start extends Component {
 
-    constructor() {
-		NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
-        NotificationsIOS.requestPermissions();
-        
-        this._boundOnNotificationReceivedForeground = this.onNotificationReceivedForeground.bind(this);
-        this._boundOnNotificationOpened = this.onNotificationOpened.bind(this);
-        
-        NotificationsIOS.addEventListener('notificationReceivedForeground', this._boundOnNotificationReceivedForeground);
-        NotificationsIOS.addEventListener('notificationOpened', this._boundOnNotificationOpened);
+    constructor() {       
+        super();
 	}
 	
     async componentDidMount() {
@@ -41,18 +33,6 @@ class Start extends Component {
             BackHandler.exitApp();
         }
 
-        NotificationsIOS.checkPermissions().then((currentPermissions) => {
-            console.log('Badges enabled: ' + !!currentPermissions.badge);
-            console.log('Sounds enabled: ' + !!currentPermissions.sound);
-            console.log('Alerts enabled: ' + !!currentPermissions.alert);
-        });
-        let localNotification = NotificationsIOS.localNotification({
-            body: "Local notificiation!",
-            title: "Local Notification Title",
-            silent: false,
-            category: "SOME_CATEGORY",
-            userInfo: { }
-        });
         permissions.checkCamera();
         permissions.checkLocationAlways();
         permissions.checkLocationWhenInUse();
@@ -109,6 +89,22 @@ class Start extends Component {
             //console.log('====== start didMount error', e.message);
         }
         SplashScreen.hide();
+
+        PushNotificationIOS.addEventListener('register', this._onRegistered);
+        PushNotificationIOS.addEventListener(
+          'registrationError',
+          this._onRegistrationError,
+        );
+        PushNotificationIOS.addEventListener(
+          'notification',
+          this._onRemoteNotification,
+        );
+        PushNotificationIOS.addEventListener(
+          'localNotification',
+          this._onLocalNotification,
+        );
+    
+        PushNotificationIOS.requestPermissions();
     }
 
     componentWillUnmount() {
@@ -118,34 +114,51 @@ class Start extends Component {
         }
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
         // BackHandler.exitApp();
-        NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
-        NotificationsIOS.removeEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
-        NotificationsIOS.removeEventListener('notificationReceivedForeground', this._boundOnNotificationReceivedForeground);
-	NotificationsIOS.removeEventListener('notificationOpened', this._boundOnNotificationOpened);
-    }
-
-    onNotificationReceivedForeground(notification, completion) {
-        completion({alert: true, sound: false, badge: false});
-        console.log("Notification Received - Foreground", notification);
-    }
-    
-    onNotificationOpened(notification, completion, action) {
-        console.log("Notification opened by device user", notification);
-        console.log(`Notification opened with an action identifier: ${action.identifier} and response text: ${action.text}`, notification);
-        completion();
+        PushNotificationIOS.removeEventListener('register', this._onRegistered);
+        PushNotificationIOS.removeEventListener(
+          'registrationError',
+          this._onRegistrationError,
+        );
+        PushNotificationIOS.removeEventListener(
+          'notification',
+          this._onRemoteNotification,
+        );
+        PushNotificationIOS.removeEventListener(
+          'localNotification',
+          this._onLocalNotification,
+        );
     }
     
-
-    async onPushRegistered(deviceToken) {
-	    // TODO: Send the token to my server so it could send back push notifications...
-        console.log("Device Token Received", deviceToken);
-        await AsyncStorage.setItem('$leppiFCMToken', deviceToken);
-	}
-
-	onPushRegistrationFailed(error) {
-		console.error('push register error', error);
-	}
+    _sendLocalNotification() {
+        PushNotificationIOS.presentLocalNotification({
+          alertBody: 'Sample local notification',
+          applicationIconBadgeNumber: 1
+        });
+      }
     
+      _onRegistered(deviceToken) {
+        console.log('deviceToken', deviceToken);
+        AsyncStorage.setItem('$leppiFCMToken', deviceToken);
+      }
+    
+      _onRegistrationError(error) {
+        console.log('push register error', error.message);
+      }
+    
+      _onRemoteNotification(notification) {
+          console.log('Remote message: ', notification.getMessage());
+      }
+    
+      _onLocalNotification(notification) {
+          console.log('Local message: ', notification.getMessage());
+      }
+    
+      _showPermissions() {
+        PushNotificationIOS.checkPermissions(permissions => {
+            console.log('Push permissions', permissions);
+        });
+      }
+
     handleBackButton = () => {
         BackHandler.exitApp();
     }

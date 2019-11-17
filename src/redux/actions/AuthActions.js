@@ -50,7 +50,7 @@ export const R_logout = () => ({
 export const fetchLogout = () => {
     return async dispatch => {
         dispatch(R_logout());
-        let keys = ['$leppiUserId', '$leppiSkipWelcome', '$leppiFCMToken'];
+        let keys = ['$leppiUserId', '$leppiSkipWelcome'];
         try {
             await AsyncStorage.multiRemove(keys);
             // //console.log('===== R_logout');
@@ -265,7 +265,7 @@ export const fetchingUserMeta = (navigate) => {
             console.log('userMetaSnapshot.exists == ', userMetaSnapshot.exists());
             if (!userMetaSnapshot.exists()) {
                 dispatch(R_logout());
-                let keys = ['$leppiUserId',  '$leppiSkipWelcome', '$leppiFCMToken'];
+                let keys = ['$leppiUserId',  '$leppiSkipWelcome'];
                 try {
                     await AsyncStorage.multiRemove(keys);
                     // //console.log('===== R_logout');
@@ -289,7 +289,7 @@ export const fetchingUserMeta = (navigate) => {
             // //console.log(error);
             dispatch(isLoading(false));
             dispatch(R_logout());
-            let keys = ['$leppiUserId', '$leppiSkipWelcome', '$leppiFCMToken'];
+            let keys = ['$leppiUserId', '$leppiSkipWelcome'];
             try {
                 await AsyncStorage.multiRemove(keys);
                 // //console.log('===== R_logout');
