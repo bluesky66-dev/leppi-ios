@@ -12,13 +12,22 @@ import * as permissions from '../util/permissions';
 import AsyncStorage from "@react-native-community/async-storage";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 import Geolocation from 'react-native-geolocation-service';
+import NotificationsIOS from 'react-native-notifications';
 
 class Start extends Component {
 
-    handleBackButton = () => {
-        BackHandler.exitApp();
-    }
-
+    constructor() {
+		NotificationsIOS.addEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+		NotificationsIOS.addEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
+        NotificationsIOS.requestPermissions();
+        
+        this._boundOnNotificationReceivedForeground = this.onNotificationReceivedForeground.bind(this);
+        this._boundOnNotificationOpened = this.onNotificationOpened.bind(this);
+        
+        NotificationsIOS.addEventListener('notificationReceivedForeground', this._boundOnNotificationReceivedForeground);
+        NotificationsIOS.addEventListener('notificationOpened', this._boundOnNotificationOpened);
+	}
+	
     async componentDidMount() {
         lor(this);
         const {navigate} = this.props.navigation;
@@ -32,9 +41,18 @@ class Start extends Component {
             BackHandler.exitApp();
         }
 
-        // push.checkPermission();
-        // push.notificationListener();
-        // push.createChannel();
+        NotificationsIOS.checkPermissions().then((currentPermissions) => {
+            console.log('Badges enabled: ' + !!currentPermissions.badge);
+            console.log('Sounds enabled: ' + !!currentPermissions.sound);
+            console.log('Alerts enabled: ' + !!currentPermissions.alert);
+        });
+        let localNotification = NotificationsIOS.localNotification({
+            body: "Local notificiation!",
+            title: "Local Notification Title",
+            silent: false,
+            category: "SOME_CATEGORY",
+            userInfo: { }
+        });
         permissions.checkCamera();
         permissions.checkLocationAlways();
         permissions.checkLocationWhenInUse();
@@ -100,6 +118,36 @@ class Start extends Component {
         }
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
         // BackHandler.exitApp();
+        NotificationsIOS.removeEventListener('remoteNotificationsRegistered', this.onPushRegistered.bind(this));
+        NotificationsIOS.removeEventListener('remoteNotificationsRegistrationFailed', this.onPushRegistrationFailed.bind(this));
+        NotificationsIOS.removeEventListener('notificationReceivedForeground', this._boundOnNotificationReceivedForeground);
+	NotificationsIOS.removeEventListener('notificationOpened', this._boundOnNotificationOpened);
+    }
+
+    onNotificationReceivedForeground(notification, completion) {
+        completion({alert: true, sound: false, badge: false});
+        console.log("Notification Received - Foreground", notification);
+    }
+    
+    onNotificationOpened(notification, completion, action) {
+        console.log("Notification opened by device user", notification);
+        console.log(`Notification opened with an action identifier: ${action.identifier} and response text: ${action.text}`, notification);
+        completion();
+    }
+    
+
+    async onPushRegistered(deviceToken) {
+	    // TODO: Send the token to my server so it could send back push notifications...
+        console.log("Device Token Received", deviceToken);
+        await AsyncStorage.setItem('$leppiFCMToken', deviceToken);
+	}
+
+	onPushRegistrationFailed(error) {
+		console.error('push register error', error);
+	}
+    
+    handleBackButton = () => {
+        BackHandler.exitApp();
     }
 
     _onLogin = () => {
