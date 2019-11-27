@@ -12,14 +12,13 @@ import * as permissions from '../util/permissions';
 import AsyncStorage from "@react-native-community/async-storage";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 import Geolocation from 'react-native-geolocation-service';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 class Start extends Component {
 
-    constructor() {       
-        super();
-	}
-	
+    handleBackButton = () => {
+        BackHandler.exitApp();
+    }
+
     async componentDidMount() {
         lor(this);
         const {navigate} = this.props.navigation;
@@ -33,6 +32,9 @@ class Start extends Component {
             BackHandler.exitApp();
         }
 
+        // push.checkPermission();
+        // push.notificationListener();
+        // push.createChannel();
         permissions.checkCamera();
         permissions.checkLocationAlways();
         permissions.checkLocationWhenInUse();
@@ -89,22 +91,6 @@ class Start extends Component {
             //console.log('====== start didMount error', e.message);
         }
         SplashScreen.hide();
-
-        PushNotificationIOS.addEventListener('register', this._onRegistered);
-        PushNotificationIOS.addEventListener(
-          'registrationError',
-          this._onRegistrationError,
-        );
-        PushNotificationIOS.addEventListener(
-          'notification',
-          this._onRemoteNotification,
-        );
-        PushNotificationIOS.addEventListener(
-          'localNotification',
-          this._onLocalNotification,
-        );
-    
-        PushNotificationIOS.requestPermissions();
     }
 
     componentWillUnmount() {
@@ -114,53 +100,6 @@ class Start extends Component {
         }
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
         // BackHandler.exitApp();
-        PushNotificationIOS.removeEventListener('register', this._onRegistered);
-        PushNotificationIOS.removeEventListener(
-          'registrationError',
-          this._onRegistrationError,
-        );
-        PushNotificationIOS.removeEventListener(
-          'notification',
-          this._onRemoteNotification,
-        );
-        PushNotificationIOS.removeEventListener(
-          'localNotification',
-          this._onLocalNotification,
-        );
-    }
-    
-    _sendLocalNotification() {
-        PushNotificationIOS.presentLocalNotification({
-          alertBody: 'Sample local notification',
-          applicationIconBadgeNumber: 1
-        });
-      }
-    
-      _onRegistered(deviceToken) {
-        console.log('deviceToken', deviceToken);
-        AsyncStorage.setItem('$leppiFCMToken', deviceToken);
-      }
-    
-      _onRegistrationError(error) {
-        console.log('push register error', error.message);
-      }
-    
-      _onRemoteNotification(notification) {
-          console.log('Remote message: ', notification.getMessage());
-      }
-    
-      _onLocalNotification(notification) {
-          console.log('Local message: ', notification.getMessage());
-      }
-    
-      _showPermissions() {
-        PushNotificationIOS.checkPermissions(permissions => {
-            console.log('Push permissions', permissions);
-        });
-      }
-
-    handleBackButton = () => {
-        BackHandler.exitApp();
     }
 
     _onLogin = () => {

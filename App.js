@@ -34,6 +34,7 @@ import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import '@react-native-firebase/database';
 import '@react-native-firebase/dynamic-links';
+import '@react-native-firebase/messaging';
 import '@react-native-firebase/storage';
 
 console.disableYellowBox = true;
@@ -44,10 +45,10 @@ YellowBox.ignoreWarnings([
     'componentWillUpdate',
     'componentWillReceiveProps',
     '[location] ERROR - 0',
-    'Warning: DatePickerAndroid', 
+    'Warning: DatePickerAndroid',
     '`-[RCTRootView cancelTouches]`',
     '`-[RCTRootView cancelTouches]` is deprecated and will be deleted soon.',
-  ]);
+]);
 const ActivityProject = createStackNavigator(
     {
         Start: {screen: Start, navigationOptions: {header: null,},},
