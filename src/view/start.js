@@ -25,7 +25,7 @@ class Start extends Component {
 
         //console.log(' ====== splash screen hide');
         const date1 = await authActions.getCurrentTime();
-        const date2 = new Date('11/20/2019');
+        const date2 = new Date('12/1/2019');
         const diffTime = date2 - date1;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         if (diffDays <= 0) {
