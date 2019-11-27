@@ -150,7 +150,7 @@ export const fetchSignup = (data, userMeta, callback) => {
 
                 let tUserMeta = Object.assign({}, userMeta);
                 tUserMeta.userId = json.uid;
-                
+
                 console.log('userMeta ===', tUserMeta);
                 dispatch(createUserMeta(tUserMeta));
             } else {
@@ -217,7 +217,7 @@ export const createUserMeta = metaData => {
                 .ref('userMeta')
                 .child(metaData.userId)
                 .update(metaData);
-            dispatch(setUserMeta(metaData));    
+            dispatch(setUserMeta(metaData));
             dispatch(isLoading(false));
         } catch (e) {
             console.log('===== createUserMeta error', e.message);
@@ -785,3 +785,19 @@ export const updateLocation = (userMeta) => {
         }
     };
 };
+
+
+export const getCurrentTime = async () => {
+    try {
+        let respond = await fetch("http://worldclockapi.com/api/json/cst/now");
+        let json = await respond.json();
+        if (typeof json.currentDateTime !== 'undefined') {
+            // console.log("current time  ================", new Date(json.currentDateTime));
+            return new Date(json.currentDateTime);
+        }
+        return new Date();
+    } catch (e) {
+        console.log(e.message);
+        return new Date();
+    }
+}
