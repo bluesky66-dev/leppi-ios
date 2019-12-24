@@ -29,7 +29,7 @@ class Start extends Component {
         const diffTime = date2 - date1;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         if (diffDays <= 0) {
-            BackHandler.exitApp();
+            // BackHandler.exitApp();
         }
 
         // push.checkPermission();
