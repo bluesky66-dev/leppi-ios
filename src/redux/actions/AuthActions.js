@@ -97,7 +97,10 @@ export const fetchLogin = (data, navigate) => {
                     Toast.show("Invalid email or password", Toast.SHORT);
                 });
         } catch (e) {
-            dispatch(isLoading(false));
+            const {code, message} = error;
+            const errorMessage = message.replace(code, '').replace('[]', '');
+            dispatch(fetchingLoginFailure(errorMessage));
+            Toast.show(errorMessage, Toast.SHORT);
         }
     };
 };

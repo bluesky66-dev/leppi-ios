@@ -5,6 +5,10 @@ import styles from '../styles/header';
 import logoIcon from "../images/monkey.png";
 import * as authActions from "../redux/actions/AuthActions";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
+import HomeIcon from "../images/home-sign.png";
+import AddIcon from "../images/more.png";
+import ChatIcon from "../images/chat-bubble.png";
+import UserIcon from "../images/user.png";
 
 class HeaderSection extends Component {
 
@@ -46,24 +50,22 @@ class HeaderSection extends Component {
         return (
             <View style={styles.header}>
                 <View style={styles.logoWrapper}>
-                    <Image source={logoIcon} style={styles.logoIcon}/>
-                    <Text style={styles.logoTxt}>Leppi</Text>
                 </View>
                 <View style={styles.menuWrapper}>
                     <TouchableOpacity style={[styles.marginRight46]} onPress={()=>this._onPressMenu(MENU_TYPES.HOME)}>
-                        <View style={styles.menuItem}><Text style={styles.menuItemTxt}>Home</Text></View>
+                        <View style={styles.menuItem}><Image source={HomeIcon} style={styles.menuIcon}/></View>
                         {(this.props.currentMenu === MENU_TYPES.HOME) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.marginRight48]} onPress={()=>this._onPressMenu(MENU_TYPES.FEED)}>
-                        <View style={styles.menuItem}><Text style={styles.menuItemTxt}>Feed</Text></View>
+                        <View style={styles.menuItem}><Image source={HomeIcon} style={styles.menuIcon}/></View>
                         {(this.props.currentMenu === MENU_TYPES.FEED) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.marginRight50]} onPress={()=>this._onPressMenu(MENU_TYPES.CHAT)}>
-                        <View style={styles.menuItem}><Text style={styles.menuItemTxt}>Chat</Text></View>
+                        <View style={styles.menuItem}><Image source={HomeIcon} style={styles.menuIcon}/></View>
                         {(this.props.currentMenu === MENU_TYPES.CHAT) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>this._onPressMenu(MENU_TYPES.PERFIL)}>
-                        <View style={styles.menuItem}><Text style={styles.menuItemTxt}>Perfil</Text></View>
+                        <View style={styles.menuItem}><Image source={UserIcon} style={styles.menuIcon}/></View>
                         {(this.props.currentMenu === MENU_TYPES.PERFIL) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                 </View>

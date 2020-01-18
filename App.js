@@ -36,6 +36,7 @@ import '@react-native-firebase/database';
 import '@react-native-firebase/dynamic-links';
 import '@react-native-firebase/messaging';
 import '@react-native-firebase/storage';
+import '@react-native-firebase/firestore';
 
 console.disableYellowBox = true;
 YellowBox.ignoreWarnings([

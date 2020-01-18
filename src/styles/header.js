@@ -5,7 +5,7 @@ module.exports = StyleSheet.create({
 
     header: {
         backgroundColor: '#35d3b9',
-        height: hp(135),
+        height: hp(105),
         shadowOpacity: 0.16,
         shadowRadius: hp(6),
         shadowColor: '#000000',
@@ -46,7 +46,7 @@ module.exports = StyleSheet.create({
     },
 
     menuWrapper: {
-        marginTop: hp(35),
+        marginTop: hp(30),
         flexDirection: 'row',
         paddingLeft: wp(45),
         paddingRight: wp(45),
@@ -55,8 +55,13 @@ module.exports = StyleSheet.create({
     menuItem: {
         position: 'relative',
         zIndex: 3,
-        height: hp(26),
+        height: hp(33),
         backgroundColor: '#35d3b9',
+    },
+
+    menuIcon: {
+        width: wp(28),
+        height: wp(28),
     },
 
     menuItemTxt: {
