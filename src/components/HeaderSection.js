@@ -9,14 +9,22 @@ import HomeIcon from "../images/home-sign.png";
 import AddIcon from "../images/more.png";
 import ChatIcon from "../images/chat-bubble.png";
 import UserIcon from "../images/user.png";
+import Toast from "react-native-simple-toast";
+import SellShareModal from "./SellShareModal";
 
 class HeaderSection extends Component {
 
     constructor(props) {
         super(props);
         this._onPressMenu = this._onPressMenu.bind(this);
+        this.state = {
+            isSellShare: false,
+        }
     }
 
+    _onSellShare = () => {
+        this.setState({isSellShare: true, isSwitchModal: false})
+    }
     _onPressList() {
     }
 
@@ -56,12 +64,11 @@ class HeaderSection extends Component {
                         <View style={styles.menuItem}><Image source={HomeIcon} style={styles.menuIcon}/></View>
                         {(this.props.currentMenu === MENU_TYPES.HOME) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.marginRight48]} onPress={()=>this._onPressMenu(MENU_TYPES.FEED)}>
-                        <View style={styles.menuItem}><Image source={HomeIcon} style={styles.menuIcon}/></View>
-                        {(this.props.currentMenu === MENU_TYPES.FEED) && <View style={styles.menuActive}/>}
+                    <TouchableOpacity style={[styles.marginRight48]} onPress={()=> this._onSellShare()}>
+                        <View style={styles.menuItem}><Image source={AddIcon} style={styles.menuIcon}/></View>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.marginRight50]} onPress={()=>this._onPressMenu(MENU_TYPES.CHAT)}>
-                        <View style={styles.menuItem}><Image source={HomeIcon} style={styles.menuIcon}/></View>
+                        <View style={styles.menuItem}><Image source={ChatIcon} style={styles.menuIcon}/></View>
                         {(this.props.currentMenu === MENU_TYPES.CHAT) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>this._onPressMenu(MENU_TYPES.PERFIL)}>
@@ -69,6 +76,12 @@ class HeaderSection extends Component {
                         {(this.props.currentMenu === MENU_TYPES.PERFIL) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                 </View>
+                {this.state.isSellShare && <SellShareModal
+                    navigation={this.props.navigation}
+                    isVisible={this.state.isSellShare}
+                    isEditAd={false}
+                    feedCategory={this.state.feedCategory}
+                    onBackdropPress={()=>this.setState({isSellShare: false})}/>}
             </View>
         );
     }

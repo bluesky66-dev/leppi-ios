@@ -46,7 +46,7 @@ module.exports = StyleSheet.create({
     },
 
     menuWrapper: {
-        marginTop: hp(30),
+        marginTop: hp(20),
         flexDirection: 'row',
         paddingLeft: wp(45),
         paddingRight: wp(45),
@@ -55,7 +55,7 @@ module.exports = StyleSheet.create({
     menuItem: {
         position: 'relative',
         zIndex: 3,
-        height: hp(33),
+        height: hp(40),
         backgroundColor: '#35d3b9',
     },
 
@@ -84,7 +84,7 @@ module.exports = StyleSheet.create({
 
     menuActive: {
         position: 'relative',
-        top: hp(-2),
+        bottom: hp(-2),
         alignSelf: 'center',
         width: wp(20),
         height: hp(5),

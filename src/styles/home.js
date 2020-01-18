@@ -35,9 +35,7 @@ module.exports = StyleSheet.create({
     },
 
     titleWrapper: {
-        marginTop: hp(38),
-        paddingLeft: wp(54),
-        paddingRight: wp(54)
+        marginTop: hp(15),
     },
 
     titleTxt: {
@@ -51,99 +49,10 @@ module.exports = StyleSheet.create({
 
 
     typesWrapper: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        paddingLeft: wp(33),
-        paddingRight: wp(32),
+        flexDirection: 'column',
+        paddingLeft: wp(16),
+        paddingRight: wp(16),
         marginTop: hp(14),
         paddingBottom: hp(100)
     },
-
-    isSelected: {
-        borderRadius: hp(8),
-        backgroundColor: '#e2e2e2'
-    },
-
-    typeBox: {
-        width: wp(103),
-        marginBottom: hp(9),
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: hp(5)
-    },
-
-    typeIcon: {
-        width: hp(34),
-        height: hp(33),
-        marginBottom: hp(8)
-    },
-
-    typeTxt: {
-        color: "#3d3d3d",
-        fontSize: hp(10),
-        fontFamily: "Rubik-Regular",
-        textAlign: 'center',
-    },
-
-    buttonGroup: {
-        marginTop: hp(60),
-        paddingRight :wp(32),
-        paddingLeft: wp(33),
-        marginBottom: hp(62)
-    },
-
-    sellButton: {
-        marginBottom: hp(18)
-    },
-
-    buttonOut: {
-        width: wp(310),
-        height: hp(55),
-        backgroundColor: '#ffffff',
-        borderRadius: hp(35),
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    buttonIn: {
-        width: wp(302),
-        height: hp(49),
-        borderRadius: hp(35),
-        borderWidth: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    buttonInRed: {
-        borderColor: '#f63341',
-    },
-
-    buttonInBlue: {
-        borderColor: '#1c5596',
-    },
-
-    buttonTxt: {
-        color: "#3d3d3d",
-        fontSize: hp(18),
-        fontFamily: "Raleway-Bold",
-    },
-
-    btnBadge: {
-        width: wp(55),
-        height: hp(17),
-        borderRadius: hp(35),
-        alignSelf: 'center',
-        position: 'absolute',
-        top: hp(-7),
-    },
-
-    badgeRed: {
-        backgroundColor: '#f63341',
-    },
-
-    badgeBlue: {
-        backgroundColor: '#1c5596',
-    },
-
-    solicitationButton: {},
 });

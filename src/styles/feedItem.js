@@ -3,9 +3,9 @@ import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
     contentWrapper: {
-        flexDirection: 'row',
-        backgroundColor: '#E8E8E8',
+        backgroundColor: '#ffffff',
         shadowOpacity: 0.16,
+        width: '100%',
         shadowRadius: hp(6),
         shadowColor: '#000000',
         shadowOffset: {height: hp(3), width: 0},
@@ -28,105 +28,116 @@ module.exports = StyleSheet.create({
         height: hp(22),
         resizeMode: 'contain',
     },
-    feedBadge: {
-        width: 7,
-        shadowOpacity: 0.16,
-        shadowRadius: hp(2),
-        shadowColor: '#000000',
-        shadowOffset: {height: 0, width: hp(2)},
-        elevation: 6,
-    },
-    feedBadgeRed: {
-        backgroundColor: '#F63341',
-    },
-    feedBadgeBlue: {
-        backgroundColor: '#1C5596',
-    },
     feedContent: {
         flex: 1,
-        flexDirection: 'row',
     },
-    imageBox: {
-        width: wp(103),
+    userInfoRow: {
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: hp(10),
+        paddingLeft: wp(10)
     },
     thumbnail: {
-        width: hp(75),
-        height: hp(75),
-        borderRadius: hp(75/2),
+        width: hp(35),
+        height: hp(35),
+        borderRadius: hp(35/2),
         backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
     },
     thumbImage: {
-        width: hp(69),
-        height: hp(69),
-        borderRadius: hp(69/2),
+        width: hp(35),
+        height: hp(35),
+        borderRadius: hp(35/2),
+    },
+    userInfo: {
+        paddingLeft: wp(15)
+    },
+    usernameTxt: {
+        fontSize: hp(13),
+        fontFamily: "Raleway-Bold",
+    },
+    timeAgoTxt: {
+        color: '#3D3D3D',
+        fontSize: hp(10),
+        fontFamily: "Raleway-Medium",
     },
     descWrapper: {
-        flex: 1,
-        paddingLeft: wp(7),
-        paddingRight: wp(12),
-        paddingTop: hp(17),
+        paddingLeft: wp(60),
+        paddingRight: wp(50),
+        paddingTop: hp(12),
         paddingBottom: hp(15),
-        flexDirection: 'column',
     },
-    titleView:{
-        marginBottom: hp(10),
-    },
-    catTxt: {
-        color: "#3D3D3D",
-        fontSize: hp(10),
-        fontFamily: "Raleway-Medium",
+    descTxt: {
+        color: "#000000",
+        fontSize: hp(11),
+        fontFamily: "Raleway-Bold",
         marginBottom: hp(2),
     },
-    titleTxt: {
-        color: "#3D3D3D",
-        fontSize: hp(14),
-        fontFamily: "Raleway-Bold",
-        fontWeight: 'bold',
-    },
-    dateView: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: hp(10)
-    },
-    iconDate: {
-        width: hp(10),
-        height: hp(10),
-        marginRight: wp(4)
-    },
-    dateTxt: {
-        color: "#3D3D3D",
-        fontSize: hp(10),
-        fontFamily: "Raleway-Medium",
-    },
-    otherView: {
+    galleryRow: {
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
-    otherViewBox:{
-        flexDirection: 'row',
-        marginRight: wp(12),
-        alignItems: 'center',
+    galleryItem: {
+        width: hp(70),
+        height: hp(70),
+        borderRadius: hp(8),
+        marginBottom: hp(10)
     },
-    otherTxts:{
+    otherViewRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        position: 'relative'
+    },
+    otherTxts: {
         color: "#3D3D3D",
         fontSize: hp(10),
         fontFamily: "Raleway-Medium",
         marginLeft: wp(5)
     },
-    iconProfile: {
-        width: hp(9),
-        height: hp(10),
-    },
-    iconPoint: {
-        width: hp(6),
-        height: hp(10),
+    priceTxt: {
+        color: "#3D3D3D",
+        fontSize: hp(10),
+        fontFamily: "Raleway-Medium",
+        alignContent: 'flex-end',
+        position: 'absolute',
+        right: 0,
     },
     iconLocation: {
         width: hp(7),
         height: hp(10),
+    },
+    tagsRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingTop: hp(10),
+        paddingBottom: hp(10),
+    },
+    tagItem: {
+        backgroundColor: '#02C8A7',
+        padding: 5,
+        borderRadius: 12,
+        marginBottom: 5,
+        marginRight: 5
+    },
+    tagItemText: {
+        color: "#ffffff",
+        fontSize: hp(11),
+        fontFamily: "Raleway-Regular",
+    },
+    btnChat: {
+        backgroundColor: '#02C8A7',
+        height: hp(25),
+        width: wp(100),
+        borderRadius: hp(19),
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    btnChatTxt: {
+        color: "#ffffff",
+        fontSize: hp(12),
+        fontFamily: "Raleway-SemiBold",
     },
 });

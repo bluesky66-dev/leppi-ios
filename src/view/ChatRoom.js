@@ -133,7 +133,7 @@ class ChatRoom extends Component {
                 <View style={styles.chatBtnBox}>
                         <TextInput
                             onChangeText={(text) => this._onChangeText(text)}
-                            placeholder={'Escreva para seu vizinho'}
+                            placeholder={'Escreva sua mensagem'}
                             multiline={true}
                             numberOfLines={1}
                             style={[styles.chatInput]}

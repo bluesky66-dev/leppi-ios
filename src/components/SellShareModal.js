@@ -13,19 +13,31 @@ import {FeedTypes} from "../redux/constants/feedConstants";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import {MENU_TYPES} from "../redux/constants/menuTypes";
+import cloneDeep from 'lodash/cloneDeep';
 
 class SellShareModal extends Component {
 
     constructor(props) {
         super(props);
+        this.defaultTags = [
+            'Venda',
+            'Compartilhar',
+            'Alugar',
+            'Ajuda',
+            'Indicação',
+            'Negociar',
+            'Serviços',
+            'Comida',
+        ];
         this.state = {
-			feedId: '',
-            product_title: '',
+            feedId: '',
+            extraTags: '',
+            defaultTags: [],
             product_desc: '',
-            product_qty: '',
             product_price: '',
             gallery: [],
             mediaList: [],
+            isLoading: false,
         };
         this._onSellShare = this._onSellShare.bind(this);
         this._onAddImage = this._onAddImage.bind(this);
@@ -37,7 +49,8 @@ class SellShareModal extends Component {
             let feedInfo = this.props.feedInfo;
             this.setState({
                 feedId: feedInfo.feedId,
-                product_title: feedInfo.product_title,
+                extraTags: feedInfo.extraTags,
+                defaultTags: feedInfo.defaultTags,
                 product_desc: feedInfo.product_desc,
                 product_price: feedInfo.product_price,
                 gallery: feedInfo.gallery,
@@ -56,13 +69,14 @@ class SellShareModal extends Component {
 
     clearForm = () => {
         this.setState({
-			feedId: '',
-            product_title: '',
+            feedId: '',
             product_desc: '',
-            product_qty: '',
+            extraTags: '',
+            defaultTags: [],
             product_price: '',
             gallery: [],
             mediaList: [],
+            isLoading: false,
         });
     }
 
@@ -70,18 +84,15 @@ class SellShareModal extends Component {
         const {navigate} = this.props.navigation;
 
         let state = this.state;
-        if (!state.product_title || state.product_title.length <= 0) {
-            Toast.show('Enter the title', Toast.SHORT);
-            return false;
-        }
         if (!state.product_desc || state.product_desc.length <= 0) {
             Toast.show('Enter the description', Toast.SHORT);
             return false;
         }
 		  if (this.props.isEditAd) {
             let feedInfo = {
-                product_title: state.product_title,
                 product_desc: state.product_desc,
+                extraTags: state.extraTags,
+                defaultTags: state.defaultTags,
                 product_price: state.product_price,
                 gallery: state.gallery,
             };
@@ -90,7 +101,6 @@ class SellShareModal extends Component {
             this.props.onBackdropPress();
             this.props.afterAction();
         } else {
-			state.feed_category = this.props.feedCategory;
 			state.feed_type = FeedTypes.sell;
 			state.userId = this.props.userId;
 			this.props.onBackdropPress();    
@@ -98,8 +108,8 @@ class SellShareModal extends Component {
 			await this.props.createFeed(state, this.props.userMeta);
 			this.props.setLoadingSpinner(false);
 			this.clearForm();
-			this.props.clickMenu(MENU_TYPES.FEED);
-			navigate('Feed');
+			this.props.clickMenu(MENU_TYPES.HOME);
+            navigate('Home');
 		}
     }
 
@@ -189,7 +199,21 @@ class SellShareModal extends Component {
         }
     }
 
+    _onSelectTag = (tag) => {
+        let defaultTags = cloneDeep(this.state.defaultTags);
+        const index = defaultTags.indexOf(tag);
+
+        if (index > -1) {
+            defaultTags.splice(index, 1);
+        } else {
+            defaultTags.push(tag);
+        }
+        this.setState({ defaultTags });
+    }
+
     render() {
+        let { defaultTags } = this.state;
+        // console.log('defaultTags ===', defaultTags);
         let gallery = this.state.mediaList.map((image, i) => {
             return (
                 <TouchableOpacity onPress={() => this._onRemoveImage(i)} style={styles.imageItem} key={i}>
@@ -197,6 +221,18 @@ class SellShareModal extends Component {
                 </TouchableOpacity>
             )
         });
+
+        let renderDefaultTags = this.defaultTags.map((tag, i) => {
+            const tagItemStyle = defaultTags.indexOf(tag) > -1 ? [styles.tagItem, styles.tagItemActive] : styles.tagItem;
+            return <TouchableOpacity
+                style={tagItemStyle}
+                key={i}
+                onPress={() => this._onSelectTag(tag)}
+                activeOpacity={0.8}>
+                <Text style={styles.tagItemText}>#{tag}</Text>
+            </TouchableOpacity>
+        });
+
         return (
             <Modal
                 ref={'modal'}
@@ -210,25 +246,25 @@ class SellShareModal extends Component {
                         <Image source={IconCloseModal} style={styles.iconClose}/>
                     </TouchableOpacity>
                     <View style={styles.titleView}>
-                        <Text style={styles.titleTxt}>{this.props.feedCategory?this.props.feedCategory:''}</Text>
                     </View>
-                    <TextInput
-                        onChangeText={(text) => this.setState({product_title: text})}
-                        placeholder={'Coloque um título :)'}
-                        autoFocus={true}
-                        style={[styles.titleInput, {}]}
-                        value={this.state.product_title}
-                        secureTextEntry={false}
-                        autoCapitalize='none'
-                    />
                     <TextArea
                         onChangeText={(text) => this.setState({product_desc: text})}
-                        placeholder={'Escreva tudo o que considera relevante para seus vizinhos'}
+                        placeholder={'Escreva para seus vizinhos o que deseja negociar'}
                         numberOfLines={6}
                         style={styles.descInput}
                         value={this.state.product_desc}
                         autoFocus={false}
                     />
+                    <Text style={styles.imageLabel}>Adicionar Imagens</Text>
+                    <View style={styles.imageGallery}>
+                        {gallery}
+                        <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.state.isLoading} style={styles.imageItem}>
+                            <View style={styles.btnAddImage}>
+                                {this.state.isLoading && <Image source={IconLoader} style={styles.iconPlus}/>}
+                                {!this.state.isLoading && <Image source={IconPlus} style={styles.iconPlus}/>}
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.priceAndQtyWrapper}>
                         <View style={styles.priceBox}>
                             <View style={styles.priceLabelView}><Text style={styles.priceLabel}>Preço (não obrigatório)</Text></View>
@@ -246,18 +282,21 @@ class SellShareModal extends Component {
                             </View>
                         </View>
                     </View>
-                    <Text style={styles.imageLabel}>Product Images</Text>
-                    <View style={styles.imageGallery}>
-                        {gallery}
-                        <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.props.isLoading} style={styles.imageItem}>
-                            <View style={styles.btnAddImage}>
-                                {this.props.isLoading && <Image source={IconLoader} style={styles.iconPlus}/>}
-                                {!this.props.isLoading && <Image source={IconPlus} style={styles.iconPlus}/>}
-                            </View>
-                        </TouchableOpacity>
+                    <Text style={styles.hashTagLabel}>Selecione pelo menos uma hashtag abaixo que se enquadre à publicação</Text>
+                    <View style={styles.defaultTags}>
+                        {renderDefaultTags}
                     </View>
-                    <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.props.isLoading} style={styles.btnSellShare}>
-                        <Text style={styles.sellShareTxt}>Anunciar</Text>
+                    <TextInput
+                        onChangeText={(text) => this.setState({extraTags: text})}
+                        placeholder={'Adicione mais hashtags'}
+                        multiline={true}
+                        numberOfLines={2}
+                        style={[styles.extraTags]}
+                        value={this.state.extraTags}
+                        autoCapitalize='none'
+                    />
+                    <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.state.isLoading} style={styles.btnSellShare}>
+                        <Text style={styles.sellShareTxt}>Publicar</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>
