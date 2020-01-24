@@ -121,7 +121,7 @@ class Register extends Component {
                     Toast.show('Those passwords didn\'t match', Toast.SHORT);
                     return false;
                 }
-                
+
                 let userMeta = {
                     address: state.address,
                     city: state.city,
@@ -139,11 +139,10 @@ class Register extends Component {
                     createTime: Math.floor(Date.now()),
                 };
 
-                await this.props.fetchSignup(state, userMeta, this.props.createUserMeta);
+                await this.props.fetchSignup(state, userMeta);
                 break;
         }
         let step_index = this.state.step_index + 1;
-        console.log('step_index', step_index);
         if (step_index >= 4) {
             navigate('Welcome');
         } else if (step_index < 4) {
@@ -231,7 +230,7 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSignup: (data, userMeta, callback) => dispatch(authActions.fetchSignup(data, userMeta, callback)),
+        fetchSignup: (data, userMeta) => dispatch(authActions.fetchSignup(data, userMeta)),
         uploadMedia: (media) => dispatch(authActions.uploadMedia(media)),
         createUserMeta: (metaData) => dispatch(authActions.createUserMeta(metaData)),
         setUserMeta: (metaData) => dispatch(authActions.setUserMeta(metaData)),

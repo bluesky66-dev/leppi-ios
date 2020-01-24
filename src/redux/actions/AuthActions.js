@@ -6,6 +6,7 @@ import Toast from 'react-native-simple-toast';
 import uuid from 'uuid/v4';
 import {MENU_TYPES} from "../constants/menuTypes";
 import {FeedTypes} from "../constants/feedConstants";
+import cloneDeep from "lodash/cloneDeep";
 
 const REQUEST_URL = "http://leppi-api.cgem9zx2vz.us-east-2.elasticbeanstalk.com";
 // const REQUEST_URL = "http://192.168.207.174:8000";
@@ -123,7 +124,7 @@ export const fetchingSignupFailure = error => ({
     payload: error
 });
 
-export const fetchSignup = (data, userMeta, callback) => {
+export const fetchSignup = (data, userMeta) => {
     return async dispatch => {
         dispatch(fetchingSignupRequest());
         try {
@@ -151,10 +152,10 @@ export const fetchSignup = (data, userMeta, callback) => {
                 await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
                 dispatch(fetchingSignupSuccess(json.uid));
 
-                let tUserMeta = Object.assign({}, userMeta);
+                let tUserMeta = cloneDeep(userMeta);
                 tUserMeta.userId = json.uid;
 
-                console.log('userMeta ===', tUserMeta);
+                // console.log('userMeta ===', tUserMeta);
                 dispatch(createUserMeta(tUserMeta));
             } else {
                 if (json.msg && json.msg.code) {
@@ -162,12 +163,15 @@ export const fetchSignup = (data, userMeta, callback) => {
                 } else {
                     Toast.show("The system is busy now!", Toast.SHORT);
                 }
-                console.log('fetchSignup error ======');
+                // console.log('fetchSignup error ======');
                 dispatch(fetchingSignupFailure('error'));
             }
         } catch (e) {
-            console.log('fetchSignup error ======', e.message);
+            // console.log('fetchSignup error ======', e.message);
             dispatch(isLoading(false));
+            const {code, message} = error;
+            const errorMessage = message.replace(code, '').replace('[]', '');
+            Toast.show(errorMessage, Toast.SHORT);
         }
     };
 };
@@ -223,7 +227,7 @@ export const createUserMeta = metaData => {
             dispatch(setUserMeta(metaData));
             dispatch(isLoading(false));
         } catch (e) {
-            console.log('===== createUserMeta error', e.message);
+            // console.log('===== createUserMeta error', e.message);
             dispatch(isLoading(false));
         }
     };
