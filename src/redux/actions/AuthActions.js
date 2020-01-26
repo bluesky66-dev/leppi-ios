@@ -7,6 +7,7 @@ import uuid from 'uuid/v4';
 import {MENU_TYPES} from "../constants/menuTypes";
 import {FeedTypes} from "../constants/feedConstants";
 import cloneDeep from "lodash/cloneDeep";
+import NavigationService from '../../../NavigationService';
 
 const REQUEST_URL = "http://leppi-api.cgem9zx2vz.us-east-2.elasticbeanstalk.com";
 // const REQUEST_URL = "http://192.168.207.174:8000";
@@ -143,10 +144,10 @@ export const fetchSignup = (data, userMeta) => {
                 })
             };
             let url = REQUEST_URL + "/api/users/create";
-            //console.log('fetch Signup data', requestConfig.body);
+
             let respond = await fetch(url, requestConfig);
             let json = await respond.json();
-            //console.log('====== json uid', json);
+
             if (json.result && json.result === 'ok') {
                 await AsyncStorage.setItem('$leppiUserId', json.uid);
                 await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
@@ -155,19 +156,18 @@ export const fetchSignup = (data, userMeta) => {
                 let tUserMeta = cloneDeep(userMeta);
                 tUserMeta.userId = json.uid;
 
-                // console.log('userMeta ===', tUserMeta);
                 dispatch(createUserMeta(tUserMeta));
+                NavigationService.navigateAndReset('Welcome');
             } else {
                 if (json.msg && json.msg.code) {
                     Toast.show(json.msg.message, Toast.SHORT);
                 } else {
                     Toast.show("The system is busy now!", Toast.SHORT);
                 }
-                // console.log('fetchSignup error ======');
                 dispatch(fetchingSignupFailure('error'));
             }
-        } catch (e) {
-            // console.log('fetchSignup error ======', e.message);
+        } catch (error) {
+
             dispatch(isLoading(false));
             const {code, message} = error;
             const errorMessage = message.replace(code, '').replace('[]', '');
@@ -288,7 +288,9 @@ export const fetchingUserMeta = (navigate) => {
                     .update({fcmToken: fcmToken});
 
                 //console.log('userMeta.avatar', userMeta.avatar);
-                userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                    userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                }
                 dispatch(fetchingUserMetaSuccess(userMeta));
             }
         } catch (error) {
@@ -433,53 +435,61 @@ export const deleteFeed = (feedId) => {
     };
 };
 
-export const fetchingFeeds = async (userMeta, page, callback) => {
-    let feedList = [];
-    let tempList = [];
-    // //console.log('===== fetchingFeeds');
-    try {
-        let requestConfig = {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                lat: userMeta.location.lat,
-                lng: userMeta.location.lng,
-            })
-        };
-        let url = REQUEST_URL + "/api/feeds/list";
-        let respond = await fetch(url, requestConfig);
-        let json = await respond.json();
-        if (json.result && json.result === 'ok') {
-            tempList = json.list;
-        }
-        if (tempList.length > 0) {
-            tempList.forEach(async item => {
-                let feedItem = item;
-                if (feedItem.userId === userMeta.userId) {
-                    feedItem.userMeta = userMeta;
-                    feedList.push(feedItem);
-                    callback(feedList);
-                } else {
-                    let userMetaSnapshot = await firebase.database()
-                        .ref('userMeta')
-                        .child(feedItem.userId)
-                        .once('value');
+export const setFeedList = (feedList) => ({
+    type: TYPES.FETCHING_FEEDS_SUCCESS,
+    payload: feedList
+});
 
-                    let userMeta = userMetaSnapshot.val();
-                    userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
-                    feedItem.userMeta = userMeta;
-                    feedList.push(feedItem);
-                    callback(feedList);
-                }
-            });
-        } else {
-            callback(feedList);
+export const fetchingFeeds = (userMeta, page = 1) => {
+    return async (dispatch, getState) => {
+        let feedList = [];
+        let tempList = [];
+        dispatch(isLoading(true));
+        try {
+            let requestConfig = {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    lat: userMeta.location.lat,
+                    lng: userMeta.location.lng,
+                })
+            };
+            let url = REQUEST_URL + "/api/feeds/list";
+            let respond = await fetch(url, requestConfig);
+            let json = await respond.json();
+            if (json.result && json.result === 'ok') {
+                tempList = json.list;
+            }
+            if (tempList.length > 0){
+                let DataPromises = [];
+                tempList.forEach(item => {
+                    DataPromises.push(new Promise( async function(resolve, reject) {
+                        let feedItem = item;
+                        if (feedItem.userId === userMeta.userId) {
+                            feedItem.userMeta = userMeta;
+                            resolve(feedItem);
+                        } else {
+                            let userMetaSnapshot = await firebase.database()
+                                .ref('userMeta')
+                                .child(feedItem.userId)
+                                .once('value');
+
+                            let userMeta = userMetaSnapshot.val();
+                            userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                            feedItem.userMeta = userMeta;
+                            resolve(feedItem);
+                        }
+                    }));
+                });
+                Promise.all(DataPromises).then(response =>dispatch(setFeedList(response)))
+                // feedList.push(feedItem);
+            }
+        } catch (e) {
+            dispatch(setFeedList(feedList))
         }
-    } catch (e) {
-        callback(feedList);
     }
 };
 

@@ -42,12 +42,18 @@ class Perfil extends Component {
         await this.props.fetchLogout();
     }
 
+    async _onEditOption() {
+        const {navigate} = this.props.navigation;
+        navigate('EditOptions');
+    }
+
     changeLocation () {
         const {navigate} = this.props.navigation;
         navigate('EditLocation');
     }
 
     render() {
+        const {userMeta} = this.props;
 
         let avatarUrl = UserAvatar;
         if (this.props.userMeta.avatarUrl) {
@@ -80,10 +86,6 @@ class Perfil extends Component {
                                 </View>
                                 <View style={styles.otherView}>
                                     <View style={styles.otherViewBox}>
-                                        <Image source={IconIdea} style={styles.iconPoint} />
-                                        <Text style={styles.otherTxts}>{score} points</Text>
-                                    </View>
-                                    <View style={styles.otherViewBox}>
                                         <Image source={IconMarker} style={styles.iconLocation} />
                                         <Text style={styles.otherTxts}>{this.props.userMeta.district ? this.props.userMeta.district : ''}</Text>
                                     </View>
@@ -91,54 +93,32 @@ class Perfil extends Component {
                             </View>
                         </View>
                         <View style={styles.userMetaWrapper}>
-                            <View style={styles.pointWrapper}>
-                                <View style={styles.pointBox}>
-                                    <Text style={[styles.pointStep, styles.marginRight8]}>0-100</Text>
-                                    <ImageBackground style={styles.pointLevelBox}
-                                        source={(score >= 0 && score <= 100) ? PointNormal1a : PointNormal1}>
-                                        <Text style={[styles.pointLevel, styles.marginRight8]}>Normal</Text>
-                                    </ImageBackground>
-                                </View>
-                                <View style={[styles.pointBox, styles.marginLeftM8]}>
-                                    <Text style={[styles.pointStep, styles.marginLeft8]}>101-500</Text>
-                                    <ImageBackground style={styles.pointLevelBox}
-                                        source={(score >= 101 && score <= 500) ? PointNormal2a : PointNormal2}>
-                                        {/*<Text style={[styles.pointLevel]}>Normal</Text>*/}
-                                    </ImageBackground>
-                                </View>
-                                <View style={[styles.pointBox, styles.marginLeftM8]}>
-                                    <Text style={[styles.pointStep, styles.marginLeft8]}>501-1000</Text>
-                                    <ImageBackground style={styles.pointLevelBox}
-                                        source={(score >= 501 && score <= 1000) ? PointExcellent1a : PointExcellent1}>
-                                        {/*<Text style={[styles.pointLevel]}>Normal</Text>*/}
-                                    </ImageBackground>
-                                </View>
-                                <View style={[styles.pointBox, styles.marginLeftM8]}>
-                                    <Text style={[styles.pointStep, styles.marginLeft8]}>1001+</Text>
-                                    <ImageBackground style={styles.pointLevelBox}
-                                        source={(score >= 1001) ? PointExcellent2a : PointExcellent2}>
-                                        <Text style={[styles.pointLevel, styles.marginLeft8]}>Excellent</Text>
-                                    </ImageBackground>
-                                </View>
+                            <View style={styles.professionView}>
+                                <Text style={styles.professionTxt}>Profissão:  <Text style={styles.professionTxtBold}>{userMeta.profession}</Text></Text>
+                                <Text style={styles.professionDesc}>{userMeta.profession_desc}</Text>
                             </View>
-                            <View style={styles. addressView}>
-                                <View style={styles. addressViewRow}>
-                                    <Text style={styles. addressViewLeft}>Seu Endereço: </Text>
-                                    <Text style={styles. addressViewRight}>
+                            <View style={styles.professionView}>
+                                <Text style={styles.professionTxt}>Como posso ajudar meus vizinhos:</Text>
+                                <Text style={styles.professionTxtBold}>{userMeta.user_options ? userMeta.user_options.join(", "): ''}</Text>
+                            </View>
+                            <View style={styles.addressView}>
+                                <View style={styles.addressViewRow}>
+                                    <Text style={styles.addressViewLeft}>Endereço: </Text>
+                                    <Text style={styles.addressViewRight}>
                                         {`${this.props.userMeta.address ? this.props.userMeta.address + '' : ''}`}
                                     </Text>
                                 </View>
-                                {/*<View style={styles.inviteWrapper}>*/}
-                                {/*    <TouchableOpacity style={styles.inviteBtn} onPress={() => this._onInvite()}>*/}
-                                {/*        <Text style={styles.inviteBtnTxt}>Convidar vizinho</Text>*/}
-                                {/*    </TouchableOpacity>*/}
-                                {/*</View>*/}
                             </View>
                             <View style={styles.btnBottomWrapper}>
                                 <TouchableOpacity style={styles.btnBottom} onPress={() => this.changeLocation()}>
                                     <Text style={styles.btnBottomTxt}>Mudar Endereço</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.btnBottom, { marginRight: 0 }]} onPress={() => this._onLogout()}>
+                                <TouchableOpacity style={[styles.btnBottom, { marginRight: 0 }]} onPress={() => this._onEditOption()}>
+                                    <Text style={styles.btnBottomTxt}>Editar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.btnBottomWrapper}>
+                                <TouchableOpacity style={[styles.logoutBottom]} onPress={() => this._onLogout()}>
                                     <Text style={styles.btnBottomTxt}>Logout</Text>
                                 </TouchableOpacity>
                             </View>

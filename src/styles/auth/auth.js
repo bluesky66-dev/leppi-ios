@@ -253,9 +253,6 @@ module.exports = StyleSheet.create({
         borderRadius: 8,
     },
 
-
-
-
     joinTextInputBox: {
         borderWidth: 0,
         marginBottom: hp(16),

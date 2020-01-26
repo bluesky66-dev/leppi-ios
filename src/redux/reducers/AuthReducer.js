@@ -14,7 +14,8 @@ const initialState = {
     feedInfo: {},
     roomInfo: {},
     currentMenu: MENU_TYPES.HOME,
-    link: null
+    link: null,
+    feedList: [],
 };
 
 
@@ -33,7 +34,8 @@ const AuthReducer = createReducer(initialState, {
             feedInfo: {},
             roomInfo: {},
             currentMenu: '',
-            link: null
+            link: null,
+            feedList: [],
         }
     },
     [TYPES.CLICK_MENU]: (state, action) => {
@@ -95,7 +97,7 @@ const AuthReducer = createReducer(initialState, {
             ...state,
             isLoading: false,
             isSignuped: true,
-            userMeta: action.payload,
+            userMeta:  Object.assign(state.userMeta, action.payload),
         }
     },
     [TYPES.SET_USER_ID]: (state, action) => {
@@ -115,6 +117,13 @@ const AuthReducer = createReducer(initialState, {
         return {
             ...state,
             isLoading: action.payload,
+        }
+    },
+    [TYPES.FETCHING_FEEDS_SUCCESS]: (state, action) => {
+        return {
+            ...state,
+            feedList: action.payload,
+            isLoading: false,
         }
     },
     [TYPES.SET_FEED_INFO]: (state, action) => {

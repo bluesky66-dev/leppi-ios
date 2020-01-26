@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import {Alert, ScrollView, Text, View} from 'react-native';
+import {Alert, ScrollView, Text, View, TouchableOpacity, Image} from 'react-native';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import HeaderSection from '../components/HeaderSection';
@@ -10,8 +10,10 @@ import SolicitationModal from '../components/SolicitationModal';
 import styles from '../styles/home';
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from '../redux/constants/feedConstants'
+import {FeedOptions} from '../redux/constants/feedOptions'
 import AdActionsModal from "../components/AdActionsModal";
 import FeedItem from "../components/FeedItem";
+import ImageView from 'react-native-image-view';
 
 class Home extends Component {
     constructor(props) {
@@ -19,10 +21,14 @@ class Home extends Component {
         this.state = {
             page: 1,
             feedList: [],
+            viewImage: [],
+            imageIndex: 0,
             selectedFeed: {},
             openModal: false,
             isSellShare: false,
             isSolicitation: false,
+            isImageViewVisible: false,
+            isTriggerOpenPlus: false,
         };
 
         this._onSellShare = this._onSellShare.bind(this);
@@ -41,14 +47,7 @@ class Home extends Component {
     }
 
     _onFetchingFeeds = () => {
-        this.props.setLoadingSpinner(true);
-        authActions.fetchingFeeds(this.props.userMeta, this.state.page, feedList => {
-            this.props.setLoadingSpinner(false);
-            if (feedList !== null) {
-                let cloneFeedList = [...feedList];
-                this.setState({ feedList: cloneFeedList.reverse() });
-            }
-        });
+        this.props.fetchingFeeds(this.props.userMeta, this.state.page);
     }
 
     _onSellShare = () => {
@@ -92,10 +91,37 @@ class Home extends Component {
         );
     }
 
+    _onSelectFeedCat = (feedCategory) => {
+        this.setState({
+            feedCategory: feedCategory,
+            isTriggerOpenPlus: true,
+        });
+    }
+
+    _onClosePlus = () => {
+        this.setState({
+            isTriggerOpenPlus: false,
+        });
+    }
+
+    _onImageView = (images, index) => {
+        this.setState({
+            viewImage: images,
+            imageIndex: index,
+            isImageViewVisible: true,
+        })
+    }
+    _onCloseImageView = () => {
+        this.setState({
+            viewImage: [],
+            imageIndex: 0,
+            isImageViewVisible: 0,
+        })
+    }
 
     render() {
         // console.log('feedList === ', this.state.feedList);
-        let feedList = this.state.feedList.reverse().map((feed, i) => {
+        let feedList = this.props.feedList.map((feed, i) => {
             let feedBadge = 'red';
             if (feed.feed_type === FeedTypes.solicitation) {
                 feedBadge = 'blue';
@@ -104,9 +130,24 @@ class Home extends Component {
                 <FeedItem
                     onAdAction={this._onAdAction}
                     navigation={this.props.navigation}
+                    onImageView={this._onImageView}
                     feed={feed}
                     key={i}
                     feedBadge={feedBadge}/>
+            )
+        });
+
+        let feedCats = FeedOptions;
+        let typeBoxList = feedCats.map((feedCatInfo, i) => {
+            let boxStyle = [styles.typeBox];
+            if (feedCatInfo.name === this.state.feedCategory){
+                boxStyle = [styles.typeBox, styles.isSelected];
+            }
+            return (
+                <TouchableOpacity style={boxStyle} activeOpacity={0.5} key={i} onPress={()=>this._onSelectFeedCat(feedCatInfo.name)}>
+                    <Image source={feedCatInfo.icon} style={styles.typeIcon} resizeMode={'contain'}/>
+                    <Text style={styles.typeTxt}>{feedCatInfo.name}</Text>
+                </TouchableOpacity>
             )
         });
 
@@ -118,7 +159,11 @@ class Home extends Component {
                     textStyle={{color: '#FFF'}}
                 />
                 <View style={styles.container}>
-                    <HeaderSection navigation={this.props.navigation}/>
+                    <HeaderSection
+                        navigation={this.props.navigation}
+                        isOpenPlus={this.state.isTriggerOpenPlus}
+                        onClosePlus={this._onClosePlus}
+                    />
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.addressInfo}>
                             <Text style={styles.addressInfoTxt}>
@@ -129,6 +174,10 @@ class Home extends Component {
                             </Text>
                         </View>
                         <View style={styles.titleWrapper}>
+                            <Text style={styles.titleTxt}>Divulgue tudo o que você tem e faz de bom para seus vizinhos.</Text>
+                        </View>
+                        <View style={styles.typesBox}>
+                            {typeBoxList}
                         </View>
                         <View style={styles.typesWrapper}>
                             {feedList}
@@ -154,6 +203,13 @@ class Home extends Component {
                     feedInfo={this.state.selectedFeed}
                     afterAction={this._onFetchingFeeds}
                     onBackdropPress={()=>this.setState({isSolicitation: false})}/>}
+                <ImageView
+                    images={this.state.viewImage}
+                    onClose={this._onCloseImageView}
+                    isSwipeCloseEnabled={false}
+                    imageIndex={this.state.imageIndex}
+                    isVisible={this.state.isImageViewVisible}
+                />
             </View>
         );
     }
@@ -163,6 +219,7 @@ class Home extends Component {
 function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
+        feedList: state.AuthReducer.feedList,
         userMeta: state.AuthReducer.userMeta,
         isLoading: state.AuthReducer.isLoading,
     }
@@ -172,6 +229,7 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchingUserMeta: (navigate) => dispatch(authActions.fetchingUserMeta(navigate)),
+        fetchingFeeds: (userMeta, page) => dispatch(authActions.fetchingFeeds(userMeta, page)),
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
         deleteFeed: (feedId) => dispatch(authActions.deleteFeed(feedId))
     }

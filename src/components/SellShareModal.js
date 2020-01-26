@@ -108,8 +108,7 @@ class SellShareModal extends Component {
 			await this.props.createFeed(state, this.props.userMeta);
 			this.props.setLoadingSpinner(false);
 			this.clearForm();
-			this.props.clickMenu(MENU_TYPES.HOME);
-            navigate('Home');
+            this.props.fetchingFeeds(this.props.userMeta, 1);
 		}
     }
 
@@ -253,7 +252,7 @@ class SellShareModal extends Component {
                         numberOfLines={6}
                         style={styles.descInput}
                         value={this.state.product_desc}
-                        autoFocus={false}
+                        autoFocus={true}
                     />
                     <Text style={styles.imageLabel}>Adicionar Imagens</Text>
                     <View style={styles.imageGallery}>
@@ -316,7 +315,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createFeed: (feed, userMeta) => dispatch(authActions.createFeed(feed, userMeta)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
-		updateFeed: (feedId, feed) => dispatch(authActions.updateFeed(feedId, feed)),
+        updateFeed: (feedId, feed) => dispatch(authActions.updateFeed(feedId, feed)),
+        fetchingFeeds: (userMeta, page) => dispatch(authActions.fetchingFeeds(userMeta, page)),
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
     }
 };

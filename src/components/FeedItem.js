@@ -55,9 +55,10 @@ class FeedItem extends Component {
     }
 
     render() {
+        const {onImageView, feed} = this.props;
         let feedInfo = {};
-        if (this.props.feed) {
-            feedInfo = this.props.feed;
+        if (feed) {
+            feedInfo = feed;
         }
         let feedBadge = styles.feedBadgeRed;
         if (feedInfo.feed_type === FeedTypes.solicitation) {
@@ -75,19 +76,30 @@ class FeedItem extends Component {
         if (feedInfo.userMeta && feedInfo.userMeta.first_name) {
             username = feedInfo.userMeta.first_name + ' ' + feedInfo.userMeta.last_name;
         }
-        let point = 0;
-        if (feedInfo.userMeta && feedInfo.userMeta.points) {
-            point = feedInfo.userMeta.points;
-        }
         let location = '';
         if (feedInfo.userMeta && feedInfo.userMeta.district) {
             location = feedInfo.userMeta.district;
         }
 
+        let renderImageView = this.state.gallery.map((item, i) => {
+            return {
+                source: {
+                    uri: item,
+                },
+            }
+        });
         let renderGallery = this.state.gallery.map((item, i) => {
-            return <Image source={{uri: item}} key={i} style={styles.galleryItem}/>
+            return <TouchableOpacity
+                style={styles.galleryItemView}
+                onPress={() => onImageView(renderImageView, i)}
+            >
+                <Image source={{uri: item}} key={i} style={styles.galleryItem}/>
+            </TouchableOpacity>
         });
         let renderDefaultTags = feedInfo.defaultTags.map((tag, i) => {
+            if (!tag){
+                return null
+            }
             return <TouchableOpacity
                 style={styles.tagItem}
                 key={i}
@@ -97,6 +109,9 @@ class FeedItem extends Component {
             </TouchableOpacity>
         });
         let extraTags = feedInfo.extraTags.split(" ").map((tag, i) => {
+            if (!tag){
+                return null
+            }
             return <TouchableOpacity
                 style={styles.tagItem}
                 key={i}
@@ -105,15 +120,9 @@ class FeedItem extends Component {
                 <Text style={styles.tagItemText}>#{tag}</Text>
             </TouchableOpacity>
         });
-        let disabled = false;
-        let disabledOpacity = {};
-        if (this.props.userId === feedInfo.userId) {
-            disabled = true;
-            disabledOpacity = { opacity: 0.7 };
-        }
 
         return (
-            <TouchableOpacity onPress={() => this._goToDetail()} style={styles.contentWrapper}>
+            <View onPress={() => this._goToDetail()} style={styles.contentWrapper}>
                 {this.props.userId === feedInfo.userId && <TouchableOpacity style={styles.iconDot} onPress={() => this.props.onAdAction(feedInfo)}>
                     <Image source={IconDot} style={styles.iconDotStyle}/>
                 </TouchableOpacity>}
@@ -146,7 +155,7 @@ class FeedItem extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </View>
         );
     }
 

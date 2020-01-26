@@ -143,6 +143,27 @@ module.exports = StyleSheet.create({
         fontSize: hp(12),
         fontFamily: "Roboto-Regular",
     },
+    professionView: {
+        alignSelf: 'center',
+        width: wp(289),
+        paddingLeft: wp(10),
+        paddingRight: wp(10),
+    },
+    professionTxt: {
+        color: "#3D3D3D",
+        fontSize: hp(12),
+        fontFamily: "Roboto-Regular",
+    },
+    professionTxtBold: {
+        color: "#000000",
+        fontSize: hp(12),
+        fontFamily: "Roboto-Bold",
+    },
+    professionDesc: {
+        color: "#3D3D3D",
+        fontSize: hp(12),
+        fontFamily: "Roboto-Regular",
+    },
     addressView: {
         minHeight: hp(287),
         alignSelf: 'center',
@@ -201,6 +222,7 @@ module.exports = StyleSheet.create({
         width: wp(279),
         marginTop: hp(28),
         alignSelf: 'center',
+        justifyContent: 'center'
     },
     btnBottom: {
         flex: 1,
@@ -209,6 +231,15 @@ module.exports = StyleSheet.create({
         justifyContent: 'center',
         height: hp(30),
         borderRadius: hp(20),
+        marginRight: wp(12),
+    },
+    logoutBottom: {
+        width: wp(135),
+        backgroundColor: '#02C8A7',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: wp(30),
+        borderRadius: wp(20),
         marginRight: wp(12),
     },
     btnBottomTxt: {

@@ -5,14 +5,13 @@ import {InformationForm, LocationForm} from "../../components/forms";
 import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Toast from 'react-native-simple-toast';
 import Swiper from '../../components/swiper';
-import {heightPercentage as hp} from '../../util';
+import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import Spinner from "react-native-loading-spinner-overlay";
 
-class EditProfile extends Component {
+class EditProfession extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -102,7 +101,7 @@ class EditProfile extends Component {
                     birth_date: state.birth_date,
                     avatar: this.props.downloadURL,
                     points: 0,
-                    updateTime: Math.floor(Date.now()),
+                    createTime: Math.floor(Date.now()),
                 };
                 this.setState({userMeta: userMeta});
                 await this.props.createUserMeta(userMeta);
@@ -132,24 +131,24 @@ class EditProfile extends Component {
 
     render() {
         let swiperStyle = {};
-        swiperStyle.height = hp(404);
+        swiperStyle.height = wp(404);
         let title = "Próximo";
         switch (this.state.step_index) {
             case 1:
-                swiperStyle.height = hp(404);
+                swiperStyle.height = wp(404);
                 break;
             case 2:
-                swiperStyle.height = hp(404);
+                swiperStyle.height = wp(404);
                 title = "Submit";
                 break;
         }
         return (
-            <KeyboardAwareScrollView style={styles.rootWrapper} behavior={'padding'}>
-                {this.props.isLoading && <Spinner
+            <View style={styles.rootWrapper}>
+                <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
                     textStyle={{color: '#FFF'}}
-                />}
+                />
                 <ScrollView style={styles.rootWrapper}>
                     <AppTopSection authStep={this.state.step_index} onBackPress={this._onBackPress}/>
                     <Swiper ref={'swiper'}
@@ -169,7 +168,7 @@ class EditProfile extends Component {
                                         onPress={()=>this._onNextStep()} btnText={title}/>
                     </View>
                 </ScrollView>
-            </KeyboardAwareScrollView>
+            </View>
         );
     }
 
@@ -191,4 +190,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfession);

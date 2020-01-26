@@ -78,13 +78,17 @@ module.exports = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
+    galleryItemView: {
+        marginRight: wp(8)
+    },
     galleryItem: {
         width: hp(70),
         height: hp(70),
         borderRadius: hp(8),
-        marginBottom: hp(10)
+        marginTop: hp(10)
     },
     otherViewRow: {
+        marginTop: hp(10),
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'center',

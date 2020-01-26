@@ -1,15 +1,13 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import {Image, TouchableOpacity, View} from "react-native";
 import styles from '../styles/header';
-import logoIcon from "../images/monkey.png";
 import * as authActions from "../redux/actions/AuthActions";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
 import HomeIcon from "../images/home-sign.png";
 import AddIcon from "../images/more.png";
 import ChatIcon from "../images/chat-bubble.png";
 import UserIcon from "../images/user.png";
-import Toast from "react-native-simple-toast";
 import SellShareModal from "./SellShareModal";
 
 class HeaderSection extends Component {
@@ -23,7 +21,10 @@ class HeaderSection extends Component {
     }
 
     _onSellShare = () => {
-        this.setState({isSellShare: true, isSwitchModal: false})
+        this.setState({
+            isSellShare: true,
+            isSwitchModal: false
+        })
     }
     _onPressList() {
     }
@@ -54,7 +55,19 @@ class HeaderSection extends Component {
         }
     }
 
+    _onBackdropPress = () => {
+        const {onClosePlus} = this.props;
+        if (onClosePlus) {
+            onClosePlus();
+        }
+        this.setState({
+            isSellShare: false
+        })
+    }
+
     render() {
+        const {isOpenPlus} = this.props;
+
         return (
             <View style={styles.header}>
                 <View style={styles.logoWrapper}>
@@ -76,12 +89,12 @@ class HeaderSection extends Component {
                         {(this.props.currentMenu === MENU_TYPES.PERFIL) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                 </View>
-                {this.state.isSellShare && <SellShareModal
+                {(this.state.isSellShare || isOpenPlus) && <SellShareModal
                     navigation={this.props.navigation}
-                    isVisible={this.state.isSellShare}
+                    isVisible={this.state.isSellShare || isOpenPlus}
                     isEditAd={false}
                     feedCategory={this.state.feedCategory}
-                    onBackdropPress={()=>this.setState({isSellShare: false})}/>}
+                    onBackdropPress={this._onBackdropPress}/>}
             </View>
         );
     }

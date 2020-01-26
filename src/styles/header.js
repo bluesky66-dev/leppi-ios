@@ -71,15 +71,16 @@ module.exports = StyleSheet.create({
     },
 
     marginRight46: {
-        marginRight: wp(46)
+        marginRight: wp(52),
+        marginLeft: wp(10),
     },
 
     marginRight48: {
-        marginRight: wp(48)
+        marginRight: wp(52)
     },
 
     marginRight50: {
-        marginRight: wp(50)
+        marginRight: wp(52)
     },
 
     menuActive: {

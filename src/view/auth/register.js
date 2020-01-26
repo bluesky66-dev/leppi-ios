@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as authActions from '../../redux/actions/AuthActions'; //Import your actions
-import {CredentialsForm, InformationForm, LocationForm} from "../../components/forms";
+import {CredentialsForm, InformationForm, LocationForm, ProfessionForm, UserOptionsForm} from "../../components/forms";
 import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
@@ -36,21 +36,10 @@ class Register extends Component {
         rol();
     }
 
-    register(data, errorCB) {
-        const {navigate} = this.props.navigation;
-        this.props.fetchSignup(data);
-        navigate('Welcome');
-    }
-
     _onMomentumScrollEnd(e, state, context) {
         // //console.log('step_index === ', state.index);
         let step_index = state.index * 1 + 1;
         this.setState({step_index: step_index});
-    }
-
-    _gotoWelcome = () => {
-        const {navigate} = this.props.navigation;
-        navigate('Welcome');
     }
 
     async _onNextStep() {
@@ -58,27 +47,13 @@ class Register extends Component {
         let state = this.state;
         switch (this.state.step_index) {
             case 1:
-                // if (!state.country || state.country.length <= 0) {
-                //     Toast.show('Digite seu país', Toast.SHORT);
-                //     return false;
-                // }
-                // if (!state.country || state.city.length <= 0) {
-                //     Toast.show('Enter your city', Toast.SHORT);
-                //     return false;
-                // }
-                // if (!state.country || state.street.length <= 0) {
-                //     Toast.show('Digite sua Rua', Toast.SHORT);
-                //     return false;
-                // }
                 if (!state.country || state.district.length <= 0) {
                     Toast.show('Digite sua Rua', Toast.SHORT);
                     return false;
                 }
                 let callingCode =  utils.getCallingCode(state.cca2);
-                //console.log('callingCode === ', callingCode);
                 this.setState({callingCode: callingCode});
 
-                //console.log('Location ====== ', state);
                 break;
             case 2:
                 if (!state.avatar || state.avatar.length <= 0) {
@@ -98,11 +73,10 @@ class Register extends Component {
                     return false;
                 }
 
-                //console.log('Information ====== ', state);
                 break;
             case 3:
                 if (!state.email || state.email.length <= 0) {
-                    Toast.show('Enter your eamil', Toast.SHORT);
+                    Toast.show('Enter your email', Toast.SHORT);
                     return false;
                 }
                 if (!EmailValidator.validate(state.email)) {
@@ -121,8 +95,20 @@ class Register extends Component {
                     Toast.show('Those passwords didn\'t match', Toast.SHORT);
                     return false;
                 }
+                break;
+            case 4:
+                if (!state.profession || state.profession.length <= 0) {
+                    Toast.show('Digite sua profissão', Toast.SHORT);
+                    return false;
+                }
+                break;
+            case 5:
+                if (!state.user_options || state.user_options.length < 3) {
+                    Toast.show('You must select at least 3 options to proceed', Toast.SHORT);
+                    return false;
+                }
 
-                let userMeta = {
+                const userMeta = {
                     address: state.address,
                     city: state.city,
                     street: state.street,
@@ -134,18 +120,20 @@ class Register extends Component {
                     last_name: state.last_name,
                     whatsapp: state.whatsapp.replace(/\D/g,''),
                     birth_date: state.birth_date,
+                    profession: state.profession,
+                    profession_desc: state.profession_desc,
+                    user_options: state.user_options,
                     avatar: state.avatar,
                     points: 0,
                     createTime: Math.floor(Date.now()),
                 };
-
                 await this.props.fetchSignup(state, userMeta);
                 break;
         }
         let step_index = this.state.step_index + 1;
-        if (step_index >= 4) {
-            navigate('Welcome');
-        } else if (step_index < 4) {
+        if (step_index >= 6) {
+            // navigate('Welcome');
+        } else if (step_index < 6) {
             this.refs.swiper.scrollBy(1);
         }
     }
@@ -158,7 +146,6 @@ class Register extends Component {
             this.props.navigation.goBack();
         }
     }
-
 
     _onChangeState(state) {
         state = Object.assign({}, this.state, state);
@@ -178,6 +165,13 @@ class Register extends Component {
                 break;
             case 3:
                 swiperStyle.height = hp(404);
+                break;
+            case 4:
+                swiperStyle.height = wp(404);
+                break;
+            case 5:
+                swiperStyle.height = wp(572);
+                title = "Enviar";
                 break;
         }
         return (
@@ -204,14 +198,21 @@ class Register extends Component {
                         <View style={styles.swiperSlide}>
                             <CredentialsForm  onChange={this._onChangeState}/>
                         </View>
-                    </Swiper>
-                    {
-                        (this.state.step_index !== 6 && this.state.step_index !== 4) &&
-                        <View style={styles.registerBtnWrapper}>
-                            <RegisterButton authStep={this.state.step_index} style={styles.nextStepBtn}
-                                            onPress={()=>this._onNextStep()} btnText={title}/>
+                        <View style={styles.swiperSlide}>
+                            <ProfessionForm  onChange={this._onChangeState}/>
                         </View>
-                    }
+                        <View style={styles.swiperSlide}>
+                            <UserOptionsForm  onChange={this._onChangeState}/>
+                        </View>
+                    </Swiper>
+                    <View style={styles.registerBtnWrapper}>
+                        <RegisterButton 
+                            authStep={this.state.step_index} 
+                            style={styles.nextStepBtn}
+                            onPress={()=>this._onNextStep()} 
+                            btnText={title}
+                        />
+                    </View>
                 </ScrollView>
             </KeyboardAwareScrollView>
         );
