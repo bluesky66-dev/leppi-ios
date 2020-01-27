@@ -167,7 +167,6 @@ export const fetchSignup = (data, userMeta) => {
                 dispatch(fetchingSignupFailure('error'));
             }
         } catch (error) {
-
             dispatch(isLoading(false));
             const {code, message} = error;
             const errorMessage = message.replace(code, '').replace('[]', '');
@@ -287,7 +286,7 @@ export const fetchingUserMeta = (navigate) => {
                     .child(userId)
                     .update({fcmToken: fcmToken});
 
-                //console.log('userMeta.avatar', userMeta.avatar);
+                console.log('userMeta.avatar', userMeta.avatar);
                 if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
                     userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                 }
@@ -478,7 +477,10 @@ export const fetchingFeeds = (userMeta, page = 1) => {
                                 .once('value');
 
                             let userMeta = userMetaSnapshot.val();
-                            userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                            if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                                console.log('userMeta.avatar', userMeta.avatar);
+                                userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                            }                         
                             feedItem.userMeta = userMeta;
                             resolve(feedItem);
                         }
@@ -498,6 +500,7 @@ export const filterMediaList = (gallery, callback) => {
     // //console.log('===== filterMediaList');
     try {
         gallery.forEach(async item => {
+
             let downLoadUrl = await firebase.storage().ref(item).getDownloadURL();
             itemList.push(downLoadUrl);
             callback(itemList);
