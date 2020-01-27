@@ -220,10 +220,7 @@ export const createUserMeta = metaData => {
         dispatch(isLoading(true));
         // //console.log('===== createUserMeta');
         try {
-            await await firebase.database()
-                .ref('userMeta')
-                .child(metaData.userId)
-                .update(metaData);
+            await await firebase.firestore().doc('userMeta/' + metaData.userId).set(metaData, {merge: true});
             dispatch(setUserMeta(metaData));
             dispatch(isLoading(false));
         } catch (e) {
@@ -238,17 +235,12 @@ export const fetchingSocialMetaData = (userId, navigate) => {
         try {
             dispatch(isLoading(true));
             dispatch(setUserId(userId));
-            // //console.log('===== fetchingUserMeta');
-            const userMetaSnapshot = await firebase.database()
-                .ref('userMeta')
-                .child(userId)
-                .once('value');
+
+            const userMetaSnapshot = await firebase.firestore().doc('userMeta/' + userId).get();
             dispatch(isLoading(false));
-            if (userMetaSnapshot.exists()) {
-                //console.log('======= userMeta exists');
+            if (userMetaSnapshot.exists) {
                 navigate('Welcome');
             } else {
-                //console.log('======= userMeta does not exists');
                 navigate('EditProfile');
             }
         } catch (error) {
@@ -264,13 +256,10 @@ export const fetchingUserMeta = (navigate) => {
             const fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
             dispatch(isLoading(true));
             dispatch(setUserId(userId));
-            // //console.log('===== fetchingUserMeta');
-            const userMetaSnapshot = await firebase.database()
-                .ref('userMeta')
-                .child(userId)
-                .once('value');
-            console.log('userMetaSnapshot.exists == ', userMetaSnapshot.exists());
-            if (!userMetaSnapshot.exists()) {
+
+            const userMetaSnapshot = await firebase.firestore().doc('userMeta/' + userId).get();
+
+            if (!userMetaSnapshot.exists) {
                 dispatch(R_logout());
                 let keys = ['$leppiUserId',  '$leppiSkipWelcome'];
                 try {
@@ -356,20 +345,11 @@ export const createFeed = (feed, userMeta) => {
     return async (dispatch, getState) => {
         dispatch(isLoading(true));
         // //console.log('===== createFeed');
-		if (feed.feed_type === FeedTypes.sell) delete feed.mediaList;
+        if (feed.feed_type === FeedTypes.sell) delete feed.mediaList;
         try {
             feed.location = userMeta.location;
             feed.createTime = Math.floor(Date.now());
-            await firebase.firestore()
-            .collection('feeds')
-            .add(feed);
-            let userPoints = userMeta.points ? userMeta.points : 0;
-            userPoints += 10;
-            userMeta.points = userPoints;
-            await firebase.database()
-                .ref('userMeta')
-                .child(userMeta.userId)
-                .update({points: userPoints});
+            await firebase.firestore().collection('feeds').add(feed);
             dispatch(fetchingUserMetaSuccess(userMeta));
 
             let requestConfig = {
@@ -396,9 +376,7 @@ export const updateFeed = (feedId, feed) => {
         console.log('feedId', feedId);
         dispatch(isLoading(true));
         try {
-            await firebase.firestore()
-            .doc('feeds/' + feedId)
-            .update(feed);
+            await firebase.firestore().doc('feeds/' + feedId).update(feed);
             dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
@@ -467,12 +445,8 @@ export const fetchingFeeds = (userMeta, page = 1) => {
                             feedItem.userMeta = userMeta;
                             resolve(feedItem);
                         } else {
-                            let userMetaSnapshot = await firebase.database()
-                                .ref('userMeta')
-                                .child(feedItem.userId)
-                                .once('value');
-
-                            let userMeta = userMetaSnapshot.val();
+                            let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
+                            let userMeta = userMetaSnapshot.data();
                             userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                             feedItem.userMeta = userMeta;
                             resolve(feedItem);
@@ -682,8 +656,7 @@ export const fetchingChatRooms = async (userData, callback) => {
                 if (snapshot.exists()) {
                     snapshot.forEach(async item => {
                         chatRoom = item.val();
-                        let feedSnapshot = await firebase.firestore()
-                        .doc('feeds/' + snapshot.key).get();
+                        let feedSnapshot = await firebase.firestore().doc('feeds/' + snapshot.key).get();
                         if (feedSnapshot.exists) {
                             let feedItem = feedSnapshot.data();
                             feedItem.feedId = feedSnapshot.id;
@@ -693,11 +666,8 @@ export const fetchingChatRooms = async (userData, callback) => {
                                 chatRooms.push(chatRoom);
                                 callback(chatRooms);
                             } else {
-                                let userMetaSnapshot = await firebase.database()
-                                    .ref('userMeta')
-                                    .child(feedItem.userId)
-                                    .once('value');
-                                feedItem.userMeta = userMetaSnapshot.val();
+                                let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
+                                feedItem.userMeta = userMetaSnapshot.data();
                                 chatRoom.feedInfo = feedItem;
                                 chatRooms.push(chatRoom);
                                 callback(chatRooms);
@@ -731,11 +701,8 @@ export const fetchingChatUsers = (roomInfo, page, callback) => {
                 if (snapshot.exists()) {
                     chatUser = snapshot.val();
                     // //console.log('====== chatUser', chatUser);
-                    let userMetaSnapshot = await firebase.database()
-                        .ref('userMeta')
-                        .child(chatUser.buyerId)
-                        .once('value');
-                    let userMeta = userMetaSnapshot.val();
+                    let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + chatUser.buyerId).get();
+                    let userMeta = userMetaSnapshot.data();
                     userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                     chatUser.userMeta = userMeta;
                     chatUsers.push(chatUser);
@@ -749,24 +716,6 @@ export const fetchingChatUsers = (roomInfo, page, callback) => {
         callback(chatUsers);
     }
 
-};
-
-export const udatePoints = (points) => {
-    return async dispatch => {
-        const userId = await AsyncStorage.getItem('$leppiUserId');
-        try {
-            const userMetaSnapshot = await firebase.database().ref('userMeta').child(userId)
-
-            userMetaSnapshot.once('value', (snapshot) => {
-                const oldPoint = snapshot.val().points ? snapshot.val().points : 0;
-                userMetaSnapshot.update({points: (oldPoint + points)})
-            })
-
-        } catch (error) {
-            // //console.log('ERROR------- >>>');
-            // //console.log(error)
-        }
-    }
 };
 
 export const updateLocation = (userMeta) => {
@@ -784,11 +733,7 @@ export const updateLocation = (userMeta) => {
         };
 
         try {
-            await firebase.database()
-                .ref('userMeta')
-                .child(userMeta.userId)
-                .update(location);
-
+            await firebase.firestore().doc('userMeta/' + userMeta.userId).update(location);
             dispatch(fetchingUserMetaSuccess(userMeta));
         } catch (e) {
             dispatch(isLoading(false));
