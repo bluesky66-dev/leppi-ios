@@ -447,6 +447,9 @@ export const fetchingFeeds = (userMeta, page = 1) => {
                         } else {
                             let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
                             let userMeta = userMetaSnapshot.data();
+                            if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                                userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                            }
                             userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                             feedItem.userMeta = userMeta;
                             resolve(feedItem);
