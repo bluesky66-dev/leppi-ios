@@ -150,7 +150,7 @@ class FeedItem extends Component {
                             {renderDefaultTags}
                             {extraTags}
                         </View>
-                        <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChat, disabledOpacity]} disabled={disabled}>
+                        <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChat]}>
                             <Text style={[styles.btnChatTxt]}>Chat</Text>
                         </TouchableOpacity>
                     </View>

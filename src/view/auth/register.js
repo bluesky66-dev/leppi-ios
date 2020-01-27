@@ -167,10 +167,10 @@ class Register extends Component {
                 swiperStyle.height = hp(404);
                 break;
             case 4:
-                swiperStyle.height = wp(404);
+                swiperStyle.height = hp(404);
                 break;
             case 5:
-                swiperStyle.height = wp(572);
+                swiperStyle.height = hp(572);
                 title = "Enviar";
                 break;
         }
