@@ -94,8 +94,8 @@ class Perfil extends Component {
                         </View>
                         <View style={styles.userMetaWrapper}>
                             <View style={styles.professionView}>
-                                <Text style={styles.professionTxt}>Profissão:  <Text style={styles.professionTxtBold}>{userMeta.profession}</Text></Text>
-                                <Text style={styles.professionDesc}>{userMeta.profession_desc}</Text>
+                                <Text style={styles.professionTxt}>Profissão:  <Text style={styles.professionTxtBold}>{userMeta.profession ? userMeta.profession: ''}</Text></Text>
+                                <Text style={styles.professionDesc}>{userMeta.profession_desc ? userMeta.profession_desc : ''}</Text>
                             </View>
                             <View style={styles.professionView}>
                                 <Text style={styles.professionTxt}>Como posso ajudar meus vizinhos:</Text>

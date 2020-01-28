@@ -13,6 +13,7 @@ import {FeedTypes} from '../redux/constants/feedConstants'
 import {FeedOptions} from '../redux/constants/feedOptions'
 import AdActionsModal from "../components/AdActionsModal";
 import FeedItem from "../components/FeedItem";
+import NewUserItem from "../components/NewUserItem";
 import ImageView from 'react-native-image-view';
 
 class Home extends Component {
@@ -21,6 +22,7 @@ class Home extends Component {
         this.state = {
             page: 1,
             feedList: [],
+            newUserList: [],
             viewImage: [],
             imageIndex: 0,
             selectedFeed: {},
@@ -39,6 +41,7 @@ class Home extends Component {
         lor(this);
         const {navigate} = this.props.navigation;
         await this.props.fetchingUserMeta(navigate);
+        this._onFetchNewUsers();
         this._onFetchingFeeds();
     }
 
@@ -48,6 +51,15 @@ class Home extends Component {
 
     _onFetchingFeeds = () => {
         this.props.fetchingFeeds(this.props.userMeta, this.state.page);
+    }
+
+    _onFetchNewUsers = () => {
+        const {setLoadingSpinner} = this.props;
+        setLoadingSpinner(true);
+        authActions.fetchNewUsers((listData) => {
+            setLoadingSpinner(false);
+            this.setState({newUserList: listData});
+        })
     }
 
     _onSellShare = () => {
@@ -120,7 +132,8 @@ class Home extends Component {
     }
 
     render() {
-        // console.log('feedList === ', this.state.feedList);
+        const {newUserList} = this.state;
+
         let feedList = this.props.feedList.map((feed, i) => {
             let feedBadge = 'red';
             if (feed.feed_type === FeedTypes.solicitation) {
@@ -134,6 +147,15 @@ class Home extends Component {
                     feed={feed}
                     key={i}
                     feedBadge={feedBadge}/>
+            )
+        });
+
+        let newUserView = newUserList.map((userInfo, i) => {
+            return(
+                <NewUserItem
+                    navigation={this.props.navigation}
+                    userInfo={userInfo}
+                    key={i}/>
             )
         });
 
@@ -178,6 +200,9 @@ class Home extends Component {
                         </View>
                         <View style={styles.typesBox}>
                             {typeBoxList}
+                        </View>
+                        <View style={styles.typesWrapper}>
+                            {newUserView}
                         </View>
                         <View style={styles.typesWrapper}>
                             {feedList}

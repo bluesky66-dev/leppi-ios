@@ -459,6 +459,7 @@ export const fetchingFeeds = (userMeta, page = 1) => {
                 Promise.all(DataPromises).then(response =>dispatch(setFeedList(response)))
                 // feedList.push(feedItem);
             }
+            dispatch(isLoading(false));
         } catch (e) {
             dispatch(setFeedList(feedList))
         }
@@ -758,4 +759,41 @@ export const getCurrentTime = async () => {
         console.log(e.message);
         return new Date();
     }
-}
+};
+
+
+export const fetchNewUsers = (callback) => {
+    let listData = [];
+    try {
+        let yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        firebase.firestore().collection('userMeta').where('createTime', '>', Math.floor(yesterday)).get()
+            .then((snapshot) => {
+                if (snapshot.empty) {
+                    callback(listData);
+                }
+                let promiseList = [];
+                snapshot.forEach(doc => {
+                    promiseList.push(new Promise(async (resolve, reject) => {
+                        let userMeta = cloneDeep(doc.data());
+                        if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                            userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                        }
+                        resolve(userMeta);
+                    }));
+                });
+                Promise.all(promiseList)
+                    .then(response => callback(response))
+                    .catch((error) => {
+                        // console.log('error', error.message);
+                        callback(listData)
+                    });
+            })
+            .catch((error) => {
+                callback(listData);
+            });
+    } catch (e) {
+        callback(listData);
+    }
+};
