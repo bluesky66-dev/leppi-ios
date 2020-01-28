@@ -450,7 +450,6 @@ export const fetchingFeeds = (userMeta, page = 1) => {
                             if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
                                 userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                             }
-                            userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                             feedItem.userMeta = userMeta;
                             resolve(feedItem);
                         }
