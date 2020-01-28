@@ -36,19 +36,17 @@ class FeedItem extends Component {
 
     async _chatWithSeller() {
         const {navigate} = this.props.navigation;
-        const {feed} = this.props;
+        const {feed, userId} = this.props;
 
         if (!feed) {
             return false;
         }
         if (this.props.userId !== feed.userId) {
             let roomInfo = {
-                buyerId: this.props.userId,
-                sellerId: feed.userId,
-                feedId: feed.feedId,
+                users: [userId, feed.userId],
             };
             await this.props.setChatFoodInfo(feed);
-            await this.props.goToChatRoom(roomInfo);
+            await this.props.goToChatRoom(feed.userId, roomInfo);
             this.props.clickMenu(MENU_TYPES.CHAT);
             navigate('ChatRoom');
         }
@@ -173,7 +171,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
         setChatFoodInfo: (feedInfo) => dispatch(authActions.setChatFoodInfo(feedInfo)),
-        goToChatRoom: (roomInfo) => dispatch(authActions.goToChatRoom(roomInfo)),
+        goToChatRoom: (userId, roomInfo) => dispatch(authActions.goToChatRoom(userId, roomInfo)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
     }
 };

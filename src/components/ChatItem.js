@@ -2,13 +2,11 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import styles from '../styles/chatItem';
-import IconAvatar from "../images/avatar.png";
-import IconIdea from "../images/idea.png";
-import IconMarker from "../images/maps-and-flags.png";
-import {FeedTypes} from '../redux/constants/feedConstants';
 import * as authActions from "../redux/actions/AuthActions";
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import UserAvatar from "../images/user-avatar.png";
+import IconMarker from "../images/maps-and-flags.png";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -21,58 +19,45 @@ class ChatItem extends Component {
 
     async _goToDetail() {
         const {navigate} = this.props.navigation;
+        const {chatRoom, userId} = this.props;
 
-        let feedInfo = {};
-        if (this.props.chatRoom && this.props.chatRoom.feedInfo) {
-            feedInfo = this.props.chatRoom.feedInfo;
-            await this.props.setChatFoodInfo(feedInfo);
-            if (feedInfo.userId === this.props.userId) {
-                let roomInfo = {
-                    sellerId: this.props.userId,
-                    feedId: feedInfo.feedId,
-                };
-                navigate('ChatUsers', {roomInfo: roomInfo});
-            } else {
-                let roomInfo = {
-                    buyerId: this.props.userId,
-                    sellerId: feedInfo.userId,
-                    feedId: feedInfo.feedId,
-                };
-                await this.props.goToChatRoom(roomInfo);
-                navigate('ChatRoom');
-            }
+        if (chatRoom && chatRoom.userMeta) {
+            let roomInfo = {
+                users: [userId, chatRoom.userMeta.userId],
+            };
+            await this.props.goToChatRoom(chatRoom.userMeta.userId, roomInfo);
+            navigate('ChatRoom');
         }
     }
 
     render() {
-        let feedInfo = {};
-        if (this.props.chatRoom && this.props.chatRoom.feedInfo) {
-            feedInfo = this.props.chatRoom.feedInfo;
-        }
+        const {chatRoom} = this.props;
+
         let feedBadge = styles.feedBadgeRed;
-        if (feedInfo.feed_type === FeedTypes.solicitation) {
-            feedBadge = styles.feedBadgeBlue;
-        }
         let username = '';
-        if (feedInfo.userMeta && feedInfo.userMeta.first_name) {
-            username = feedInfo.userMeta.first_name + ' ' + feedInfo.userMeta.last_name;
+        if (chatRoom.userMeta && chatRoom.userMeta.first_name) {
+            username = chatRoom.userMeta.first_name + ' ' + chatRoom.userMeta.last_name;
         }
-        let point = 0;
-        if (feedInfo.userMeta && feedInfo.userMeta.points) {
-            point = feedInfo.userMeta.points;
-        }
+
         let location = '';
-        if (feedInfo.userMeta && feedInfo.userMeta.district) {
-            location = feedInfo.userMeta.district;
+        if (chatRoom.userMeta && chatRoom.userMeta.district) {
+            location = chatRoom.userMeta.district;
         }
+
+        let avatarImage = UserAvatar;
+        if (chatRoom.userMeta && chatRoom.userMeta.avatarUrl) {
+            avatarImage = {uri: chatRoom.userMeta.avatarUrl};
+        }
+
         let lastMsg = '';
-        if (this.props.chatRoom && this.props.chatRoom.lastMsg) {
-            lastMsg = this.props.chatRoom.lastMsg;
+        if (chatRoom && chatRoom.lastMsg) {
+            lastMsg = chatRoom.lastMsg;
         }
         let lastMsgTime = '';
-        if (this.props.chatRoom && this.props.chatRoom.lastMsgTime) {
-            lastMsgTime = timeAgo.format(this.props.chatRoom.lastMsgTime);
+        if (chatRoom && chatRoom.lastMsgTime) {
+            lastMsgTime = timeAgo.format(chatRoom.lastMsgTime);
         }
+
         return (
             <TouchableOpacity onPress={() => this._goToDetail()} activeOpacity={0.8} style={styles.contentWrapper}>
                 <View style={[styles.feedBadge, feedBadge]}/>
@@ -80,18 +65,13 @@ class ChatItem extends Component {
                     <View style={styles.titleView}>
                         <Text style={styles.titleTxt}>{feedInfo.product_title}</Text>
                     </View>
-                    <View style={styles.otherView}>
-                        <View style={styles.otherViewBox}>
-                            <Image style={styles.iconProfile} source={IconAvatar}/>
-                            <Text style={styles.otherTxts}>{username}</Text>
+                   <View style={styles.userInfoRow}>
+                        <View style={styles.thumbnail}>
+                            <Image source={avatarImage} style={styles.thumbImage}/>
                         </View>
-                        <View style={styles.otherViewBox}>
-                            <Image style={styles.iconPoint} source={IconIdea}/>
-                            <Text style={styles.otherTxts}>{point} points</Text>
-                        </View>
-                        <View style={styles.otherViewBox}>
-                            <Image style={styles.iconLocation} source={IconMarker}/>
-                            <Text style={styles.otherTxts}>{location}</Text>
+                        <View style={styles.userInfo}>
+                            <Text style={styles.usernameTxt}>{username}</Text>
+                            <Text style={styles.locationTxt}><Image style={styles.iconLocation} source={IconMarker}/> {location}</Text>
                         </View>
                     </View>
                     <View style={styles.lastMessageView}>
@@ -116,7 +96,7 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         setChatFoodInfo: (feedInfo) => dispatch(authActions.setChatFoodInfo(feedInfo)),
-        goToChatRoom: (roomInfo) => dispatch(authActions.goToChatRoom(roomInfo)),
+        goToChatRoom: (userId, roomInfo) => dispatch(authActions.goToChatRoom(userId, roomInfo)),
     }
 };
 

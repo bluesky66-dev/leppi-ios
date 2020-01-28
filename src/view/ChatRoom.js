@@ -57,11 +57,7 @@ class ChatRoom extends Component {
         };
         let roomInfo = {
             roomId: this.props.roomInfo.roomId,
-            sellerFeed: this.props.roomInfo.sellerFeed,
-            buyerFeed: this.props.roomInfo.buyerFeed,
-            buyerId: this.props.roomInfo.buyerId,
-            sellerId: this.props.roomInfo.sellerId,
-            feedId: this.props.feedInfo.feedId,
+            users: this.props.roomInfo.users,
         };
         await authActions.sendMessage(this.props.userMeta, roomInfo, message);
         this.setState({chat_msg: ''});
@@ -73,22 +69,15 @@ class ChatRoom extends Component {
     }
 
     render() {
-        let feedInfo = {};
-        if (this.props.feedInfo) {
-            feedInfo = this.props.feedInfo;
-        }
+        const {roomInfo} = this.props;
 
         let username = '';
-        if (feedInfo.userMeta && feedInfo.userMeta.first_name) {
-            username = feedInfo.userMeta.first_name + ' ' + feedInfo.userMeta.last_name;
-        }
-        let point = 0;
-        if (feedInfo.userMeta && feedInfo.userMeta.points) {
-            point = feedInfo.userMeta.points;
+        if (roomInfo.userMeta && roomInfo.userMeta.first_name) {
+            username = roomInfo.userMeta.first_name + ' ' + roomInfo.userMeta.last_name;
         }
         let location = '';
-        if (feedInfo.userMeta && feedInfo.userMeta.district) {
-            location = feedInfo.userMeta.district;
+        if (roomInfo.userMeta && roomInfo.userMeta.district) {
+            location = roomInfo.userMeta.district;
         }
 
         let chatMsgs = this.state.messages.map((msg, i) => {
@@ -114,10 +103,6 @@ class ChatRoom extends Component {
                             <View style={styles.otherViewBox}>
                                 <Image style={styles.iconProfile} source={IconAvatar}/>
                                 <Text style={styles.otherTxts}>{username}</Text>
-                            </View>
-                            <View style={styles.otherViewBox}>
-                                <Image style={styles.iconPoint} source={IconIdea}/>
-                                <Text style={styles.otherTxts}>{point} points</Text>
                             </View>
                             <View style={styles.otherViewBox}>
                                 <Image style={styles.iconLocation} source={IconMarker}/>

@@ -17,10 +17,10 @@ module.exports = StyleSheet.create({
     },
 
     height44: {
-        height:hp(44),
+        height:hp(30),
     },
 
     height56: {
-        height:hp(56),
+        height:hp(106),
     }
 });

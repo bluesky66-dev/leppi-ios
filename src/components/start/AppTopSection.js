@@ -42,23 +42,23 @@ export default class AppTopSection extends Component {
                 stepDot = styles.stepDot3;
                 break;
             case 4 :
-                stepTile = "Entrar em Grupo";
+                stepTile = "";
                 stepDot = styles.stepDot4;
                 break;
             case 5 :
-                stepTile = "Criar Grupo";
+                stepTile = "Ajuda entre Vizinhos";
                 stepDot = styles.stepDot4;
                 break;
             case 6 :
-                stepTile = "Grupos";
+                stepTile = "";
                 stepDot = styles.stepDot0;
                 break;
             case 7 :
-                stepTile = "Entrar em Grupo";
+                stepTile = "";
                 stepDot = styles.stepDot0;
                 break;
             case 8 :
-                stepTile = "Criar Grupo";
+                stepTile = "";
                 stepDot = styles.stepDot0;
                 break;
         }

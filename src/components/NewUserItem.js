@@ -22,19 +22,16 @@ class NewUserItem extends Component {
 
     async _chatWithSeller() {
         const {navigate} = this.props.navigation;
-        const {feed} = this.props;
+        const {userInfo, userId} = this.props;
 
-        if (!feed) {
+        if (!userInfo) {
             return false;
         }
-        if (this.props.userId !== feed.userId) {
+        if (userId !== userInfo.userId) {
             let roomInfo = {
-                buyerId: this.props.userId,
-                sellerId: feed.userId,
-                feedId: feed.feedId,
+                users: [userId, userInfo.userId],
             };
-            await this.props.setChatFoodInfo(feed);
-            await this.props.goToChatRoom(roomInfo);
+            await this.props.goToChatRoom(userInfo.userId, roomInfo);
             this.props.clickMenu(MENU_TYPES.CHAT);
             navigate('ChatRoom');
         }
@@ -98,7 +95,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
         setChatFoodInfo: (feedInfo) => dispatch(authActions.setChatFoodInfo(feedInfo)),
-        goToChatRoom: (roomInfo) => dispatch(authActions.goToChatRoom(roomInfo)),
+        goToChatRoom: (userId, roomInfo) => dispatch(authActions.goToChatRoom(userId, roomInfo)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
     }
 };

@@ -52,9 +52,9 @@ class Chat extends Component {
                 <View style={styles.container}>
                     <HeaderSection navigation={this.props.navigation}/>
                     <ScrollView style={styles.contentWrapper}>
-                        <View style={styles.height56}/>
-                        {chatRooms}
                         <View style={styles.height44}/>
+                        {chatRooms}
+                        <View style={styles.height56}/>
                     </ScrollView>
                 </View>
             </View>

@@ -497,79 +497,36 @@ export const setRoomInfo = json => ({
     payload: json
 });
 
-export const goToChatRoom = (roomInfo) => {
+export const goToChatRoom = (userId, roomInfo) => {
     return async dispatch => {
-        // //console.log('===== goToChatRoom');
+        let roomItem = cloneDeep(roomInfo);
         dispatch(isLoading(true));
         try {
             roomInfo.createTime = Math.floor(Date.now());
-            let existRoom = await firebase.database()
-                .ref('chatRooms')
-                .child(roomInfo.feedId)
-                .orderByChild('buyerId')
-                .equalTo(roomInfo.buyerId)
-                .once('value');
-            let feedInfo = {
-                feedId: roomInfo.feedId,
-                lastMsg: '',
-                lastMsgTime: '',
-            };
+            let existRoom = await firebase.firestore()
+                .collection('chatRooms')
+                .where('users', '==', roomInfo.users)
+                .get();
 
-            let sellerFeed = '';
-            let existSellerFeed = await firebase.database()
-                .ref('myFeeds')
-                .child(roomInfo.sellerId)
-                .child(roomInfo.feedId)
-                .once('value');
-            if (!existSellerFeed.exists()) {
-                sellerFeed = await firebase.database()
-                    .ref('myFeeds')
-                    .child(roomInfo.sellerId)
-                    .child(roomInfo.feedId)
-                    .push(feedInfo).key;
-            } else {
-                existSellerFeed.forEach(item => {
-                    sellerFeed = item.key;
-                });
-            }
-
-            let buyerFeed = '';
-            let existBuyerFeed = await firebase.database()
-                .ref('myFeeds')
-                .child(roomInfo.buyerId)
-                .child(roomInfo.feedId)
-                .once('value');
-            if (!existBuyerFeed.exists()) {
-                buyerFeed = await firebase.database()
-                    .ref('myFeeds')
-                    .child(roomInfo.buyerId)
-                    .child(roomInfo.feedId)
-                    .push(feedInfo).key;
-            } else {
-                existBuyerFeed.forEach(item => {
-                    buyerFeed = item.key;
-                });
-            }
-
-            roomInfo.sellerFeed = sellerFeed;
-            roomInfo.buyerFeed = buyerFeed;
-            if (existRoom.exists()) {
+            if (!existRoom.empty) {
                 existRoom.forEach(item => {
-                    let itemVal = item.val();
-                    itemVal.roomId = item.key;
-                    dispatch(setRoomInfo(itemVal));
+                    roomItem.roomId = item.id;
                 });
             } else {
-                const roomId = await firebase.database()
-                    .ref('chatRooms')
-                    .child(roomInfo.feedId)
-                    .push(roomInfo).key;
-                let roomItem = Object.assign({}, roomInfo);
+                const roomId = await firebase.firestore()
+                    .collection('chatRooms')
+                    .add(roomInfo).id;
                 roomItem.roomId = roomId;
-                // console.log('roomId ==', roomItem);
-                dispatch(setRoomInfo(roomItem));
             }
+            let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + userId).get();
+            let userMeta = userMetaSnapshot.data();
+            if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+            }
+            roomItem.userMeta = userMeta;
+            dispatch(setRoomInfo(roomItem));
         } catch (e) {
+            console.log('goChatRoom', e.message);
             dispatch(isLoading(false));
         }
     };
@@ -581,23 +538,12 @@ export const sendMessage = async (userMeta, roomInfo, message) => {
     const userId = userMeta.userId;
 
     try {
-        await firebase.database()
-            .ref('messages')
-            .child(roomInfo.roomId)
-            .push(message).key;
-
-        let updatedUserFeedData = {};
-        let feedData = {
-            feedId: roomInfo.feedId,
-            lastMsg: message.content,
-            lastMsgTime: message.createTime,
-        };
-
-        updatedUserFeedData[`${roomInfo.buyerId}/${roomInfo.feedId}/${roomInfo.buyerFeed}`] = feedData;
-        updatedUserFeedData[`${roomInfo.sellerId}/${roomInfo.feedId}/${roomInfo.sellerFeed}`] = feedData;
-
-        await firebase.database()
-            .ref('myFeeds').update(updatedUserFeedData);
+        await firebase.database().ref('messages').child(roomInfo.roomId).push(message);
+        await firebase.firestore().doc('chatRooms/' + roomInfo.roomId)
+            .update({
+                lastMsg: message.content,
+                lastMsgTime: Math.floor(Date.now()),
+            });
 
         let requestConfig = {
             method: "POST",
@@ -609,9 +555,13 @@ export const sendMessage = async (userMeta, roomInfo, message) => {
                 senderName: userMeta.first_name + ' ' + userMeta.last_name,
             })
         };
-        const receiver = roomInfo.sellerId === userId ? roomInfo.buyerId : roomInfo.sellerId;
+        const receiver = roomInfo.users[0] === userId ? roomInfo.users[1] : roomInfo.users[0];
         let url = REQUEST_URL + "/api/push/newMsg/" + receiver;
-        let respond = fetch(url, requestConfig);
+        fetch(url, requestConfig)
+            .then((response) => {
+            })
+            .catch((error) => {
+            });
     } catch (e) {
     }
 
@@ -638,50 +588,44 @@ export const onMessages = (roomId, callback) => {
     }
 };
 
-export const fetchingChatRooms = async (userData, callback) => {
-    // //console.log('====== fetchingChatRooms');
+export const fetchingChatRooms = (userData, callback) => {
     let chatRooms = [];
     try {
-        let chatR = await firebase.database()
-            .ref('myFeeds')
-            .child(userData.userId)
-            .limitToFirst(1)
-            .once('value');
-        if (!chatR.exists()) {
-            callback(chatRooms);
-        }
-        firebase.database()
-            .ref('myFeeds')
-            .child(userData.userId)
-            .on('child_added', snapshot => {
-                // //console.log('====== fetchingChatRooms 2');
-                let chatRoom = {};
-                if (snapshot.exists()) {
-                    snapshot.forEach(async item => {
-                        chatRoom = item.val();
-                        let feedSnapshot = await firebase.firestore().doc('feeds/' + snapshot.key).get();
-                        if (feedSnapshot.exists) {
-                            let feedItem = feedSnapshot.data();
-                            feedItem.feedId = feedSnapshot.id;
-                            if (feedItem.userId === userData.userId) {
-                                feedItem.userMeta = userData;
-                                chatRoom.feedInfo = feedItem;
-                                chatRooms.push(chatRoom);
-                                callback(chatRooms);
-                            } else {
-                                let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
-                                feedItem.userMeta = userMetaSnapshot.data();
-                                chatRoom.feedInfo = feedItem;
-                                chatRooms.push(chatRoom);
-                                callback(chatRooms);
-                            }
-                        } else {
-                            callback(chatRooms);
-                        }
-                    });
-                } else {
+        firebase.firestore()
+            .collection('chatRooms')
+            .where('users', 'array-contains', userData.userId)
+            .get()
+            .then((querySnapshot) => {
+                if (querySnapshot.empty) {
                     callback(chatRooms);
                 }
+                let promiseList = [];
+                querySnapshot.forEach((documentSnapshot) => {
+                    let chatRoom = documentSnapshot.data();
+                    let receiverId = '';
+                    if (chatRoom.users[0] === userData.userId) {
+                        receiverId = chatRoom.users[1];
+                    } else {
+                        receiverId = chatRoom.users[0];
+                    }
+                    promiseList.push(new Promise(async (resolve, reject) => {
+                        let userMetaDoc = await firebase.firestore().doc('userMeta/' + receiverId).get();
+                        let userMeta = userMetaDoc.data();
+                        if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                            userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                        }
+                        chatRoom.userMeta = userMeta;
+                        resolve(chatRoom);
+                    }))
+                });
+                Promise.all(promiseList)
+                    .then(response => callback(response))
+                    .catch((error) => {
+                        callback(chatRooms);
+                    });
+            })
+            .catch((error) => {
+                callback(chatRooms);
             });
     } catch (e) {
         callback(chatRooms);
@@ -691,34 +635,7 @@ export const fetchingChatRooms = async (userData, callback) => {
 
 export const fetchingChatUsers = (roomInfo, page, callback) => {
     let chatUsers = [];
-    console.log('======= fetchingChatUsers', roomInfo);
-    try {
-        firebase.database()
-            .ref('chatRooms')
-            .child(roomInfo.feedId)
-            .orderByChild('sellerId')
-            .equalTo(roomInfo.sellerId)
-            .on('child_added', async snapshot => {
-                // //console.log('===== fetchingChatUsers result');
-                let chatUser = roomInfo;
-                if (snapshot.exists()) {
-                    chatUser = snapshot.val();
-                    // //console.log('====== chatUser', chatUser);
-                    let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + chatUser.buyerId).get();
-                    let userMeta = userMetaSnapshot.data();
-                    userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
-                    chatUser.userMeta = userMeta;
-                    chatUsers.push(chatUser);
-                    callback(chatUsers);
-                } else {
-                    callback(chatUsers);
-                }
-            });
-    } catch (e) {
-        console.log('fetchingChatUsers', e.message);
-        callback(chatUsers);
-    }
-
+    callback(chatUsers);
 };
 
 export const updateLocation = (userMeta) => {
@@ -744,7 +661,6 @@ export const updateLocation = (userMeta) => {
     };
 };
 
-
 export const getCurrentTime = async () => {
     try {
         let respond = await fetch("http://worldclockapi.com/api/json/cst/now");
@@ -760,9 +676,9 @@ export const getCurrentTime = async () => {
     }
 };
 
-
-export const fetchNewUsers = (callback) => {
+export const fetchNewUsers = async (callback) => {
     let listData = [];
+    const userId = await AsyncStorage.getItem('$leppiUserId');
     try {
         let yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
@@ -774,18 +690,20 @@ export const fetchNewUsers = (callback) => {
                 }
                 let promiseList = [];
                 snapshot.forEach(doc => {
-                    promiseList.push(new Promise(async (resolve, reject) => {
-                        let userMeta = cloneDeep(doc.data());
-                        if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
-                            userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
-                        }
-                        resolve(userMeta);
-                    }));
+                    let userMeta = cloneDeep(doc.data());
+                    if (userMeta.userId !== userId) {
+                        promiseList.push(new Promise(async (resolve, reject) => {
+                            if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                                userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                            }
+                            resolve(userMeta);
+                        }));
+                    }
                 });
                 Promise.all(promiseList)
                     .then(response => callback(response))
                     .catch((error) => {
-                        // console.log('error', error.message);
+                        console.log('error', error.message);
                         callback(listData)
                     });
             })

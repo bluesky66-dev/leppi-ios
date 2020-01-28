@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {Alert, Image, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Alert, Image, Text, TextInput, TouchableOpacity, View, ScrollView} from "react-native";
 import Toast from 'react-native-simple-toast';
 import styles from '../styles/sellModal';
 import Modal from "react-native-modal";
@@ -239,64 +239,66 @@ class SellShareModal extends Component {
                 style={styles.container}
                 isVisible={this.props.isVisible}>
                 <View style={styles.content} behavior={'padding'}>
-                    <View style={styles.feedBadge}/>
-                    <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
-                                      onPress={() => this.props.onBackdropPress()}>
-                        <Image source={IconCloseModal} style={styles.iconClose}/>
-                    </TouchableOpacity>
-                    <View style={styles.titleView}>
-                    </View>
-                    <TextArea
-                        onChangeText={(text) => this.setState({product_desc: text})}
-                        placeholder={'Escreva para seus vizinhos o que deseja negociar'}
-                        numberOfLines={6}
-                        style={styles.descInput}
-                        value={this.state.product_desc}
-                        autoFocus={true}
-                    />
-                    <Text style={styles.imageLabel}>Adicionar Imagens</Text>
-                    <View style={styles.imageGallery}>
-                        {gallery}
-                        <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.state.isLoading} style={styles.imageItem}>
-                            <View style={styles.btnAddImage}>
-                                {this.state.isLoading && <Image source={IconLoader} style={styles.iconPlus}/>}
-                                {!this.state.isLoading && <Image source={IconPlus} style={styles.iconPlus}/>}
-                            </View>
+                    <ScrollView style={styles.scrollWrapper}>
+                        <View style={styles.feedBadge}/>
+                        <TouchableOpacity style={styles.btnCloseModal} activeOpacity={0.8}
+                                        onPress={() => this.props.onBackdropPress()}>
+                            <Image source={IconCloseModal} style={styles.iconClose}/>
                         </TouchableOpacity>
-                    </View>
-                    <View style={styles.priceAndQtyWrapper}>
-                        <View style={styles.priceBox}>
-                            <View style={styles.priceLabelView}><Text style={styles.priceLabel}>Preço (não obrigatório)</Text></View>
-                            <TextInput
-                                onChangeText={(text) => this.setState({product_price: text})}
-                                placeholder={''}
-                                style={[styles.priceInput, {}]}
-                                value={this.state.product_price}
-                                keyboardType={'numeric'}
-                                secureTextEntry={false}
-                                autoCapitalize='none'
-                            />
-                            <View style={styles.currencyLabelView}>
-                                <Text style={styles.currencyLabel}>R$</Text>
+                        <View style={styles.titleView}>
+                        </View>
+                        <TextArea
+                            onChangeText={(text) => this.setState({product_desc: text})}
+                            placeholder={'Escreva para seus vizinhos o que deseja negociar'}
+                            numberOfLines={6}
+                            style={styles.descInput}
+                            value={this.state.product_desc}
+                            autoFocus={true}
+                        />
+                        <Text style={styles.imageLabel}>Adicionar Imagens</Text>
+                        <View style={styles.imageGallery}>
+                            {gallery}
+                            <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.state.isLoading} style={styles.imageItem}>
+                                <View style={styles.btnAddImage}>
+                                    {this.state.isLoading && <Image source={IconLoader} style={styles.iconPlus}/>}
+                                    {!this.state.isLoading && <Image source={IconPlus} style={styles.iconPlus}/>}
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.priceAndQtyWrapper}>
+                            <View style={styles.priceBox}>
+                                <View style={styles.priceLabelView}><Text style={styles.priceLabel}>Preço (não obrigatório)</Text></View>
+                                <TextInput
+                                    onChangeText={(text) => this.setState({product_price: text})}
+                                    placeholder={''}
+                                    style={[styles.priceInput, {}]}
+                                    value={this.state.product_price}
+                                    keyboardType={'numeric'}
+                                    secureTextEntry={false}
+                                    autoCapitalize='none'
+                                />
+                                <View style={styles.currencyLabelView}>
+                                    <Text style={styles.currencyLabel}>R$</Text>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                    <Text style={styles.hashTagLabel}>Selecione pelo menos uma hashtag abaixo que se enquadre à publicação</Text>
-                    <View style={styles.defaultTags}>
-                        {renderDefaultTags}
-                    </View>
-                    <TextInput
-                        onChangeText={(text) => this.setState({extraTags: text})}
-                        placeholder={'Adicione mais hashtags'}
-                        multiline={true}
-                        numberOfLines={2}
-                        style={[styles.extraTags]}
-                        value={this.state.extraTags}
-                        autoCapitalize='none'
-                    />
-                    <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.state.isLoading} style={styles.btnSellShare}>
-                        <Text style={styles.sellShareTxt}>Publicar</Text>
-                    </TouchableOpacity>
+                        <Text style={styles.hashTagLabel}>Selecione pelo menos uma hashtag abaixo que se enquadre à publicação</Text>
+                        <View style={styles.defaultTags}>
+                            {renderDefaultTags}
+                        </View>
+                        <TextInput
+                            onChangeText={(text) => this.setState({extraTags: text})}
+                            placeholder={'Adicione mais hashtags'}
+                            multiline={true}
+                            numberOfLines={2}
+                            style={[styles.extraTags]}
+                            value={this.state.extraTags}
+                            autoCapitalize='none'
+                        />
+                        <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.state.isLoading} style={styles.btnSellShare}>
+                            <Text style={styles.sellShareTxt}>Publicar</Text>
+                        </TouchableOpacity>
+                    </ScrollView>                    
                 </View>
             </Modal>
         );

@@ -43,7 +43,35 @@ module.exports = StyleSheet.create({
         fontSize: hp(14),
         fontFamily: "Raleway-Medium",
     },
-
+    userInfoRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    thumbnail: {
+        width: hp(35),
+        height: hp(35),
+        borderRadius: hp(15),
+        backgroundColor: '#ffffff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    thumbImage: {
+        width: hp(35),
+        height: hp(35),
+        borderRadius: hp(35/2),
+    },
+    userInfo: {
+        paddingLeft: wp(15)
+    },
+    usernameTxt: {
+        fontSize: hp(13),
+        fontFamily: "Raleway-Bold",
+    },
+    locationTxt: {
+        color: '#3D3D3D',
+        fontSize: hp(10),
+        fontFamily: "Raleway-Medium",
+    },
     otherView: {
         flexDirection: 'row',
         flexWrap: 'wrap',

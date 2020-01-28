@@ -2,20 +2,18 @@ import {StyleSheet} from 'react-native';
 import {widthPercentage as wp, heightPercentage as hp} from '../util';
 
 module.exports = StyleSheet.create({
-    rootWrapper: {
-        flex: 1,
-    },
-    scrollWrapper: {
-    },
     container: {
         marginLeft: wp(20),
         marginRight: wp(19),
     },
     content: {
         backgroundColor: '#EFEFEF',
+        borderRadius: hp(42),
+        overflow: "hidden"
+    },
+    scrollWrapper: {
         paddingLeft: wp(22),
         paddingRight: wp(22),
-        borderRadius: hp(42),
     },
     feedBadge: {
         height: wp(17),
