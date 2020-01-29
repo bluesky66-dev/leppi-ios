@@ -8,7 +8,6 @@ import IconMarker from "../images/maps-and-flags.png";
 import TimeAgo from 'javascript-time-ago';
 import * as authActions from "../redux/actions/AuthActions";
 import en from 'javascript-time-ago/locale/en';
-import {MENU_TYPES} from "../redux/constants/menuTypes";
 
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
@@ -47,8 +46,6 @@ class FeedItem extends Component {
             };
             await this.props.setChatFoodInfo(feed);
             await this.props.goToChatRoom(feed.userId, roomInfo);
-            this.props.clickMenu(MENU_TYPES.CHAT);
-            navigate('ChatRoom');
         }
     }
 

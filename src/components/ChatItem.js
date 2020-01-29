@@ -26,7 +26,6 @@ class ChatItem extends Component {
                 users: [userId, chatRoom.userMeta.userId],
             };
             await this.props.goToChatRoom(chatRoom.userMeta.userId, roomInfo);
-            navigate('ChatRoom');
         }
     }
 
@@ -63,7 +62,6 @@ class ChatItem extends Component {
                 <View style={[styles.feedBadge, feedBadge]}/>
                 <View style={styles.chatContent}>
                     <View style={styles.titleView}>
-                        <Text style={styles.titleTxt}>{feedInfo.product_title}</Text>
                     </View>
                    <View style={styles.userInfoRow}>
                         <View style={styles.thumbnail}>

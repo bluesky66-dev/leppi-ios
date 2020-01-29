@@ -32,8 +32,6 @@ class NewUserItem extends Component {
                 users: [userId, userInfo.userId],
             };
             await this.props.goToChatRoom(userInfo.userId, roomInfo);
-            this.props.clickMenu(MENU_TYPES.CHAT);
-            navigate('ChatRoom');
         }
     }
 
