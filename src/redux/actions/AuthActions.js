@@ -51,11 +51,11 @@ export const R_logout = () => ({
 
 export const fetchLogout = () => {
     return async dispatch => {
+        NavigationService.navigateAndReset('Start');
         dispatch(R_logout());
-        let keys = ['$leppiUserId', '$leppiSkipWelcome'];
+        let keys = ['$leppiUserId', '$leppiSkipWelcome', '$leppiFCMToken'];
         try {
             await AsyncStorage.multiRemove(keys);
-            // //console.log('===== R_logout');
             await firebase.auth().signOut();
         } catch (e) {
             dispatch(isLoading(false));
@@ -413,56 +413,65 @@ export const setFeedList = (feedList) => ({
     payload: feedList
 });
 
-export const fetchingFeeds = (userMeta, page = 1) => {
-    return async (dispatch, getState) => {
-        let feedList = [];
-        let tempList = [];
-        dispatch(isLoading(true));
-        try {
-            let requestConfig = {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    lat: userMeta.location.lat,
-                    lng: userMeta.location.lng,
-                })
-            };
-            let url = REQUEST_URL + "/api/feeds/list";
-            let respond = await fetch(url, requestConfig);
-            let json = await respond.json();
-            if (json.result && json.result === 'ok') {
-                tempList = json.list;
-            }
-            if (tempList.length > 0){
-                let DataPromises = [];
-                tempList.forEach(item => {
-                    DataPromises.push(new Promise( async function(resolve, reject) {
-                        let feedItem = item;
-                        if (feedItem.userId === userMeta.userId) {
-                            feedItem.userMeta = userMeta;
-                            resolve(feedItem);
-                        } else {
-                            let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
-                            let userMeta = userMetaSnapshot.data();
-                            if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
-                                userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
-                            }
-                            feedItem.userMeta = userMeta;
-                            resolve(feedItem);
-                        }
-                    }));
-                });
-                Promise.all(DataPromises).then(response =>dispatch(setFeedList(response)))
-                // feedList.push(feedItem);
-            }
-            dispatch(isLoading(false));
-        } catch (e) {
-            dispatch(setFeedList(feedList))
-        }
-    }
+export const fetchingFeeds = (userMeta, page = 1, callback) => {
+    let feedList = [];
+    let tempList = [];
+    firebase.firestore()
+        .collection('feeds')
+        .onSnapshot({
+            error: (e) => {
+                callback(feedList);
+            },
+            next: async (querySnapshot) => {
+                try {
+                    let requestConfig = {
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            lat: userMeta.location.lat,
+                            lng: userMeta.location.lng,
+                        })
+                    };
+                    let url = REQUEST_URL + "/api/feeds/list";
+                    let respond = await fetch(url, requestConfig);
+                    let json = await respond.json();
+                    if (json.result && json.result === 'ok') {
+                        tempList = json.list;
+                    }
+                    if (tempList.length > 0) {
+                        let DataPromises = [];
+                        tempList.forEach(item => {
+                            DataPromises.push(new Promise(async (resolve, reject) => {
+                                let feedItem = item;
+                                if (feedItem.userId === userMeta.userId) {
+                                    feedItem.userMeta = userMeta;
+                                    resolve(feedItem);
+                                } else {
+                                    let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
+
+                                    let userMeta = userMetaSnapshot.data();
+                                    if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                                        userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                                    }
+                                    feedItem.userMeta = userMeta;
+                                    resolve(feedItem);
+                                }
+                            }));
+                        });
+                        Promise.all(DataPromises).then(response => callback(response))
+                        // feedList.push(feedItem);
+                    } else {
+                        callback(feedList);
+                    }
+                } catch (e) {
+                    console.log('e ===', e.message);
+                    callback(feedList);
+                }
+            },
+        });
 };
 
 export const filterMediaList = (gallery, callback) => {
@@ -678,37 +687,40 @@ export const getCurrentTime = async () => {
 
 export const fetchNewUsers = async (callback) => {
     let listData = [];
-    const userId = await AsyncStorage.getItem('$leppiUserId');
+    // const userId = await AsyncStorage.getItem('$leppiUserId');
     try {
         let yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
 
-        firebase.firestore().collection('userMeta').where('createTime', '>', Math.floor(yesterday)).get()
-            .then((snapshot) => {
-                if (snapshot.empty) {
+        firebase.firestore()
+            .collection('userMeta')
+            .where('createTime', '>', Math.floor(yesterday))
+            .orderBy('createTime', 'desc')
+            .onSnapshot({
+                error: (error) => {
                     callback(listData);
-                }
-                let promiseList = [];
-                snapshot.forEach(doc => {
-                    let userMeta = cloneDeep(doc.data());
-                    if (userMeta.userId !== userId) {
+                },
+                next: (querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        callback(listData);
+                    }
+                    let promiseList = [];
+                    querySnapshot.forEach(doc => {
+                        let userMeta = cloneDeep(doc.data());
                         promiseList.push(new Promise(async (resolve, reject) => {
                             if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
                                 userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                             }
                             resolve(userMeta);
                         }));
-                    }
-                });
-                Promise.all(promiseList)
-                    .then(response => callback(response))
-                    .catch((error) => {
-                        console.log('error', error.message);
-                        callback(listData)
                     });
-            })
-            .catch((error) => {
-                callback(listData);
+                    Promise.all(promiseList)
+                        .then(response => callback(response))
+                        .catch((error) => {
+                            console.log('error', error.message);
+                            callback(listData)
+                        });
+                },
             });
     } catch (e) {
         callback(listData);

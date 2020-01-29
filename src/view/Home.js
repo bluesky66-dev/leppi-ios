@@ -50,7 +50,12 @@ class Home extends Component {
     }
 
     _onFetchingFeeds = () => {
-        this.props.fetchingFeeds(this.props.userMeta, this.state.page);
+        const {setLoadingSpinner} = this.props;
+        setLoadingSpinner(true);
+        authActions.fetchingFeeds(this.props.userMeta, this.state.page, (listData) => {
+            setLoadingSpinner(false);
+            this.setState({feedList: listData});
+        });
     }
 
     _onFetchNewUsers = () => {
@@ -134,7 +139,7 @@ class Home extends Component {
     render() {
         const {newUserList} = this.state;
 
-        let feedList = this.props.feedList.map((feed, i) => {
+        let feedList = this.state.feedList.map((feed, i) => {
             let feedBadge = 'red';
             if (feed.feed_type === FeedTypes.solicitation) {
                 feedBadge = 'blue';
@@ -254,7 +259,6 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchingUserMeta: (navigate) => dispatch(authActions.fetchingUserMeta(navigate)),
-        fetchingFeeds: (userMeta, page) => dispatch(authActions.fetchingFeeds(userMeta, page)),
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
         deleteFeed: (feedId) => dispatch(authActions.deleteFeed(feedId))
     }

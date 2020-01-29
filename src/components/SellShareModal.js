@@ -109,7 +109,6 @@ class SellShareModal extends Component {
 			this.props.setLoadingSpinner(false);
 			this.clearForm();
         }
-        this.props.fetchingFeeds(this.props.userMeta, 1);
     }
 
     _onRemoveImage(index) {
@@ -318,7 +317,6 @@ const mapDispatchToProps = (dispatch) => {
         createFeed: (feed, userMeta) => dispatch(authActions.createFeed(feed, userMeta)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
         updateFeed: (feedId, feed) => dispatch(authActions.updateFeed(feedId, feed)),
-        fetchingFeeds: (userMeta, page) => dispatch(authActions.fetchingFeeds(userMeta, page)),
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
     }
 };
