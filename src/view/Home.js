@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import {Alert, ScrollView, Text, View, TouchableOpacity, Image} from 'react-native';
+import {NavigationEvents} from 'react-navigation';
 import {connect} from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import HeaderSection from '../components/HeaderSection';
 import SellShareModal from '../components/SellShareModal';
 import SolicitationModal from '../components/SolicitationModal';
@@ -41,8 +42,6 @@ class Home extends Component {
         lor(this);
         const {navigate} = this.props.navigation;
         await this.props.fetchingUserMeta(navigate);
-        this._onFetchNewUsers();
-        this._onFetchingFeeds();
     }
 
     componentWillUnmount() {
@@ -55,6 +54,7 @@ class Home extends Component {
         authActions.fetchingFeeds(this.props.userMeta, this.state.page, (listData) => {
             setLoadingSpinner(false);
             this.setState({feedList: listData});
+            this._onFetchNewUsers();
         });
     }
 
@@ -83,29 +83,14 @@ class Home extends Component {
     _onEdit = () => {
         const feed = this.state.selectedFeed;
         this.setState({openModal: false});
-        if (feed.feed_type === FeedTypes.solicitation) {
-            this._onSolicitation();
-        } else {
-            this._onSellShare();
-        }
+        this._onSellShare();
     }
 
     _onDelete = () => {
         const mainThis = this;
-        Alert.alert(
-            'Remove Image',
-            'Are you sure you want to remove the ad?',
-            [
-                {text: 'Cancel', onPress: () => {
-                    }, style: 'cancel'},
-                {text: 'OK', onPress: async () => {
-                        mainThis.props.deleteFeed(mainThis.state.selectedFeed.feedId);
-                        mainThis.setState({selectedFeed: {}, openModal: false});
-                        mainThis._onFetchingFeeds();
-                    }},
-            ],
-            { cancelable: false }
-        );
+        mainThis.props.deleteFeed(mainThis.state.selectedFeed.feedId);
+        mainThis.setState({selectedFeed: {}, openModal: false});
+        mainThis._onFetchingFeeds();
     }
 
     _onSelectFeedCat = (feedCategory) => {
@@ -180,6 +165,7 @@ class Home extends Component {
 
         return (
             <View style={styles.rootWrapper}>
+                <NavigationEvents onDidFocus={() => this._onFetchingFeeds()} />
                 <Spinner
                     visible={this.props.isLoading}
                     textContent={''}
@@ -207,10 +193,10 @@ class Home extends Component {
                             {typeBoxList}
                         </View>
                         <View style={styles.typesWrapper}>
-                            {newUserView}
+                            {feedList}
                         </View>
                         <View style={styles.typesWrapper}>
-                            {feedList}
+                            {newUserView}
                         </View>
                     </ScrollView>
                 </View>

@@ -8,6 +8,7 @@ import HeaderSection from '../components/HeaderSection';
 import styles from '../styles/chat';
 import ChatItem from "../components/ChatItem";
 import * as authActions from "../redux/actions/AuthActions";
+import {NavigationEvents} from "react-navigation";
 
 class Chat extends Component {
 
@@ -20,6 +21,9 @@ class Chat extends Component {
 
     componentDidMount() {
         lor(this);
+    }
+
+    _fetchChatRooms = () => {
         this.props.setLoadingSpinner(true);
         authActions.fetchingChatRooms(this.props.userMeta, chatRooms => {
             this.props.setLoadingSpinner(false);
@@ -27,7 +31,7 @@ class Chat extends Component {
                 this.setState({ chatRooms: chatRooms });
             }
         });
-    }
+    };
 
     componentWillUnmount() {
         rol();
@@ -44,6 +48,7 @@ class Chat extends Component {
         });
         return (
             <View style={styles.rootWrapper}>
+                <NavigationEvents onDidFocus={() => this._fetchChatRooms()} />
                 {this.props.isLoading && <Spinner
                     visible={this.props.isLoading}
                     textContent={''}

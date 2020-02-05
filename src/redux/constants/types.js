@@ -20,6 +20,7 @@ export const SET_MEDIA_GALLERY = "SET_MEDIA_GALLERY";
 
 export const FETCHING_FEEDS_SUCCESS = "FETCHING_FEEDS_SUCCESS";
 export const SET_FEED_INFO = "SET_FEED_INFO";
+export const SET_NEW_FEED = "SET_NEW_FEED";
 
 export const SET_ROOM_INFO = "SET_ROOM_INFO";
 
