@@ -252,7 +252,8 @@ export const fetchingUserMeta = (navigate) => {
     return async dispatch => {
         try {
             const userId = await AsyncStorage.getItem('$leppiUserId');
-            const fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
+            const fcmToken = await firebase.messaging().getToken();
+            console.log('fcmToken ====', fcmToken);
             dispatch(isLoading(true));
             dispatch(setUserId(userId));
 
@@ -715,8 +716,9 @@ export const getCurrentTime = async () => {
     }
 };
 
-export const fetchNewUsers = async (callback) => {
+export const fetchNewUsers = (userData, callback) => {
     let listData = [];
+    let tempList = [];
     // const userId = await AsyncStorage.getItem('$leppiUserId');
     try {
         let yesterday = new Date();
@@ -730,26 +732,48 @@ export const fetchNewUsers = async (callback) => {
                 error: (error) => {
                     callback(listData);
                 },
-                next: (querySnapshot) => {
+                next: async (querySnapshot) => {
+                    try {
+                        let requestConfig = {
+                            method: "POST",
+                            headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                lat: userData.location.lat,
+                                lng: userData.location.lng,
+                            })
+                        };
+                        let url = REQUEST_URL + "/api/users/list";
+                        let respond = await fetch(url, requestConfig);
+                        let json = await respond.json();
+                        if (json.result && json.result === 'ok') {
+                            tempList = json.list;
+                        }
+                        if (tempList.length > 0) {
+                            let promiseList = [];
+                            tempList.forEach(item => {
+                                let userMeta = cloneDeep(item);
+                                promiseList.push(new Promise(async (resolve, reject) => {
+                                    if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                                        userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                                    }
+                                    resolve(userMeta);
+                                }));
+                            });
+                            Promise.all(promiseList).then(response => callback(response))
+                            // feedList.push(feedItem);
+                        } else {
+                            callback(listData);
+                        }
+                    } catch (e) {
+                        // console.log('e ===', e.message);
+                        callback(listData);
+                    }
                     if (querySnapshot.empty) {
                         callback(listData);
                     }
-                    let promiseList = [];
-                    querySnapshot.forEach(doc => {
-                        let userMeta = cloneDeep(doc.data());
-                        promiseList.push(new Promise(async (resolve, reject) => {
-                            if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
-                                userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
-                            }
-                            resolve(userMeta);
-                        }));
-                    });
-                    Promise.all(promiseList)
-                        .then(response => callback(response))
-                        .catch((error) => {
-                            console.log('error', error.message);
-                            callback(listData)
-                        });
                 },
             });
     } catch (e) {

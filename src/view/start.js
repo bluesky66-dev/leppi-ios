@@ -6,7 +6,6 @@ import {Button} from "../components/start";
 import styles from "../styles/auth";
 import logoimage from '../images/monkey.png'
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
-import * as authActions from "../redux/actions/AuthActions";
 import {connect} from "react-redux";
 import * as permissions from '../util/permissions';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -14,6 +13,13 @@ import {MENU_TYPES} from "../redux/constants/menuTypes";
 import Geolocation from 'react-native-geolocation-service';
 
 class Start extends Component {
+    constructor() {
+        super();
+        this.state = {
+            notifications: [],
+            openedNotifications: [],
+        };
+    }
 
     handleBackButton = () => {
         BackHandler.exitApp();
@@ -29,7 +35,7 @@ class Start extends Component {
         const diffTime = date2 - date1;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         if (diffDays <= 0) {
-            BackHandler.exitApp();
+            // BackHandler.exitApp();
         }
 
         // push.checkPermission();
@@ -90,7 +96,10 @@ class Start extends Component {
         } catch (e) {
             //console.log('====== start didMount error', e.message);
         }
+        
         SplashScreen.hide();
+
+        this.registerNotificationEvents();
     }
 
     componentWillUnmount() {
@@ -100,6 +109,31 @@ class Start extends Component {
         }
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
         // BackHandler.exitApp();
+    }
+
+    async registerNotificationEvents() {
+        await messaging().registerForRemoteNotifications();
+
+        const granted = await messaging().requestPermission();
+ 
+        if (granted) {
+            console.log('User granted messaging permissions!');
+        } else {
+            console.log('User declined messaging permissions :(');
+        }
+        
+        firebase.messaging().onMessage(async remoteMessage => {
+            console.log('FCM Message Data:', remoteMessage.data);
+
+            // Update a users messages list using AsyncStorage
+            const currentMessages = await AsyncStorage.getItem('messages');
+            const messageArray = JSON.parse(currentMessages);
+            messageArray.push(remoteMessage.data);
+            await AsyncStorage.setItem('messages', JSON.stringify(messageArray));
+        });
+        firebase.messaging().setBackgroundMessageHandler(async remoteMessage => {
+            console.log('Message handled in the background!', remoteMessage);
+        });
     }
 
     _onLogin = () => {

@@ -42,6 +42,7 @@ class Home extends Component {
         lor(this);
         const {navigate} = this.props.navigation;
         await this.props.fetchingUserMeta(navigate);
+        this._onFetchingFeeds();
     }
 
     componentWillUnmount() {
@@ -61,7 +62,7 @@ class Home extends Component {
     _onFetchNewUsers = () => {
         const {setLoadingSpinner} = this.props;
         setLoadingSpinner(true);
-        authActions.fetchNewUsers((listData) => {
+        authActions.fetchNewUsers(this.props.userMeta, (listData) => {
             setLoadingSpinner(false);
             this.setState({newUserList: listData});
         })
